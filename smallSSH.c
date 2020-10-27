@@ -33,7 +33,7 @@ char *buffer;
 int main(){
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-	while(userInput != -5){
+//	while(userInput != -5){
 		printf(": ");
 		fgets(userInput, MAX_LIMIT, stdin); 
    	//	printf("%s", userInput);	
@@ -49,7 +49,7 @@ int main(){
     	trash = getline(&buffer,&bufsize,stdin);
 	}
 
-	}
+//	}
 
 }
 //\\char *buffer;
