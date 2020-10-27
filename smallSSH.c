@@ -1,6 +1,7 @@
 #include <stdio.h>  // for perror
 #include <stdlib.h>   // for exit
 #include <unistd.h>   // for execv
+#include <sting.h>
 
 #define MAX_LIMIT 60
 
