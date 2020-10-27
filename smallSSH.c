@@ -36,7 +36,7 @@ int main(){
 	while(userInput != -5){
 		printf(": ");
 		fgets(userInput, MAX_LIMIT, stdin); 
-   		printf("%s", userInput);	
+   	//	printf("%s", userInput);	
 //	}
 
 	char *point = strstr(userInput, expansion);
