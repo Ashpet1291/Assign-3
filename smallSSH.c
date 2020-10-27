@@ -16,6 +16,7 @@ FILE *fp;
 char expansion[] = "$$";
 
 char comment[] = "#";
+char space[] = " ";
 
 // basically throw away the line because it is a comment
 char trash;
@@ -32,7 +33,7 @@ char *buffer;
 int main(){
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-//	while(userInput != -5){
+	while(userInput != -5){
 		printf(": ");
 		fgets(userInput, MAX_LIMIT, stdin); 
    		printf("%s", userInput);	
@@ -44,8 +45,10 @@ int main(){
 		printf("%d", getpid());
 	}
 	
-	if((strncmp(comment, userInput, strlen(comment)) == 0)) {
+	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     	trash = getline(&buffer,&bufsize,stdin);
+	}
+
 	}
 
 }
