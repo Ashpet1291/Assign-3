@@ -38,7 +38,7 @@ void changeDir() {
 	
 	int ch = chdir("/happy");
 	if(ch<0) {
-		printf("chdir change was succesful")
+		printf("chdir change was succesful");
 	}
 	else {
 		printf("chdir change of directory successful");
