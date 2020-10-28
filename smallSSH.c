@@ -36,7 +36,7 @@ void changeDir() {
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
 	
-	int ch = chdir("C:\Users\ashle\OneDrive\Desktop\cs 344\Assign3-ssh\happy");
+	int ch = chdir("/happy");
 	if(ch<0) {
 		printf("chdir change was succesful")
 	}
@@ -81,7 +81,7 @@ int main(){
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     	trash = getline(&buffer,&bufsize,stdin);
 	}
-	chdir();
+	changeDir();
 //	}
 
 
