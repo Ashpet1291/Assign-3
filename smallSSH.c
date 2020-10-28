@@ -29,11 +29,44 @@ char *buffer;
  //       fflush(stdin); 
 
 
+// exit(0)
+
+void changeDir() {
+	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
+	// if chdir or fchdir doesn't fail then change directories, else cant change directories
+	// if not ./, then add that and chdir
+	
+	int ch = chdir("C:\Users\ashle\OneDrive\Desktop\cs 344\Assign3-ssh\happy");
+	if(ch<0) {
+		printf("chdir change was succesful")
+	}
+	else {
+		printf("chdir change of directory successful");
+	}
+}
+
+
+//char *directory = "/tmp";
+//int ret;
+//
+//ret = chdir (directory);
+
+
+// //pass your path in the function
+//    int ch=chdir("xxx");
+//    /*if the change of directory was successful it will print successful otherwise it will print not successful*/
+//    if(ch<0)
+//    printf("chdir change of directory not successful\n");
+//    else
+//    printf("chdir change of directory successful");
+
+
+
 
 int main(){
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-	while(userInput != NULL){
+//	while(userInput !=){
 		printf(": ");
 		fgets(userInput, MAX_LIMIT, stdin); 
    	//	printf("%s", userInput);	
@@ -42,14 +75,17 @@ int main(){
 	char *point = strstr(userInput, expansion);
 	
 	if(point != NULL) {
-		printf("%d", getpid());
+	//	printf("%d", getpid());
 	}
 	
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     	trash = getline(&buffer,&bufsize,stdin);
 	}
+	chdir();
+//	}
 
-	}
+
+
 
 }
 //\\char *buffer;
