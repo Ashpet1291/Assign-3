@@ -36,10 +36,11 @@ void changeDir() {
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
 	
-	char *directory = "/happy";
+	char *directory = "./happy";
 	int ch;
 	
 	ch = chdir(directory);
+	
 	if(ch == 0) {
 		printf("chdir change was succesful \n");
 	}
