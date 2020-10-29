@@ -5,16 +5,26 @@
 
 #define MAX_LIMIT 60
 
+struct instructions {
+	char *command;
+	char *argOne;
+	char *redirIn;
+	char *inputFile;
+	char *redirOut;
+	char *outputFile;
+	char *runBack;
+};
 
 
 // user input
 char userInput[MAX_LIMIT];
 
-
 FILE *fp;
 
+// var for expansion
 char expansion[] = "$$";
 
+// variables for comments and blank lines
 char comment[] = "#";
 char space[] = " ";
 
@@ -27,10 +37,73 @@ char *buffer;
 // used to clear the buffer 
         // and accept the next string 
  //       fflush(stdin); 
+ 
+ 
+ struct instructions *parseCommand(char *currLine)
+{
+ struct instructions *currItem = malloc(sizeof(struct instructions));
+
+    // For use with strtok_r
+    char *saveptr;
+    
+//    char *command;
+//	char *argOne;
+//	char *redirIn;
+//	char *inputFile;
+//	char *redirOut;
+//	char *outputFile;
+//	char *runBack;
+       
+ 
+    // The first token is the command
+    char *token = strtok_r(currLine, " ", &saveptr);
+    currItem->command = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currItem->command, token);	   
+
+    // The next token is Arg[1]
+    token = strtok_r(NULL, " ", &saveptr);
+    currItem->argOne = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currItem->argOne, token);	
+
+//    // The next token is the redirIn
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->languages = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->languages, token);
+//    
+//     // The next token is the inputFile
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->redirIn, token);
+//
+// 	// The next token is the redirOut
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->inputFile = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->inputFile, token);
+//    
+//     // The next token is the outputFile
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->redirOut = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->redirOut, token);
+//
+// 	// The next token is the backProc
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->outputFile = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->outputFile, token);
+//
+    return currItem;
+}
+
+void exitProg() {
+	//kill all processs and then exit
+//	exit(0)
+}
 
 
-// exit(0)
 
+//   The cd command changes the working directory of smallsh.
+//   By itself - with no arguments - it changes to the directory specified in the HOME environment variable
+//   This is typically not the location where smallsh was executed from, unless your shell executable is located in the HOME directory, in which case these are the same.
+//   This command can also take one argument: the path of a directory to change to. Your cd command should support both absolute and relative paths.
 void changeDir() {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
@@ -65,9 +138,31 @@ void changeDir() {
 //    printf("chdir change of directory successful");
 
 
+void status() {
+	printf("need to add to this, status")
+//The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
+//
+//If this command is run before any foreground command is run, then it should simply return the exit status 0.
+//The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
+}
 
+
+
+//	if (processFile(argv[1]) != 0) 	
+//		// print process file message
+//		printf("%s %s %s %d %s \n", "Processed file", argv[1], "and parsed data for", movieCount, "files");
+//	
+//	// store information from file into list
+//	struct movie *list = processFile(argv[1]);  
 
 int main(){
+	
+	//	struct movie *list = processFile(argv[1]);
+	
+//	 struct instructions *parseCommand(char *currLine)
+
+	struct instructions *userCommand = malloc(sizeof(struct instructions));
+
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
 //	while(userInput !=){
@@ -78,20 +173,22 @@ int main(){
 
 	char *point = strstr(userInput, expansion);
 	
-	if(point != NULL) {
+	userCommand = parseCommand(userInput);
+	
+	printf("%s %s", userCommand->command, userCommand->argOne);
+	
+//	if(point != NULL) {
 	//	printf("%d", getpid());
-	}
+//	}
 	
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     	trash = getline(&buffer,&bufsize,stdin);
 	}
 	changeDir();
 //	}
-
-
-
-
 }
+
+
 //\\char *buffer;
 //    size_t bufsize = 32;
 //    size_t characters;
