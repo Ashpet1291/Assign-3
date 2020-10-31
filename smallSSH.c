@@ -2,6 +2,9 @@
 #include <stdlib.h>   // for exit
 #include <unistd.h>   // for execv
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 
 #define MAX_LIMIT 60
 
@@ -41,13 +44,11 @@ char *buffer;
  
  struct instructions *parseCommand(char *currLine)
 {
- struct instructions *currItem = malloc(sizeof(struct instructions));
+	struct instructions *currItem = malloc(sizeof(struct instructions));
 
     // For use with strtok_r
     char *saveptr;
     
-//    char *command;
-//	char *argOne;
 //	char *redirIn;
 //	char *inputFile;
 //	char *redirOut;
@@ -138,12 +139,15 @@ void changeDir() {
 //    printf("chdir change of directory successful");
 
 
-void status() {
+int status(int exitVal) {
+
 	printf("need to add to this, status");
+	status = exitVal;
 //The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
 //
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
+	return status;
 }
 
 
@@ -166,8 +170,8 @@ int main(){
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
 //	while(userInput !=){
-		printf(": ");
-		fgets(userInput, MAX_LIMIT, stdin); 
+	printf(": ");
+	fgets(userInput, MAX_LIMIT, stdin); 
    	//	printf("%s", userInput);	
 //	}
 
