@@ -29,7 +29,7 @@ char expansion[] = "$$";
 
 // variables for comments and blank lines
 char comment[] = "#";
-char space[] = "\0";
+char space[] = '\0';
 
 // basically throw away the line because it is a comment
 char trash;
@@ -187,11 +187,11 @@ int main(){
 //	if(point != NULL) {
 	//	printf("%d", getpid());
 //	}
-	
+	printf("%s", userCommand);
 	// checking for string and comments
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     //	trash = getline(&buffer,&bufsize,stdin);
-    printf(": ");
+  //  printf(": ");
 	}
 	changeDir();
 	}
