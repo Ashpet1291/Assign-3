@@ -29,7 +29,7 @@ char expansion[] = "$$";
 
 // variables for comments and blank lines
 char comment[] = "#";
-char space[] = " ";
+char space[] = "\0";
 
 // basically throw away the line because it is a comment
 char trash;
@@ -143,7 +143,7 @@ int status(int exitVal) {
 	
 	int statusValue;
 	statusValue = 0;
-	printf("need to add to this, status");
+//	printf("need to add to this, status");
 	statusValue = exitVal;
 //The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
 //
@@ -171,7 +171,7 @@ int main(){
 
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-//	while(userInput !=){
+	while(userInput != 8){
 	printf(": ");
 	fgets(userInput, MAX_LIMIT, stdin); 
    	//	printf("%s", userInput);	
@@ -181,17 +181,20 @@ int main(){
 	
 	userCommand = parseCommand(userInput);
 	
-	printf("%s %s", userCommand->command, userCommand->argOne);
+	// name of argument passed and the argument
+//	printf("%s %s", userCommand->command, userCommand->argOne);
 	
 //	if(point != NULL) {
 	//	printf("%d", getpid());
 //	}
 	
+	// checking for string and comments
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
-    	trash = getline(&buffer,&bufsize,stdin);
+    //	trash = getline(&buffer,&bufsize,stdin);
+    printf(": ");
 	}
 	changeDir();
-//	}
+	}
 }
 
 
