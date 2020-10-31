@@ -140,14 +140,16 @@ void changeDir() {
 
 
 int status(int exitVal) {
-
+	
+	int statusValue;
+	statusValue = 0;
 	printf("need to add to this, status");
-	status = exitVal;
+	statusValue = exitVal;
 //The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
 //
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
-	return status;
+	return statusValue;
 }
 
 
