@@ -115,12 +115,12 @@ void changeDir() {
 	
 	ch = chdir(directory);
 	
-	if(ch == 0) {
-		printf("chdir change was succesful \n");
-	}
-	else {
-		printf("chdir change of directory NOT successful \n");
-	}
+//	if(ch == 0) {
+//		printf("chdir change was succesful \n");
+//	}
+//	else {
+//		printf("chdir change of directory NOT successful \n");
+//	}
 }
 
 
