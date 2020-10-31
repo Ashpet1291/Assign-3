@@ -187,7 +187,7 @@ int main(){
 //	if(point != NULL) {
 	//	printf("%d", getpid());
 //	}
-	printf("%s", userCommand);
+	puts(userCommand);
 	// checking for string and comments
 	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
     //	trash = getline(&buffer,&bufsize,stdin);
