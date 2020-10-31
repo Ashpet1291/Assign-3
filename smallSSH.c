@@ -29,7 +29,7 @@ char expansion[] = "$$";
 
 // variables for comments and blank lines
 char comment[] = "#";
-char space[] = "\0";
+char space[] = " ";
 
 // basically throw away the line because it is a comment
 char trash;
