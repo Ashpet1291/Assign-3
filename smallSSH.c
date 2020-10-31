@@ -165,35 +165,34 @@ int main(){
 	
 	//	struct movie *list = processFile(argv[1]);
 	
-//	 struct instructions *parseCommand(char *currLine)
+	//	struct instructions *parseCommand(char *currLine)
 
 	struct instructions *userCommand = malloc(sizeof(struct instructions));
 
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-	while(userInput != 8){
-	printf(": ");
-	fgets(userInput, MAX_LIMIT, stdin); 
-   	//	printf("%s", userInput);	
-//	}
+	while(userInput != NULL){
+		printf(": ");
+		fgets(userInput, MAX_LIMIT, stdin); 
+   		//	printf("%s", userInput);
 
-	char *point = strstr(userInput, expansion);
+		char *point = strstr(userInput, expansion);
 	
-	userCommand = parseCommand(userInput);
+		userCommand = parseCommand(userInput);
 	
 	// name of argument passed and the argument
-//	printf("%s %s", userCommand->command, userCommand->argOne);
+	//	printf("%s %s", userCommand->command, userCommand->argOne);
 	
-//	if(point != NULL) {
+	//	if(point != NULL) {
 	//	printf("%d", getpid());
-//	}
-	printf("%s", userInput);
-	printf("this is comment%s", comment);
-	printf("this s space%sthis is end of space", space);
-	// checking for string and comments
-	if((strncmp(comment, userInput, strlen(comment)) == 0) || (strncmp(space, userInput, strlen(space)) == 0)) {
-    //	trash = getline(&buffer,&bufsize,stdin);
-  //  printf(": ");
+	//	}
+		printf("%s", userInput);
+		printf("this is comment%s", comment);
+		printf("this s space%sthis is end of space", space);
+		// checking for string and comments
+		if((strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0)) {
+    	//	trash = getline(&buffer,&bufsize,stdin);
+  		//  printf(": ");
 	}
 	changeDir();
 	}
