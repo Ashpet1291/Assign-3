@@ -183,7 +183,7 @@ void commandPrompt() {
     	//	trash = getline(&buffer,&bufsize,stdin);
   		//  printf(": ");
 		}
-		changeDir();
+	//	changeDir();
 	}
 }
 
