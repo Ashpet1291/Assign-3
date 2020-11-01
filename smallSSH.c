@@ -41,6 +41,8 @@ char *buffer;
         // and accept the next string 
  //       fflush(stdin); 
  
+ int exitProgram = 2;
+ 
  
  struct instructions *parseCommand(char *currLine)
 {
@@ -152,27 +154,14 @@ int status(int exitVal) {
 	return statusValue;
 }
 
-
-
-//	if (processFile(argv[1]) != 0) 	
-//		// print process file message
-//		printf("%s %s %s %d %s \n", "Processed file", argv[1], "and parsed data for", movieCount, "files");
-//	
-//	// store information from file into list
-//	struct movie *list = processFile(argv[1]);  
-
-int main(){
-	
-	//	struct movie *list = processFile(argv[1]);
-	
-	//	struct instructions *parseCommand(char *currLine)
-
+void commandPrompt() {
 	struct instructions *userCommand = malloc(sizeof(struct instructions));
 
 	
-	 buffer = (char *)malloc(bufsize * sizeof(char));
-	while(1){
+	buffer = (char *)malloc(bufsize * sizeof(char));
+	while(exitProgram != 1){
 		printf(": ");
+		fflush(stdout);
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
 
@@ -193,9 +182,25 @@ int main(){
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     	//	trash = getline(&buffer,&bufsize,stdin);
   		//  printf(": ");
+		}
+		changeDir();
 	}
-	changeDir();
-	}
+}
+
+//	if (processFile(argv[1]) != 0) 	
+//		// print process file message
+//		printf("%s %s %s %d %s \n", "Processed file", argv[1], "and parsed data for", movieCount, "files");
+//	
+//	// store information from file into list
+//	struct movie *list = processFile(argv[1]);
+
+int main(){
+	
+	//	struct movie *list = processFile(argv[1]);
+	
+	//	struct instructions *parseCommand(char *currLine)
+
+
 }
 
 
