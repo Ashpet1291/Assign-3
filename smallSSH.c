@@ -171,7 +171,7 @@ int main(){
 
 	
 	 buffer = (char *)malloc(bufsize * sizeof(char));
-	while(userInput != NULL){
+	while(1){
 		printf(": ");
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
