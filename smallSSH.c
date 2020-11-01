@@ -197,7 +197,7 @@ void commandPrompt() {
 int main(){
 	
 	//	struct movie *list = processFile(argv[1]);
-	
+	commandPrompt()
 	//	struct instructions *parseCommand(char *currLine)
 
 
