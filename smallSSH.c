@@ -18,6 +18,7 @@ struct instructions {
 	char *runBack;
 };
 
+int commandCount = 0;
 		
 // user input
 char userInput[MAX_LIMIT];
@@ -63,12 +64,17 @@ char *buffer;
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
     currItem->command = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->command, token);	   
+    strcpy(currItem->command, token);
+    commandCount++;
+	
+		   
 
-    // The next token is Arg[1]
-    token = strtok_r(NULL, " ", &saveptr);
-    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->arguments, token);	
+//    // The next token is Arg[1]
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->arguments, token);
+
+		
 
 //    // The next token is the redirIn
 //    token = strtok_r(NULL, " ", &saveptr);
@@ -192,21 +198,32 @@ void commandPrompt() {
 	struct instructions *userCommand = malloc(sizeof(struct instructions));
 	
 	buffer = (char *)malloc(bufsize * sizeof(char));
+	
+	
 	while(exitProgram != 1){
 		printf(": ");
 		fflush(stdout);
+		
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
 
 		char *point = strstr(userInput, expansion);
 		
+		// this means there is expansion to be done
 		if(point != NULL) {
-		printf("point isn't null, this is pid: %d", getpid());
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[] = {0};
+			int commandSize = (strlen(input) - 2);
+			strncpy(expandCommand, userInput, commandSize);
+			strcpy(userInput, expandCommand);
+			sprintf(expandCommand, "%d", getpid());
+			strcat(userInput, expandCommand);		
 		}
 	
 
 		
-		//	char expandCommand[MAX_CHAR] = { 0 };		
+	//	char expandCommand[MAX_CHAR] = { 0 };		
 //	int size = (strlen(input) - 2);			
 //	strncpy(expandCommand, input, size);		
 //	strcpy(input, expandCommand);				
@@ -223,9 +240,9 @@ void commandPrompt() {
 	
 		userCommand = parseCommand(userInput);
 			
-		printf("%s", userInput);
-		printf("this is comment%s", comment);
-		printf("this s space:%sthis is end of space", space);
+//		printf("%s", userInput);
+//		printf("this is comment%s", comment);
+//		printf("this s space:%sthis is end of space", space);
 		// checking for string and comments
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     	//	trash = getline(&buffer,&bufsize,stdin);
