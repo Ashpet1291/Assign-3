@@ -68,6 +68,8 @@ char *buffer;
    // Extract the first token
    char *looptoken = strtok(currLine, " ");
    // loop through the string to extract all other tokens
+   
+   commandCount = 0;
    while(looptoken != NULL ) {
       printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
