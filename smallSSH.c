@@ -184,9 +184,9 @@ void BuiltInCommands(struct instructions *userComm) {
 		changeDir();	
 	}
 	else if(userComm->command == "status") {
-		status(exitVal);
+		status(1);
 	}
-	else if(user->command == "exit") {
+	else if(userComm->command == "exit") {
 		
 	}
 	else {
@@ -216,7 +216,7 @@ void commandPrompt() {
    		
    		int i = 0;
    		while(userInput[i] != newLine) {
-   			printf("this is the string %s", userInput[i]);
+   			printf("this is the string %d", userInput[i]);
 			i++;  	
    			itemCount++;
 		   }
