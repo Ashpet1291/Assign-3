@@ -199,16 +199,32 @@ void commandPrompt() {
 	
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	
+	int commandSize;
+
 	
 	while(exitProgram != 1){
 		printf(": ");
 		fflush(stdout);
-		char newLine[] = "\n";
+		char newLine[] = "\n";	
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
 
+		commandSize = strlen(userInput);
+		if( userInput[commandSize-1] == '\n' )
+		   	userInput[commandSize-1] = 0;
+
 		char *point = strstr(userInput, expansion);
+		
+//		// strip the newline form the input
+//		char str[80];
+//		int len;
+//		fgets(str,sizeof(str),fp);
+//		// remove newline
+//		len = strlen(str);
+//		if( str[len-1] == '\n' )
+//    	str[len-1] = 0;
+		
 		
 		char *point12 = strstr(userInput, newLine);
 		if(point != NULL) {
@@ -221,7 +237,7 @@ void commandPrompt() {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
 			char expandCommand[MAX_LIMIT] = {0};
-			int commandSize = (strlen(userInput) - 2);
+			commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			sprintf(expandCommand, "%d", getpid());
