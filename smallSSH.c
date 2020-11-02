@@ -214,12 +214,7 @@ void commandPrompt() {
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
    		
-   		int i = 0;
-   		while(userInput[commandSize-1] != '\n') {
-   			printf("this is the string %d", userInput[i]);
-			i++;  	
-   			itemCount++;
-		   }
+   		puts(userInput);
 		
 		printf("%d", itemCount);
 		
