@@ -223,9 +223,6 @@ void commandPrompt() {
 			printf("this is new input %s", userInput);
 			printf("this is new expandCom %s", expandCommand);		
 		}
-		
-		printf("this is new input %s", userInput);
-		printf("this is new expandCom %s", expandCommand);
 	
 
 		
