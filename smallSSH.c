@@ -220,6 +220,9 @@ void commandPrompt() {
 			sprintf(expandCommand, "%d", getppid());
 			strcat(userInput, expandCommand);		
 		}
+		
+		printf("this is new input %s", userInput);
+		printf("this is new expandCom %s", expandCommand);
 	
 
 		
