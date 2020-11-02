@@ -18,6 +18,9 @@ struct instructions {
 	char *runBack;
 };
 
+// counts total items in string
+int itemCount = 0;
+
 int commandCount = 0;
 		
 // user input
@@ -117,6 +120,7 @@ void changeDir() {
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
 	
+		
 	char *directory = "./happy";
 	int ch;
 	
@@ -173,22 +177,22 @@ void exitProg() {
 /*
 *
 */
-//void BuiltInCommands(struct instructions *userComm) {
-//	
-//	//	may have to use string compare to compare
-//	if(userComm->command == "cd") {
-//		changeDir();	
-//	}
-//	else if(userComm->command == "status") {
-//		status(exitVal);
-//	}
-//	else if(user->command == "exit") {
-//		
-//	}
-//	else {
-//		// its a dfferent command and pass it to execv
-//	}
-//}
+void BuiltInCommands(struct instructions *userComm) {
+	
+	//	may have to use string compare to compare
+	if(userComm->command == "cd") {
+		changeDir();	
+	}
+	else if(userComm->command == "status") {
+		status(exitVal);
+	}
+	else if(user->command == "exit") {
+		
+	}
+	else {
+		// its a dfferent command and pass it to execv
+	}
+}
 
 /*
 *
@@ -200,7 +204,7 @@ void commandPrompt() {
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	
 	int commandSize;
-
+	
 	
 	while(exitProgram != 1){
 		printf(": ");
@@ -209,7 +213,16 @@ void commandPrompt() {
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
-
+   		
+   		int i = 0;
+   		while(userInput[i] != "\n") {
+   			printf("this is the string %s", userInput[i]);
+			i++;  	
+   			itemCount++;
+		   }
+		
+		printf("%d", itemCount);
+		
 		commandSize = strlen(userInput);
 		if(userInput[commandSize-1] == '\n' )
 		   	userInput[commandSize-1] = 0;
@@ -239,11 +252,11 @@ void commandPrompt() {
 			commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
+			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
 			strcat(userInput, expandCommand);
 			
-			printf("this is new input %s\n", userInput);
-//			printf("this is new expandCom %s", expandCommand);		
+			printf("this is new input %s\n", userInput);	
 		}
 	
 
