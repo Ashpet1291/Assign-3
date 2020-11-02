@@ -203,11 +203,18 @@ void commandPrompt() {
 	while(exitProgram != 1){
 		printf(": ");
 		fflush(stdout);
+		char newLine[] = "\n";
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
    		//	printf("%s", userInput);
 
 		char *point = strstr(userInput, expansion);
+		
+		char *point12 = strstr(userInput, newLine);
+		if(point != NULL) {
+			printf("this is newline present");
+		}
+		
 		
 		// this means there is expansion to be done
 		if(point != NULL) {
@@ -217,7 +224,7 @@ void commandPrompt() {
 			int commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
-			sprintf(expandCommand, "%d", getppid());
+			sprintf(expandCommand, "%d", getpid());
 			strcat(userInput, expandCommand);
 			
 			printf("this is new input %s", userInput);
