@@ -70,7 +70,7 @@ char *buffer;
    // loop through the string to extract all other tokens
    while(looptoken != NULL ) {
       printf( " %s\n", looptoken ); //printing each token
-      token = strtok(NULL, " ");
+      looptoken = strtok(NULL, " ");
       commandCount++;
    }
 	
