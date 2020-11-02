@@ -218,7 +218,10 @@ void commandPrompt() {
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			sprintf(expandCommand, "%d", getppid());
-			strcat(userInput, expandCommand);		
+			strcat(userInput, expandCommand);
+			
+			printf("this is new input %s", userInput);
+			printf("this is new expandCom %s", expandCommand);		
 		}
 		
 		printf("this is new input %s", userInput);
