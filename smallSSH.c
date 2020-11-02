@@ -10,7 +10,7 @@
 
 struct instructions {
 	char *command;
-	char *argOne;
+	char *arguments;
 	char *redirIn;
 	char *inputFile;
 	char *redirOut;
@@ -18,7 +18,7 @@ struct instructions {
 	char *runBack;
 };
 
-
+		
 // user input
 char userInput[MAX_LIMIT];
 
@@ -43,7 +43,9 @@ char *buffer;
  
  int exitProgram = 2;
  
- 
+/*
+*
+*/
  struct instructions *parseCommand(char *currLine)
 {
 	struct instructions *currItem = malloc(sizeof(struct instructions));
@@ -65,8 +67,8 @@ char *buffer;
 
     // The next token is Arg[1]
     token = strtok_r(NULL, " ", &saveptr);
-    currItem->argOne = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->argOne, token);	
+    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currItem->arguments, token);	
 
 //    // The next token is the redirIn
 //    token = strtok_r(NULL, " ", &saveptr);
@@ -96,17 +98,14 @@ char *buffer;
     return currItem;
 }
 
-void exitProg() {
-	//kill all processs and then exit
-//	exit(0)
-}
-
-
-
 //   The cd command changes the working directory of smallsh.
 //   By itself - with no arguments - it changes to the directory specified in the HOME environment variable
 //   This is typically not the location where smallsh was executed from, unless your shell executable is located in the HOME directory, in which case these are the same.
 //   This command can also take one argument: the path of a directory to change to. Your cd command should support both absolute and relative paths.
+
+/*
+*
+*/
 void changeDir() {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
@@ -140,7 +139,9 @@ void changeDir() {
 //    else
 //    printf("chdir change of directory successful");
 
-
+/*
+*
+*/
 int status(int exitVal) {
 	
 	int statusValue;
@@ -154,9 +155,41 @@ int status(int exitVal) {
 	return statusValue;
 }
 
-void commandPrompt() {
-	struct instructions *userCommand = malloc(sizeof(struct instructions));
 
+/*
+*
+*/
+void exitProg() {
+	//kill all processs and then exit
+	//	exit(0)
+}
+
+/*
+*
+*/
+//void BuiltInCommands(struct instructions *userComm) {
+//	
+//	//	may have to use string compare to compare
+//	if(userComm->command == "cd") {
+//		changeDir();	
+//	}
+//	else if(userComm->command == "status") {
+//		status(exitVal);
+//	}
+//	else if(user->command == "exit") {
+//		
+//	}
+//	else {
+//		// its a dfferent command and pass it to execv
+//	}
+//}
+
+/*
+*
+*/
+void commandPrompt() {
+	
+	struct instructions *userCommand = malloc(sizeof(struct instructions));
 	
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	while(exitProgram != 1){
@@ -166,23 +199,47 @@ void commandPrompt() {
    		//	printf("%s", userInput);
 
 		char *point = strstr(userInput, expansion);
+		
+		if(point != NULL) {
+		printf("point isn't null, this is pid: %d", getpid());
+		}
 	
-		userCommand = parseCommand(userInput);
-	
+
+		
+		//	char expandCommand[MAX_CHAR] = { 0 };		
+//	int size = (strlen(input) - 2);			
+//	strncpy(expandCommand, input, size);		
+//	strcpy(input, expandCommand);				
+//	sprintf(expandCommand, "%d", getppid());		
+//	strcat(input, expandCommand);
+
+
 	// name of argument passed and the argument
 	//	printf("%s %s", userCommand->command, userCommand->argOne);
 	
 	//	if(point != NULL) {
 	//	printf("%d", getpid());
 	//	}
+	
+		userCommand = parseCommand(userInput);
+			
 		printf("%s", userInput);
 		printf("this is comment%s", comment);
-		printf("this s space%sthis is end of space", space);
+		printf("this s space:%sthis is end of space", space);
 		// checking for string and comments
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     	//	trash = getline(&buffer,&bufsize,stdin);
   		//  printf(": ");
 		}
+		
+		//check if usrInput contains $$
+		//check & is at the end
+		
+		
+		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
+		
+		
+		
 	//	changeDir();
 	}
 }
@@ -196,27 +253,9 @@ void commandPrompt() {
 
 int main(){
 	
-	//	struct movie *list = processFile(argv[1]);
-	commandPrompt();
-	//	struct instructions *parseCommand(char *currLine)
 
+	commandPrompt();
 
 }
 
-
-//\\char *buffer;
-//    size_t bufsize = 32;
-//    size_t characters;
-//
-//    buffer = (char *)malloc(bufsize * sizeof(char));
-//    if( buffer == NULL)
-//    {
-//        perror("Unable to allocate buffer");
-//        exit(1);
-//    }
-//
-//    printf("Type something: ");
-//    characters = getline(&buffer,&bufsize,stdin);
-//    printf("%zu characters were read.\n",characters);
-//    printf("You typed: '%s'\n",buffer);
 
