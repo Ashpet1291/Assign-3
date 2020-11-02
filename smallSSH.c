@@ -215,7 +215,7 @@ void commandPrompt() {
    		//	printf("%s", userInput);
    		
    		int i = 0;
-   		while(userInput[i] != newLine) {
+   		while(userInput[commandSize-1] != '\n') {
    			printf("this is the string %d", userInput[i]);
 			i++;  	
    			itemCount++;
