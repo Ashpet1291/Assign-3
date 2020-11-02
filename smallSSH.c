@@ -213,11 +213,11 @@ void commandPrompt() {
 		if(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[] = {0};
+			char expandCommand[MAX_LIMIT] = {0};
 			int commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
-			sprintf(expandCommand, "%d", getpid());
+			sprintf(expandCommand, "%d", getppid());
 			strcat(userInput, expandCommand);		
 		}
 	
