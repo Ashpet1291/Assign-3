@@ -211,7 +211,7 @@ void commandPrompt() {
    		//	printf("%s", userInput);
 
 		commandSize = strlen(userInput);
-		if( userInput[commandSize-1] == '\n' )
+		if(userInput[commandSize-1] == '\n' )
 		   	userInput[commandSize-1] = 0;
 
 		char *point = strstr(userInput, expansion);
@@ -224,12 +224,11 @@ void commandPrompt() {
 //		len = strlen(str);
 //		if( str[len-1] == '\n' )
 //    	str[len-1] = 0;
-		
-		
-		char *point12 = strstr(userInput, newLine);
-		if(point != NULL) {
-			printf("this is newline present");
-		}
+			
+//		char *point12 = strstr(userInput, newLine);
+//		if(point != NULL) {
+//			printf("this is newline present\n");
+//		}
 		
 		
 		// this means there is expansion to be done
@@ -243,8 +242,8 @@ void commandPrompt() {
 			sprintf(expandCommand, "%d", getpid());
 			strcat(userInput, expandCommand);
 			
-			printf("this is new input %s", userInput);
-			printf("this is new expandCom %s", expandCommand);		
+			printf("this is new input %s\n", userInput);
+//			printf("this is new expandCom %s", expandCommand);		
 		}
 	
 
