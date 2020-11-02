@@ -63,12 +63,24 @@ char *buffer;
 //	char *outputFile;
 //	char *runBack;
        
+
+//   char string[50] = "Hello! We are learning about strtok";
+   // Extract the first token
+   char *looptoken = strtok(currLine, " ");
+   // loop through the string to extract all other tokens
+   while(looptoken != NULL ) {
+      printf( " %s\n", looptoken ); //printing each token
+      token = strtok(NULL, " ");
+      commandCount++;
+   }
+	
+	printf("%d", commandCount);
  
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
     currItem->command = calloc(strlen(token) + 1, sizeof(char));
     strcpy(currItem->command, token);
-    commandCount++;
+//    commandCount++;
 	
 		   
 
@@ -212,11 +224,7 @@ void commandPrompt() {
 		char newLine[] = "\n";	
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
-   		//	printf("%s", userInput);
-   		
-   		puts(userInput);
 		
-		printf("%d", itemCount);
 		
 		commandSize = strlen(userInput);
 		if(userInput[commandSize-1] == '\n' )
@@ -233,17 +241,12 @@ void commandPrompt() {
 //		if( str[len-1] == '\n' )
 //    	str[len-1] = 0;
 			
-//		char *point12 = strstr(userInput, newLine);
-//		if(point != NULL) {
-//			printf("this is newline present\n");
-//		}
-		
 		
 		// this means there is expansion to be done
 		if(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT] = {0};
+			char expandCommand[MAX_LIMIT];
 			commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
@@ -254,18 +257,6 @@ void commandPrompt() {
 			printf("this is new input %s\n", userInput);	
 		}
 	
-
-		
-	//	char expandCommand[MAX_CHAR] = { 0 };		
-//	int size = (strlen(input) - 2);			
-//	strncpy(expandCommand, input, size);		
-//	strcpy(input, expandCommand);				
-//	sprintf(expandCommand, "%d", getppid());		
-//	strcat(input, expandCommand);
-
-
-	// name of argument passed and the argument
-	//	printf("%s %s", userCommand->command, userCommand->argOne);
 	
 	//	if(point != NULL) {
 	//	printf("%d", getpid());
@@ -287,10 +278,6 @@ void commandPrompt() {
 		
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
-		
-		
-		
-	//	changeDir();
 	}
 }
 
