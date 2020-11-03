@@ -1,3 +1,11 @@
+// CS 344 Assignment 3: smallsh
+// By Ashley Pettibone
+
+// sources and inspirations
+// used code from examples given by the instructor (I will label those in code)
+// https://stackoverflow.com/ for trouble shooting and looking up how to o a specific task
+
+
 #include <stdio.h>  // for perror
 #include <stdlib.h>   // for exit
 #include <unistd.h>   // for execv
@@ -71,7 +79,7 @@ char *buffer;
    
    commandCount = 0;
    while(looptoken != NULL ) {
-      printf( " %s\n", looptoken ); //printing each token
+    //  printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
       commandCount++;
    }
@@ -85,12 +93,12 @@ char *buffer;
 //    commandCount++;
 	
 		   
-
-//    // The next token is Arg[1]
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->arguments, token);
-
+	if(commandCount == 2) {
+    // The next token is Arg[1]
+    token = strtok_r(NULL, " ", &saveptr);
+    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currItem->arguments, token);
+	}
 		
 
 //    // The next token is the redirIn
@@ -129,23 +137,30 @@ char *buffer;
 /*
 *
 */
-void changeDir() {
+void changeDir(struct instructions *userComm) {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
 	
 		
-	char *directory = "./happy";
+//	char *directory = "./happy";
+	char *homeDir = getenv("HOME");
+	
+	
 	int ch;
 	
-	ch = chdir(directory);
+	if(userComm->command != NULL) {
+		
+	}
+	else
+		ch = chdir(homeDir);
 	
-//	if(ch == 0) {
-//		printf("chdir change was succesful \n");
-//	}
-//	else {
-//		printf("chdir change of directory NOT successful \n");
-//	}
+	if(ch == 0) {
+		printf("chdir change was succesful \n");
+	}
+	else {
+		printf("chdir change of directory NOT successful \n");
+	}
 }
 
 
