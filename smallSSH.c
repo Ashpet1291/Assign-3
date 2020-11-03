@@ -83,8 +83,9 @@ char *buffer;
       looptoken = strtok(NULL, " ");
       commandCount++;
    }
-	
-	printf("%d", commandCount);
+		
+	// prints number of commnads
+//	printf("%d", commandCount);
  
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
@@ -137,7 +138,9 @@ char *buffer;
 /*
 *
 */
-void changeDir(struct instructions *userComm) {
+
+//struct instructions *userComm
+void changeDir() {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
@@ -210,7 +213,7 @@ void BuiltInCommands(struct instructions *userComm) {
 	
 	//	may have to use string compare to compare
 	if(userComm->command == "cd") {
-		changeDir(userComm->arguments);	
+		changeDir();	
 	}
 	else if(userComm->command == "status") {
 		status(1);
