@@ -138,9 +138,7 @@ char *buffer;
 /*
 *
 */
-
-//struct instructions *userComm
-void changeDir() {
+void changeDir(struct instructions *userComm) {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
@@ -213,7 +211,7 @@ void BuiltInCommands(struct instructions *userComm) {
 	
 	//	may have to use string compare to compare
 	if(userComm->command == "cd") {
-		changeDir();	
+		changeDir(userComm);	
 	}
 	else if(userComm->command == "status") {
 		status(1);
