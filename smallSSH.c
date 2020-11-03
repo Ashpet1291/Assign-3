@@ -210,7 +210,7 @@ void BuiltInCommands(struct instructions *userComm) {
 	
 	//	may have to use string compare to compare
 	if(userComm->command == "cd") {
-		changeDir();	
+		changeDir(userComm->arguments);	
 	}
 	else if(userComm->command == "status") {
 		status(1);
