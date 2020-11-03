@@ -150,10 +150,10 @@ void changeDir(struct instructions *userComm) {
 	
 	int ch;
 	
-	if(userComm->command != NULL) {
-		
-	}
-	else
+//	if(userComm->command != NULL) {
+//		
+//	}
+//	else
 		ch = chdir(homeDir);
 	
 	if(ch == 0) {
