@@ -94,7 +94,7 @@ char *buffer;
 //    commandCount++;
 	
 		   
-	if(commandCount == 2) {
+	if(commandCount == "2") {
     // The next token is Arg[1]
     token = strtok_r(NULL, " ", &saveptr);
     currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
@@ -144,8 +144,8 @@ void changeDir(struct instructions *userComm) {
 	// if not ./, then add that and chdir
 	
 		
-//	char *directory = "./happy";
-	char *homeDir = getenv("HOME");
+	char *directory = "./happy";
+//	char *homeDir = getenv("HOME");
 	
 	
 	int ch;
@@ -154,7 +154,7 @@ void changeDir(struct instructions *userComm) {
 //		
 //	}
 //	else
-		ch = chdir(homeDir);
+		ch = chdir(directory);
 	
 	if(ch == 0) {
 		printf("chdir change was succesful \n");
