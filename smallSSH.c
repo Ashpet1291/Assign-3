@@ -105,7 +105,7 @@ char *buffer;
 //    // The next token is the redirIn
     token = strtok_r(NULL, " ", &saveptr);
     currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->languages, token);
+    strcpy(currItem->redirIn, token);
 //    
 //     // The next token is the inputFile
 //    token = strtok_r(NULL, " ", &saveptr);
