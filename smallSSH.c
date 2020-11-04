@@ -85,7 +85,7 @@ char *buffer;
    }
 		
 	// prints number of commnads
-	printf("%d", commandCount);
+//	printf("%d", commandCount);
  
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
