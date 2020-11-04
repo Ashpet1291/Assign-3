@@ -293,7 +293,7 @@ void commandPrompt() {
 		
 		//check if usrInput contains $$
 		//check & is at the end
-		BuiltInCommands(userInput);
+		BuiltInCommands(userCommand);
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
 	}
