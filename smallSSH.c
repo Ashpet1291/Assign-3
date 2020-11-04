@@ -220,22 +220,22 @@ void exitProg() {
 //
 //    return 0;
 
-
+//	if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0)))
 /*
 *
 */
 void BuiltInCommands(struct instructions *userComm) {
 	
 	//	may have to use string compare to compare
-	if(userComm->command == "cd") {
+	if(strcmp(userComm->command, "cd" == 0)) {
 		printf("this is cd");
 		changeDir(userComm);	
 	}
-	else if(userComm->command == "status") {
+	else if(strcmp(userComm->command, "status" == 0) {
 		printf("this is status");
 		status(1);
 	}
-	else if(userComm->command == "exit") {
+	else if(strcmp(userComm->command, "exit" == 0) {
 		printf("this is command");
 		exitProg();
 	}
@@ -310,7 +310,7 @@ void commandPrompt() {
     	//	trash = getline(&buffer,&bufsize,stdin);
   		//  printf(": ");
 		}
-		printf("usercommand command %s", userCommand->command);
+	//	printf("usercommand command %s", userCommand->command);
 		
 		//check if usrInput contains $$
 		//check & is at the end
