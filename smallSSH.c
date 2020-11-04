@@ -201,7 +201,7 @@ void status(int exitVal) {
 */
 void exitProg() {
 	//kill all processs and then exit
-	exit(0)
+	exit(0);
 }
 
 /*
