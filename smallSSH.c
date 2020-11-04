@@ -101,7 +101,7 @@ char *buffer;
     strcpy(currItem->arguments, token);
 	}
 		
-	else if(commandCount == "3")
+	else if(commandCount >= "3")
 //    // The next token is the redirIn
     token = strtok_r(NULL, " ", &saveptr);
     currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
