@@ -292,7 +292,7 @@ void commandPrompt() {
 			sprintf(expandCommand, "%d", getpid());
 			strcat(userInput, expandCommand);
 			
-			printf("this is new input %s\n", userInput);	
+		//	printf("this is new input %s\n", userInput);	
 		}
 	
 	
@@ -310,6 +310,7 @@ void commandPrompt() {
     	//	trash = getline(&buffer,&bufsize,stdin);
   		//  printf(": ");
 		}
+		printf("usercommand command %s", userCommand->command);
 		
 		//check if usrInput contains $$
 		//check & is at the end
