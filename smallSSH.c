@@ -101,11 +101,11 @@ char *buffer;
     strcpy(currItem->arguments, token);
 	}
 		
-	else if(commandCount >= "3")
+	else if(commandCount == "3")
 //    // The next token is the redirIn
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->languages = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->languages, token);
+    token = strtok_r(NULL, " ", &saveptr);
+    currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currItem->languages, token);
 //    
 //     // The next token is the inputFile
 //    token = strtok_r(NULL, " ", &saveptr);
@@ -288,20 +288,20 @@ void commandPrompt() {
 			strcat(userInput, expandCommand);	
 		}
 	
-	
-	//	if(point != NULL) {
-	//	printf("%d", getpid());
-	//	}
-	
-		userCommand = parseCommand(userInput);
-		printf("This is comment %s", comment);
-		printf("this is space%s:", space);
-		puts(userInput);
-		// checking for string and comments
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     
 		}
 		else
+	//	if(point != NULL) {
+	//	printf("%d", getpid());
+	//	}
+	
+			userCommand = parseCommand(userInput);
+		//printf("This is comment %s", comment);
+		//printf("this is space%s:", space);
+		//puts(userInput);
+		// checking for string and comments
+		
 	//	printf("usercommand command %s", userCommand->command);
 		
 		//check if usrInput contains $$
