@@ -299,11 +299,12 @@ void commandPrompt() {
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     
 		}
+		else
 	//	printf("usercommand command %s", userCommand->command);
 		
 		//check if usrInput contains $$
 		//check & is at the end
-		BuiltInCommands(userCommand);
+			BuiltInCommands(userCommand);
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
 	}
