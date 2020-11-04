@@ -192,7 +192,7 @@ void status(int exitVal) {
 //
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
-	printf("exit value %s", statusValue);
+	printf("exit value %d", statusValue);
 }
 
 
