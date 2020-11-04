@@ -189,7 +189,7 @@ void status(int exitVal) {
 //	printf("need to add to this, status");
 	statusValue = exitVal;
 //The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
-//
+	printf("this is in the status command");
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
 	printf("exit value %d", statusValue);
@@ -201,8 +201,25 @@ void status(int exitVal) {
 */
 void exitProg() {
 	//kill all processs and then exit
+	printf("this is in the exit function");
 	exit(0);
 }
+
+
+
+//char str1[] = "abcd", str2[] = "abCd", str3[] = "abcd";
+//    int result;
+//
+//    // comparing strings str1 and str2
+//    result = strcmp(str1, str2);
+//    printf("strcmp(str1, str2) = %d\n", result);
+//
+//    // comparing strings str1 and str3
+//    result = strcmp(str1, str3);
+//    printf("strcmp(str1, str3) = %d\n", result);
+//
+//    return 0;
+
 
 /*
 *
@@ -211,12 +228,15 @@ void BuiltInCommands(struct instructions *userComm) {
 	
 	//	may have to use string compare to compare
 	if(userComm->command == "cd") {
+		printf("this is cd");
 		changeDir(userComm);	
 	}
 	else if(userComm->command == "status") {
+		printf("this is status");
 		status(1);
 	}
 	else if(userComm->command == "exit") {
+		printf("this is command");
 		exitProg();
 	}
 	else {
