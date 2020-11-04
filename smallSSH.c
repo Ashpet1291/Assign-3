@@ -294,7 +294,9 @@ void commandPrompt() {
 	//	}
 	
 		userCommand = parseCommand(userInput);
-			
+		printf("This is comment %s", comment);
+		printf("this is space%s:", space);
+		puts(userInput);
 		// checking for string and comments
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     
