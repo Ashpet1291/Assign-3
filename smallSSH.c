@@ -94,12 +94,12 @@ char *buffer;
 //    commandCount++;
 	
 		   
-	if(commandCount == "2") {
+//	if(commandCount == "2") {
     // The next token is Arg[1]
     token = strtok_r(NULL, " ", &saveptr);
     currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
     strcpy(currItem->arguments, token);
-	}
+//	}
 		
 
 //    // The next token is the redirIn
@@ -156,11 +156,11 @@ void changeDir(struct instructions *userComm) {
 //	else
 		ch = chdir(directory);
 	
-	if(ch == 0) {
-		printf("chdir change was succesful \n");
+	if(ch<0) {
+		printf("chdir  change of directory NOT successful \n");
 	}
 	else {
-		printf("chdir change of directory NOT successful \n");
+		printf("change was succesfull \n");
 	}
 }
 
@@ -182,7 +182,7 @@ void changeDir(struct instructions *userComm) {
 /*
 *
 */
-int status(int exitVal) {
+void status(int exitVal) {
 	
 	int statusValue;
 	statusValue = 0;
@@ -192,7 +192,7 @@ int status(int exitVal) {
 //
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
-	return statusValue;
+	printf("exit value %s", statusValue);
 }
 
 
@@ -201,7 +201,7 @@ int status(int exitVal) {
 */
 void exitProg() {
 	//kill all processs and then exit
-	//	exit(0)
+	exit(0)
 }
 
 /*
@@ -217,7 +217,7 @@ void BuiltInCommands(struct instructions *userComm) {
 		status(1);
 	}
 	else if(userComm->command == "exit") {
-		
+		exitProg();
 	}
 	else {
 		// its a dfferent command and pass it to execv
