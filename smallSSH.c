@@ -101,7 +101,7 @@ char *buffer;
     strcpy(currItem->arguments, token);
 	}
 		
-
+	else if(commandCount >= "3")
 //    // The next token is the redirIn
 //    token = strtok_r(NULL, " ", &saveptr);
 //    currItem->languages = calloc(strlen(token) + 1, sizeof(char));
@@ -156,12 +156,12 @@ void changeDir(struct instructions *userComm) {
 //	else
 		ch = chdir(directory);
 	
-	if(ch<0) {
-		printf("chdir  change of directory NOT successful \n");
-	}
-	else {
-		printf("change was succesfull \n");
-	}
+//	if(ch<0) {
+	//	printf("chdir  change of directory NOT successful \n");
+//	}
+//	else {
+	//	printf("change was succesfull \n");
+//	}
 }
 
 
@@ -193,6 +193,7 @@ void status(int exitVal) {
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
 	printf("exit value %d", statusValue);
+	fflush(stdout);
 }
 
 
@@ -205,30 +206,14 @@ void exitProg() {
 	exit(0);
 }
 
+void execCommands() {
+	
+}
 
 
-//char str1[] = "abcd", str2[] = "abCd", str3[] = "abcd";
-//    int result;
-//
-//    // comparing strings str1 and str2
-//    result = strcmp(str1, str2);
-//    printf("strcmp(str1, str2) = %d\n", result);
-//
-//    // comparing strings str1 and str3
-//    result = strcmp(str1, str3);
-//    printf("strcmp(str1, str3) = %d\n", result);
-//
-//    return 0;
-
-//	if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0)))
 /*
 *
 */
-//char str1[] = "abcd", str2[] = "abCd", str3[] = "abcd";
-//    int result;
-//
-//    // comparing strings str1 and str2
-//    result = strcmp(str1, str2);
 void BuiltInCommands(struct instructions *userComm) {
 	
 	char cd[] = "cd";
@@ -300,9 +285,7 @@ void commandPrompt() {
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);
-			
-		//	printf("this is new input %s\n", userInput);	
+			strcat(userInput, expandCommand);	
 		}
 	
 	
@@ -312,13 +295,9 @@ void commandPrompt() {
 	
 		userCommand = parseCommand(userInput);
 			
-//		printf("%s", userInput);
-//		printf("this is comment%s", comment);
-//		printf("this s space:%sthis is end of space", space);
 		// checking for string and comments
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
-    	//	trash = getline(&buffer,&bufsize,stdin);
-  		//  printf(": ");
+    
 		}
 	//	printf("usercommand command %s", userCommand->command);
 		
@@ -330,12 +309,7 @@ void commandPrompt() {
 	}
 }
 
-//	if (processFile(argv[1]) != 0) 	
-//		// print process file message
-//		printf("%s %s %s %d %s \n", "Processed file", argv[1], "and parsed data for", movieCount, "files");
-//	
-//	// store information from file into list
-//	struct movie *list = processFile(argv[1]);
+
 
 int main(){
 	
