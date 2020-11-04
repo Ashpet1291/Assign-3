@@ -94,12 +94,12 @@ char *buffer;
 //    commandCount++;
 	
 		   
-//	if(commandCount == "2") {
+	if(commandCount == "2") {
     // The next token is Arg[1]
     token = strtok_r(NULL, " ", &saveptr);
     currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
     strcpy(currItem->arguments, token);
-//	}
+	}
 		
 
 //    // The next token is the redirIn
