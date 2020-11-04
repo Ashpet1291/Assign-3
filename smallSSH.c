@@ -224,18 +224,28 @@ void exitProg() {
 /*
 *
 */
+//char str1[] = "abcd", str2[] = "abCd", str3[] = "abcd";
+//    int result;
+//
+//    // comparing strings str1 and str2
+//    result = strcmp(str1, str2);
 void BuiltInCommands(struct instructions *userComm) {
 	
+	char cd[] = "cd";
+	char stats[] = "status";
+	char exitProgram[] = "exit";
+	
+	
 	//	may have to use string compare to compare
-	if(strcmp(userComm->command, "cd" == 0)) {
+	if(strcmp(userComm->command, cd) == 0) {
 		printf("this is cd");
 		changeDir(userComm);	
 	}
-	else if(strcmp(userComm->command, "status" == 0) {
+	else if(strcmp(userComm->command, stats) == 0) {
 		printf("this is status");
 		status(1);
 	}
-	else if(strcmp(userComm->command, "exit" == 0) {
+	else if(strcmp(userComm->command, exitProgram) == 0) {
 		printf("this is command");
 		exitProg();
 	}
