@@ -220,7 +220,7 @@ void BuiltInCommands() {
 	//	may have to use string compare to compare
 	if(strcmp(commands[0], cd) == 0) {
 		printf("this is cd");
-//		changeDir();	
+		changeDir();	
 	}
 	else if(strcmp(commands[0], stats) == 0) {
 //		printf("this is status");
