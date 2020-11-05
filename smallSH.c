@@ -38,7 +38,9 @@ char comment[] = "#";
 char space[] = " ";
 
 int breakVal = 2;
- 
+
+int args = 0;
+
 /*
 *
 */
@@ -228,6 +230,16 @@ void execCommands() {
 //	}
 //}
 
+
+void printargs() {
+	// print all values
+	for(int k=0; k<args; k++) {
+		printf("%s\n", userInput[k]);
+	}	
+}
+
+
+
 /*
 *
 */
@@ -239,9 +251,9 @@ void commandPrompt() {
 	int i;
 	
 	int commandSize;
-	int args = 0;
+
 	
-//	while(breakVal != 1){
+	while(breakVal != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -260,11 +272,16 @@ void commandPrompt() {
 		userCommand = (char*) malloc(len);
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
-		breakVal = 1;
-//	}
-		for(int k=0; k<args; k++) {
-			printf("%s\n", userInput[k]);
-		}
+		
+		
+		printargs();
+	}
+
+
+// print all values
+//		for(int k=0; k<args; k++) {
+//			printf("%s\n", userInput[k]);
+//		}
 		
 //		commandSize = strlen(userInput);
 //		if(userInput[commandSize-1] == '\n' )
