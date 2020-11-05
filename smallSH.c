@@ -134,34 +134,31 @@ void changeDir() {
 	int x =0;
 		
 	if(args == 1) {
-	x =	chdir(getenv("HOME"));
-		if(x == 0) {
-			printf("change was succesfull \n");
-		}
+//	x =	
+		chdir(getenv("HOME"));
+//		if(x == 0) {
+//			printf("change was succesfull \n");
+//		}
 	}
 	else {	
 	
-	int ch = 0;
+		int ch = 0;
 //	ch = chdir(directory);
 
-	ch = chdir(userInput[1]);
+		ch = chdir("/hello);
 	
-	if(ch<0) {
-		printf("chdir change of directory NOT successful \n");
-	}
-	else {
-		printf("change was succesfull \n");
-	}
+		if(ch<0) {
+			printf("chdir change of directory NOT successful \n");
+		}
+		else {
+			printf("change was succesfull \n");
+		}
 	}
 }
 
 
 
 
-//if( numArgs == 1 ){ // if only cd is called
-//        chdir(getenv("HOME")); // this command will move to the Home directory
-//    }
-//
 //    else{ // if there are more than one argument, only will read the the first after chdir
 //        if ( chdir(argList[1]) != 0 ){
 //        }
