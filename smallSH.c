@@ -23,8 +23,8 @@
 int commandCount = 0;
 		
 // user input
-char userInput[MAX_LENGTH];
-char *userInputString[MAX_ARGS][STR_MAX];
+char *userInput[MAX_LENGTH];
+//char *userInputString[MAX_ARGS][STR_MAX];
 
 
 
@@ -42,59 +42,80 @@ int breakVal = 2;
 /*
 *
 */
-void *parseCommand(char *instructions)
-{
-//	struct instructions *currItem = malloc(sizeof(struct instructions));
-
-
-//char str[] = "Geeks for Geeks"; 
-//    char* token; 
-//    char* rest = str; 
-//  
-//    while ((token = strtok_r(rest, " ", &rest))) 
-//        printf("%s\n", token); 
-//  
-//    return (0); 
-//} 
-    // For use with strtok_r
-  
-
-//   char string[50] = "Hello! We are learning about strtok";
-   // Extract the first token
-   char *looptoken = strtok(instructions, " ");
-   // loop through the string to extract all other tokens 
-   commandCount = 0;
-   while(looptoken != NULL ) {
-    //  printf( " %s\n", looptoken ); //printing each token
-      looptoken = strtok(NULL, " ");
-      commandCount++;
-   }		
-	// prints number of commnads
-//	printf("%d", commandCount);
-
- 	char *saveptr;  
-    // The first token is the command
-    int i = 0;
-    int j = 0;
-    
-    char *token = strtok_r(instructions, " ", &saveptr);
-    
-    strcpy(userInputString[i][STR_MAX], token);
-    i++;
-    
-    while(token != NULL ) {
-    	
-    char *token = strtok_r(instructions, " ", &saveptr);
-    
-    strcpy(userInputString[i][STR_MAX], token);
-    i++;
-	}
-	
-	
-	for(i=0 ;i<commandCount ;i++)
-		printf("%s\n",userInputString[i][STR_MAX]);		
-	
-}
+//void *parseCommand(char *instructions)
+//{
+////	struct instructions *currItem = malloc(sizeof(struct instructions));
+//
+//
+////char str[] = "Geeks for Geeks"; 
+////    char* token; 
+////    char* rest = str; 
+////  
+////    while ((token = strtok_r(rest, " ", &rest))) 
+////        printf("%s\n", token); 
+////  
+////    return (0); 
+////} 
+//    // For use with strtok_r
+//    
+//    
+//    
+//    
+//    
+////  int argGather(char*args) {
+////    int counter = 0; // remeber to +1 for printing out since it is at 0
+////    printf("%s", ": "); // prompt beginning
+////    fflush(stdout);
+////    fgets(args,2048,stdin); // read in what the user wants
+////    strtok(args, "\n"); // removing the newlines from getline
+////    char buffer [2048];
+////    int i, j;
+////   
+////    char *word = strtok(args, " "); // spliting the string to get every word
+////    
+////    // using tokens to split up the string
+////    while (word != NULL) {  // token word that will iterated
+////        argList[counter] = word;
+////        word = strtok(NULL, " ");  // move to next word 
+////        counter++;
+////    }
+//
+////   char string[50] = "Hello! We are learning about strtok";
+//   // Extract the first token
+//   char *looptoken = strtok(instructions, " ");
+//   // loop through the string to extract all other tokens 
+//   commandCount = 0;
+//   while(looptoken != NULL ) {
+//    //  printf( " %s\n", looptoken ); //printing each token
+//      looptoken = strtok(NULL, " ");
+//      commandCount++;
+//   }		
+//	// prints number of commnads
+////	printf("%d", commandCount);
+//
+// 	char *saveptr;  
+//    // The first token is the command
+//    int i = 0;
+//    int j = 0;
+//    
+//    char *token = strtok_r(instructions, " ", &saveptr);
+//    
+//    strcpy(userInputString[i][STR_MAX], token);
+//    i++;
+//    
+//    while(token != NULL ) {
+//    	
+//    char *token = strtok_r(instructions, " ", &saveptr);
+//    
+//    strcpy(userInputString[i][STR_MAX], token);
+//    i++;
+//	}
+//	
+//	
+//	for(i=0 ;i<commandCount ;i++)
+//		printf("%s\n",userInputString[i][STR_MAX]);		
+//	
+//}
 
 //   The cd command changes the working directory of smallsh.
 //   By itself - with no arguments - it changes to the directory specified in the HOME environment variable
@@ -214,7 +235,8 @@ void commandPrompt() {
 	
 	char *userCommand; //= malloc(sizeof(userCommand));
 	
-//	buffer = (char *)malloc(bufsize * sizeof(char));
+  //	buffer = (char *)malloc(bufsize * sizeof(char));
+	int i;
 	
 	int commandSize;
 	
@@ -235,6 +257,17 @@ void commandPrompt() {
 
 		char *point = strstr(userInput, expansion);
 		
+		char temp[2048];
+		
+		
+		char *inputItem = strtok(userInput, " ");
+		
+		while(inputItem != NULL) {
+		userInput[i] = inputItem;
+		inputItem = strtok(NULL, " ");
+		i++;
+		commandCount++;
+		}
 //		// strip the newline form the input
 //		char str[80];
 //		int len;
@@ -244,6 +277,40 @@ void commandPrompt() {
 //		if( str[len-1] == '\n' )
 //    	str[len-1] = 0;
 			
+		
+		
+		
+		//  int argGather(char*args) {
+//    int counter = 0; // remeber to +1 for printing out since it is at 0
+//    printf("%s", ": "); // prompt beginning
+//    fflush(stdout);
+//    fgets(args,2048,stdin); // read in what the user wants
+//    strtok(args, "\n"); // removing the newlines from getline
+//    char buffer [2048];
+//    int i, j;
+//   
+//    char *word = strtok(args, " "); // spliting the string to get every word
+//    
+//    // using tokens to split up the string
+//    while (word != NULL) {  // token word that will iterated
+//        argList[counter] = word;
+//        word = strtok(NULL, " ");  // move to next word 
+//        counter++;
+//    }
+
+//
+ 	for(int g = 0; g< commandCount; g++) {
+ 		printf("%s\n", userInput[g]);
+	 }
+    
+
+
+
+userInput[i]
+		
+		
+		
+		
 		
 		// this means there is expansion to be done
 		if(point != NULL) {
@@ -261,12 +328,12 @@ void commandPrompt() {
 		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
     
 		}
-		else
+	//	else
 	//	if(point != NULL) {
 	//	printf("%d", getpid());
 	//	}
 	
-			userCommand = parseCommand(userInput);
+//			userCommand = parseCommand(userInput);
 		//printf("This is comment %s", comment);
 		//printf("this is space%s:", space);
 		//puts(userInput);
