@@ -138,7 +138,7 @@ void changeDir() {
 	}
 	else {	
 	
-//	int ch = 0;
+	int ch = 0;
 //	ch = chdir(directory);
 
 	ch = chdir(userInput[1]);
@@ -221,7 +221,7 @@ void BuiltInCommands() {
 	//	may have to use string compare to compare
 	if(strcmp(userInput[0], cd) == 0) {
 //		printf("this is cd");
-		changeDir(userComm);	
+		changeDir();	
 	}
 	else if(strcmp(userInput[0], stats) == 0) {
 //		printf("this is status");
