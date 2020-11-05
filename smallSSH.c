@@ -149,7 +149,7 @@ int exitProgra = 2;
 			g++;
 		}
 		
-    	for (i = 0; i < ; ++i) {
+    	for (i = 0; i < commandCount ; ++i) {
         	printf("%s\n", commands[i]);
 		}
     	
