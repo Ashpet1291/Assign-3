@@ -203,40 +203,40 @@ void execCommands() {
 /*
 *
 */
-//void BuiltInCommands(struct instructions *userComm) {
-//	
-//	char cd[] = "cd";
-//	char stats[] = "status";
-//	char exitProgram[] = "exit";
-//	
-//	if(user == NULL){
-//	//	exitProgra = 1;
-//	}
-//	//	may have to use string compare to compare
-//	if(strcmp(user, cd) == 0) {
-//		printf("this is cd");
-////		changeDir(userComm);	
-//	}
-//	else if(strcmp(user, stats) == 0) {
-//		printf("this is status");
-////		status(1);
-//	}
-//	else if(strcmp(userComm, exitProgram) == 0) {
-//		printf("this is exit");
-//	//	exitProg();
-//	}
-//	else {
-//		// its a dfferent command and pass it to execv
-//	}
-//}
-
-
-void printargs() {
-	// print all values
-	for(int k=0; k<args; k++) {
-		printf("%s\n", userInput[k]);
-	}	
+void BuiltInCommands() {
+	
+	char cd[] = "cd";
+	char stats[] = "status";
+	char exitProgram[] = "exit";
+	
+	if(user == NULL){
+	//	exitProgra = 1;
+	}
+	//	may have to use string compare to compare
+	if(strcmp(userInput[0], cd) == 0) {
+		printf("this is cd");
+//		changeDir(userComm);	
+	}
+	else if(strcmp(userInput[0], stats) == 0) {
+		printf("this is status");
+//		status(1);
+	}
+	else if(strcmp(userInput[0], exitProgram) == 0) {
+		printf("this is exit");
+	//	exitProg();
+	}
+	else {
+		// its a dfferent command and pass it to execv
+	}
 }
+
+
+//void printargs() {
+//	// print all values
+//	for(int k=0; k<args; k++) {
+//		printf("%s\n", userInput[k]);
+//	}	
+//}
 
 
 
@@ -277,7 +277,7 @@ void commandPrompt() {
 		userInput[args++]=userCommand;
 		
 		
-		printargs();
+//		printargs();
 	}
 
 
