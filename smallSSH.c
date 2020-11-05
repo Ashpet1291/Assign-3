@@ -124,6 +124,19 @@ int exitProgra = 2;
 //        printf("%s\n", array[i]);
 //
 //    return 0;
+
+
+ //  char *looptoken = strtok(currLine, " ");
+   // loop through the string to extract all other tokens
+   
+//   commandCount = 0;
+//   while(looptoken != NULL ) {
+//    //  printf( " %s\n", looptoken ); //printing each token
+//      looptoken = strtok(NULL, " ");
+//      commandCount++;
+//   }
+
+
 		
 		int i = 0;
 		int g = 0;
@@ -136,10 +149,9 @@ int exitProgra = 2;
 			g++;
 		}
 		
-    	for (i = 0; i < 3; ++i) 
+    	for (i = 0; i < ; ++i) {
         	printf("%s\n", commands[i]);
-
-    	return 0;
+		}
     	
     	printf("%d", g);
 		printf("%s", commands[0]);	
