@@ -241,7 +241,7 @@ void commandPrompt() {
 	int commandSize;
 	int args = 0;
 	
-	while(breakVal != 1){
+//	while(breakVal != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -261,7 +261,7 @@ void commandPrompt() {
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
 		breakVal = 1;
-	}
+//	}
 		for(int k=0; k<args; k++) {
 			printf("%s\n", userInput[k]);
 		}
