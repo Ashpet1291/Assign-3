@@ -72,7 +72,7 @@ int exitProgra = 2;
 //	char *outputFile;
 //	char *runBack;
        
-
+	int i=0;
 //   char string[50] = "Hello! We are learning about strtok";
    // Extract the first token
    char *looptoken = strtok(currLine, " ");
