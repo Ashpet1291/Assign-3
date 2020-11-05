@@ -173,9 +173,11 @@ int exitProgra = 2;
 //			token = strtok(NULL, space);
 //			g++;
 //		}
+
+		int p;
 		
-    	for (i = 0; i < commandCount ; ++i) {
-        	printf("%s\n", commands[i]);
+    	for (p = 0; p < commandCount ; ++p) {
+        	printf("%s\n", commands[p]);
 		}
     	
     	
