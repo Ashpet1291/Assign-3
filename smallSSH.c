@@ -82,6 +82,7 @@ int exitProgra = 2;
    while(looptoken != NULL ) {
     //  printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
+      commands[i++] = looptoken;
       commandCount++;
    }
 		
@@ -141,19 +142,19 @@ int exitProgra = 2;
 		int i = 0;
 		int g = 0;
 
-		char *token = strtok(currLine, space);
-		
-		while(token != NULL) {
-			commands[i++] = token;
-			token = strtok(NULL, space);
-			g++;
-		}
+//		char *token = strtok(currLine, space);
+//		
+//		while(token != NULL) {
+//			commands[i++] = token;
+//			token = strtok(NULL, space);
+//			g++;
+//		}
 		
 //    	for (i = 0; i < commandCount ; ++i) {
 //        	printf("%s\n", commands[i]);
 //		}
     	
-    	printf("%d\n", g);
+    	printf("%d\n", commandCount);
 		printf("%s\n", commands[0]);	
 		printf("%s\n", commands[1]);
 
