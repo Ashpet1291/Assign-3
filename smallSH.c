@@ -329,23 +329,23 @@ void commandPrompt() {
 		
 		
 		
-		
-		// this means there is expansion to be done
-		if(point != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LENGTH];
-			commandSize = (strlen(userInput) - 2);
-			strncpy(expandCommand, userInput, commandSize);
-			strcpy(userInput, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);	
-		}
-	
-		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
-    
-		}
+//		
+//		// this means there is expansion to be done
+//		if(point != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LENGTH];
+//			commandSize = (strlen(userInput) - 2);
+//			strncpy(expandCommand, userInput, commandSize);
+//			strcpy(userInput, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(expandCommand, "%d", getpid());
+//			strcat(userInput, expandCommand);	
+//		}
+//	
+//		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
+//    
+//		}
 	//	else
 	//	if(point != NULL) {
 	//	printf("%d", getpid());
