@@ -83,7 +83,7 @@ int exitProgra = 2;
    }
 		
 	// prints number of commnads
-	printf("%d", commandCount);
+//	printf("%d", commandCount);
  
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
@@ -154,12 +154,12 @@ void changeDir(struct instructions *userComm) {
 //	else
 		ch = chdir(directory);
 	
-	if(ch<0) {
-		printf("chdir change of directory NOT successful \n");
-	}
-	else {
-		printf("change was succesfull \n");
-	}
+//	if(ch<0) {
+//		printf("chdir change of directory NOT successful \n");
+//	}
+//	else {
+//		printf("change was succesfull \n");
+//	}
 }
 
 
