@@ -209,21 +209,21 @@ void execCommands() {
 //	char stats[] = "status";
 //	char exitProgram[] = "exit";
 //	
-//	if(userComm->command == NULL){
-//		exitProgra = 1;
+//	if(user == NULL){
+//	//	exitProgra = 1;
 //	}
 //	//	may have to use string compare to compare
-//	if(strcmp(userComm->command, cd) == 0) {
-//	//	printf("this is cd");
-//		changeDir(userComm);	
+//	if(strcmp(user, cd) == 0) {
+//		printf("this is cd");
+////		changeDir(userComm);	
 //	}
-//	else if(strcmp(userComm->command, stats) == 0) {
-//	//	printf("this is status");
-//		status(1);
+//	else if(strcmp(user, stats) == 0) {
+//		printf("this is status");
+////		status(1);
 //	}
-//	else if(strcmp(userComm->command, exitProgram) == 0) {
-//	//	printf("this is command");
-//		exitProg();
+//	else if(strcmp(userComm, exitProgram) == 0) {
+//		printf("this is exit");
+//	//	exitProg();
 //	}
 //	else {
 //		// its a dfferent command and pass it to execv
@@ -254,6 +254,9 @@ void commandPrompt() {
 
 	
 	while(breakVal != 1){
+		
+		args = 0;
+		
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
