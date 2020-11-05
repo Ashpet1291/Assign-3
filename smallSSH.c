@@ -153,8 +153,9 @@ int exitProgra = 2;
 //        	printf("%s\n", commands[i]);
 //		}
     	
-    	printf("%d", g);
-		printf("%s", commands[0]);	
+    	printf("%d\n", g);
+		printf("%s\n", commands[0]);	
+		printf("%s\n", commands[1]);
 
 //	for (i=0; token; i++) {
 //		// Check for & to be a background process
