@@ -247,7 +247,7 @@ void commandPrompt() {
 		char newLine[] = "\n";	
 		
 		
-		fgets(userInput, MAX_LENGTH, stdin); 
+		fgets(word, MAX_LENGTH, stdin); 
 	//	printf("string is: %s\n", userInput);
 		
 		
