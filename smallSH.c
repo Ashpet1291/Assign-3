@@ -289,12 +289,15 @@ void commandPrompt() {
 		userInput[args++]=userCommand;
 		
 		
+		printf("%s %s", userInput[0], userInput[1]);
+		
 //		argCount();
 		
 		BuiltInCommands();
 		
 //		printargs();
 	}
+
 
 
 // print all values
