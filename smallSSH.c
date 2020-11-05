@@ -106,7 +106,7 @@ void changeDir() {
 	
 		int ch = 0;
 //	ch = chdir(directory);
-		printf("%d\n", args);
+	//	printf("%d\n", args);
 		
 			
 		char *directory = "./happy";
