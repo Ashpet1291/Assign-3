@@ -133,12 +133,11 @@ void changeDir() {
 	// if not ./, then add that and chdir
 	int x =0;
 		
-	if(args == 1) {
-//	x =	
-		chdir(getenv("HOME"));
-//		if(x == 0) {
-//			printf("change was succesfull \n");
-//		}
+	if(userInput[1] == NULL) {
+	x =	chdir(getenv("HOME"));
+		if(x == 0) {
+			printf("change was succesfull \n");
+		}
 //		printf("%d\n", args);
 	}
 	else {	
@@ -289,7 +288,7 @@ void commandPrompt() {
 		userInput[args++]=userCommand;
 		
 		
-		argCount();
+//		argCount();
 		
 		BuiltInCommands();
 		
