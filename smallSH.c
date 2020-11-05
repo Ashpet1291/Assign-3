@@ -249,9 +249,15 @@ void BuiltInCommands() {
 //}
 
 void argCount() {
-	for(int k=0; k<args; k++) {
+	for(int k=0; userInput[k] != NULL; k++) {
 			commandCount++;
+			printf("Array item: [%s]",userInput[k]);
 	}
+	
+//	   for (int i=0; arr[i] != NULL; i++) {
+//        printf("Array item: [%s]",arr[i]);
+//    }
+	printf("This is after loop array item: [%s]",userInput[k]);
 	printf("%d\n", commandCount);
 }
 
@@ -292,9 +298,9 @@ void commandPrompt() {
 		userInput[args++]=userCommand;
 		
 		
-		printf("%s %s", userInput[0]);
+	//	printf("%s %s", userInput[0]);
 		
-//		argCount();
+		argCount();
 		
 		BuiltInCommands();
 		
