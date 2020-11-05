@@ -146,7 +146,7 @@ void changeDir(struct instructions *userComm) {
 //	char *homeDir = getenv("HOME");
 	
 	
-	int ch;
+	int ch = 0;
 	
 //	if(userComm->command != NULL) {
 //		
@@ -258,7 +258,7 @@ void commandPrompt() {
 		
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
-		printf("string is: %s\n", userInput);
+	//	printf("string is: %s\n", userInput);
 		
 		
 		commandSize = strlen(userInput);
