@@ -72,7 +72,7 @@ int exitProgra = 2;
 //	char *outputFile;
 //	char *runBack;
        
-	int i=0;
+	int comCount=0;
 //   char string[50] = "Hello! We are learning about strtok";
    // Extract the first token
    char *looptoken = strtok(currLine, " ");
@@ -82,7 +82,7 @@ int exitProgra = 2;
    while(looptoken != NULL ) {
     //  printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
-      commands[i++] = looptoken;
+      commands[comCount++] = looptoken;
       commandCount++;
    }
 		
