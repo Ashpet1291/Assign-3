@@ -42,7 +42,7 @@ int breakVal = 2;
 /*
 *
 */
-void *parseCommand(char *instructions)
+void parseCommand(char *instructions)
 {
 //	struct instructions *currItem = malloc(sizeof(struct instructions));
 
