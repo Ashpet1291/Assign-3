@@ -282,10 +282,10 @@ void commandPrompt() {
 		userCommand = (char*) malloc(len);
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
+		commandcount++;
 		
 		
-		
-		printf("%d\n", args);
+		printf("%d\n", commandCount);
 		
 		BuiltInCommands();
 		
