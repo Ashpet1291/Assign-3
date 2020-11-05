@@ -140,12 +140,13 @@ void changeDir() {
 		}
 //		printf("%d\n", args);
 	}
+	
 	else {	
 	
 		int ch = 0;
 //	ch = chdir(directory);
 		printf("%d\n", args);
-		ch = chdir("/hello");
+		ch = chdir('/happy');
 	
 		if(ch<0) {
 			printf("chdir change of directory NOT successful \n");
