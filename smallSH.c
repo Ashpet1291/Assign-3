@@ -144,7 +144,7 @@ void changeDir() {
 	
 		int ch = 0;
 //	ch = chdir(directory);
-
+		printf("%d", args);
 		ch = chdir("/hello");
 	
 		if(ch<0) {
