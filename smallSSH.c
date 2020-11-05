@@ -53,7 +53,7 @@ char *buffer;
         // and accept the next string 
  //       fflush(stdin); 
  
- int exitProgram = 2;
+int exitProgram = 2;
  
 /*
 *
@@ -220,7 +220,7 @@ void BuiltInCommands(struct instructions *userComm) {
 	char stats[] = "status";
 	char exitProgram[] = "exit";
 	
-	if(user->command == NULL){
+	if(userComm->command == NULL){
 		exitProgram = 1;
 	}
 	//	may have to use string compare to compare
