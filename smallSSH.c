@@ -34,7 +34,7 @@ int commandCount = 0;
 // user input
 char userInput[MAX_LIMIT];
 
-char *commands[];
+char *commands[MAX_LIMIT];
 
 FILE *fp;
 
@@ -131,7 +131,7 @@ int exitProgra = 2;
 		char *token = strtok(currLine, space);
 		
 		while(token != NULL) {
-			commands[i++] = token
+			commands[i++] = token;
 			token = strtok(NULL, space);
 			g++;
 		}
