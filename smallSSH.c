@@ -34,6 +34,8 @@ int commandCount = 0;
 // user input
 char userInput[MAX_LIMIT];
 
+char *commands[];
+
 FILE *fp;
 
 // var for expansion
@@ -42,6 +44,7 @@ char expansion[] = "$$";
 // variables for comments and blank lines
 char comment[] = "#";
 char space[] = " ";
+
 
 
 char *buffer;
@@ -82,26 +85,101 @@ int exitProgra = 2;
       commandCount++;
    }
 		
-	// prints number of commnads
-//	printf("%d", commandCount);
- 
-    // The first token is the command
-    char *token = strtok_r(currLine, " ", &saveptr);
-    currItem->command = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->command, token);
-//    commandCount++;
+//	// prints number of commnads
+////	printf("%d", commandCount);
+// 
+//    // The first token is the command
+//    char *token = strtok_r(currLine, " ", &saveptr);
+//    currItem->command = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->command, token);
+////    commandCount++;
 	
-		   
-	if(commandCount == "2") {
-    // The next token is Arg[1]
-    token = strtok_r(NULL, " ", &saveptr);
-    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currItem->arguments, token);
-	}
+//		   
+//	if(commandCount == "2") {
+//    // The next token is Arg[1]
+//    token = strtok_r(NULL, " ", &saveptr);
+//    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
+//    strcpy(currItem->arguments, token);
+//	}
+//	
+//	
+//	
+
+
+
+
+//
+//  char buf[] ="abc/qwe/ccd";
+//    int i = 0;
+//    char *p = strtok (buf, "/");
+//    char *array[3];
+//
+//    while (p != NULL)
+//    {
+//        array[i++] = p;
+//        p = strtok (NULL, "/");
+//    }
+//
+//    for (i = 0; i < 3; ++i) 
+//        printf("%s\n", array[i]);
+//
+//    return 0;
 		
-	else if(commandCount >= "3")
+		int i = 0;
+		int g = 0;
+
+		char *token = strtok(currLine, space);
+		
+		while(token != NULL) {
+			commands[i++] = token
+			token = strtok(NULL, space);
+			g++;
+		}
+		
+    	for (i = 0; i < 3; ++i) 
+        	printf("%s\n", commands[i]);
+
+    	return 0;
+    	
+    	printf("%d", g);
+		printf("%s", commands[0]);	
+
+//	for (i=0; token; i++) {
+//		// Check for & to be a background process
+//		if (!strcmp(token, "&")) {
+//			*background = 1;
+//		}
+//		// Check for < to denote input file
+//		else if (!strcmp(token, "<")) {
+//			token = strtok(NULL, space);
+//			strcpy(inputName, token);
+//		}
+//		// Check for > to denote output file
+//		else if (!strcmp(token, ">")) {
+//			token = strtok(NULL, space);
+//			strcpy(outputName, token);
+//		}
+//		// Otherwise, it's part of the command!
+//		else {
+//			arr[i] = strdup(token);
+//			// Replace $$ with pid
+//			// Only occurs at end of string in testscirpt
+//			for (j=0; arr[i][j]; j++) {
+//				if (arr[i][j] == '$' &&
+//					 arr[i][j+1] == '$') {
+//					arr[i][j] = '\0';
+//					snprintf(arr[i], 256, "%s%d", arr[i], pid);
+//				}
+//			}
+//		}
+//		// Next!
+//		token = strtok(NULL, space);
+//	}
+	
+		
+//	else if(commandCount >= "3")
 //    // The next token is the redirIn
-    token = strtok_r(NULL, " ", &saveptr);
+//    token = strtok_r(NULL, " ", &saveptr);
 //    currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
 //    strcpy(currItem->redirIn, token);
 //    
@@ -146,7 +224,7 @@ void changeDir(struct instructions *userComm) {
 //	char *homeDir = getenv("HOME");
 	
 	
-	int ch = 0;
+	int ch;
 	
 //	if(userComm->command != NULL) {
 //		
@@ -154,12 +232,12 @@ void changeDir(struct instructions *userComm) {
 //	else
 		ch = chdir(directory);
 	
-//	if(ch<0) {
-//		printf("chdir change of directory NOT successful \n");
-//	}
-//	else {
-//		printf("change was succesfull \n");
-//	}
+	if(ch<0) {
+		printf("chdir change of directory NOT successful \n");
+	}
+	else {
+		printf("change was succesfull \n");
+	}
 }
 
 
@@ -258,7 +336,6 @@ void commandPrompt() {
 		
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
-	//	printf("string is: %s\n", userInput);
 		
 		
 		commandSize = strlen(userInput);
@@ -308,7 +385,7 @@ void commandPrompt() {
 		
 		//check if usrInput contains $$
 		//check & is at the end
-			BuiltInCommands(userCommand);
+	//		BuiltInCommands(userCommand);
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
 	}
