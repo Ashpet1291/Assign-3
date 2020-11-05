@@ -77,13 +77,13 @@ int exitProgra = 2;
    
    commandCount = 0;
    while(looptoken != NULL ) {
-      printf( " %s\n", looptoken ); //printing each token
+    //  printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
       commandCount++;
    }
 		
 	// prints number of commnads
-//	printf("%d", commandCount);
+	printf("%d", commandCount);
  
     // The first token is the command
     char *token = strtok_r(currLine, " ", &saveptr);
