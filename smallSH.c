@@ -23,7 +23,7 @@
 int commandCount = 0;
 		
 // user input
-char userInput
+char userInput[];
 char userInputString[MAX_ARGS][STR_MAX];
 
 
@@ -33,12 +33,6 @@ char expansion[] = "$$";
 // variables for comments and blank lines
 char comment[] = "#";
 char space[] = " ";
-
-
-
-// counts total items in string
-int commandCount = 0;
-
 
 int breakVal = 2;
  
@@ -107,31 +101,31 @@ void instructions *parseCommand(char *instructions)
 /*
 *
 */
-void changeDir(struct instructions *userComm) {
-	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
-	// if chdir or fchdir doesn't fail then change directories, else cant change directories
-	// if not ./, then add that and chdir
-	
-		
-	char *directory = "./happy";
-//	char *homeDir = getenv("HOME");
-	
-	
-	int ch = 0;
-	
-//	if(userComm->command != NULL) {
+//void changeDir(struct instructions *userComm) {
+//	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
+//	// if chdir or fchdir doesn't fail then change directories, else cant change directories
+//	// if not ./, then add that and chdir
+//	
 //		
+//	char *directory = "./happy";
+////	char *homeDir = getenv("HOME");
+//	
+//	
+//	int ch = 0;
+//	
+////	if(userComm->command != NULL) {
+////		
+////	}
+////	else
+//		ch = chdir(directory);
+//	
+//	if(ch<0) {
+//		printf("chdir change of directory NOT successful \n");
 //	}
-//	else
-		ch = chdir(directory);
-	
-	if(ch<0) {
-		printf("chdir change of directory NOT successful \n");
-	}
-	else {
-		printf("change was succesfull \n");
-	}
-}
+//	else {
+//		printf("change was succesfull \n");
+//	}
+//}
 
 
 //char *directory = "/tmp";
