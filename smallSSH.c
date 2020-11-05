@@ -149,9 +149,9 @@ int exitProgra = 2;
 			g++;
 		}
 		
-    	for (i = 0; i < commandCount ; ++i) {
-        	printf("%s\n", commands[i]);
-		}
+//    	for (i = 0; i < commandCount ; ++i) {
+//        	printf("%s\n", commands[i]);
+//		}
     	
     	printf("%d", g);
 		printf("%s", commands[0]);	
