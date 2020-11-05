@@ -53,7 +53,7 @@ char *buffer;
         // and accept the next string 
  //       fflush(stdin); 
  
-int exitProgram = 2;
+int exitProgra = 2;
  
 /*
 *
@@ -221,7 +221,7 @@ void BuiltInCommands(struct instructions *userComm) {
 	char exitProgram[] = "exit";
 	
 	if(userComm->command == NULL){
-		exitProgram = 1;
+		exitProgra = 1;
 	}
 	//	may have to use string compare to compare
 	if(strcmp(userComm->command, cd) == 0) {
@@ -253,7 +253,7 @@ void commandPrompt() {
 	int commandSize;
 	
 	
-	while(exitProgram != 1){
+	while(exitProgra != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
