@@ -127,37 +127,43 @@ int args = 0;
 /*
 *
 */
-//void changeDir(struct instructions *userComm) {
-//	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
-//	// if chdir or fchdir doesn't fail then change directories, else cant change directories
-//	// if not ./, then add that and chdir
-//	
-//		
-//	char *directory = "./happy";
-////	char *homeDir = getenv("HOME");
-//	
-//	
+void changeDir() {
+	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
+	// if chdir or fchdir doesn't fail then change directories, else cant change directories
+	// if not ./, then add that and chdir
+	
+		
+	if(args == 1) {
+		chdir(getenv("HOME"));
+	}
+	else {	
+	
 //	int ch = 0;
-//	
-////	if(userComm->command != NULL) {
-////		
-////	}
-////	else
-//		ch = chdir(directory);
-//	
-//	if(ch<0) {
-//		printf("chdir change of directory NOT successful \n");
-//	}
-//	else {
-//		printf("change was succesfull \n");
-//	}
-//}
+//	ch = chdir(directory);
+
+	ch = chdir(userInput[1]);
+	
+	if(ch<0) {
+		printf("chdir change of directory NOT successful \n");
+	}
+	else {
+		printf("change was succesfull \n");
+	}
+	}
+}
 
 
-//char *directory = "/tmp";
-//int ret;
+
+
+//if( numArgs == 1 ){ // if only cd is called
+//        chdir(getenv("HOME")); // this command will move to the Home directory
+//    }
 //
-//ret = chdir (directory);
+//    else{ // if there are more than one argument, only will read the the first after chdir
+//        if ( chdir(argList[1]) != 0 ){
+//        }
+//    }
+
 
 
 // //pass your path in the function
@@ -214,16 +220,16 @@ void BuiltInCommands() {
 	}
 	//	may have to use string compare to compare
 	if(strcmp(userInput[0], cd) == 0) {
-		printf("this is cd");
-//		changeDir(userComm);	
+//		printf("this is cd");
+		changeDir(userComm);	
 	}
 	else if(strcmp(userInput[0], stats) == 0) {
-		printf("this is status");
-//		status(1);
+//		printf("this is status");
+		status(1);
 	}
 	else if(strcmp(userInput[0], exitProgram) == 0) {
-		printf("this is exit");
-	//	exitProg();
+	//	printf("this is exit");
+		exitProg();
 	}
 	else {
 		// its a dfferent command and pass it to execv
