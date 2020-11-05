@@ -245,7 +245,12 @@ void BuiltInCommands() {
 //	}	
 //}
 
-
+void argCount() {
+	for(int k=0; k<args; k++) {
+			commandCount++;
+	}
+	printf("%d\n", commandCount);
+}
 
 /*
 *
@@ -282,10 +287,9 @@ void commandPrompt() {
 		userCommand = (char*) malloc(len);
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
-		commandCount++;
 		
 		
-		printf("%d\n", commandCount);
+		argCount();
 		
 		BuiltInCommands();
 		
