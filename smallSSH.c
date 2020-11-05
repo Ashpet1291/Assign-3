@@ -193,6 +193,7 @@ void BuiltInCommands() {
 	}
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
+		exitProgra = 1;
 		exitProg();
 	}
 	else {
@@ -324,7 +325,7 @@ void commandPrompt() {
 	//	printf("%d", getpid());
 	//	}
 	
-			parseCommand(userInput);
+		parseCommand(userInput);
 		//printf("This is comment %s", comment);
 		//printf("this is space%s:", space);
 		//puts(userInput);
