@@ -220,7 +220,9 @@ void BuiltInCommands(struct instructions *userComm) {
 	char stats[] = "status";
 	char exitProgram[] = "exit";
 	
-	
+	if(user->command == NULL){
+		exitProgram = 1;
+	}
 	//	may have to use string compare to compare
 	if(strcmp(userComm->command, cd) == 0) {
 	//	printf("this is cd");
@@ -255,6 +257,7 @@ void commandPrompt() {
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
+		
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
 		
