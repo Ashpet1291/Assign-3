@@ -257,7 +257,7 @@ void argCount() {
 //	   for (int i=0; arr[i] != NULL; i++) {
 //        printf("Array item: [%s]",arr[i]);
 //    }
-	printf("This is after loop array item: [%s]",userInput[k]);
+//	printf("This is after loop array item: [%s]",userInput[k]);
 	printf("%d\n", commandCount);
 }
 
