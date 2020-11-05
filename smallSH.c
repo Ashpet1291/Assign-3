@@ -260,8 +260,8 @@ void commandPrompt() {
 		userCommand = (char*) malloc(len);
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
-		
-		
+		breakVal = 1;
+	}
 		for(int k=0; k<args; k++) {
 			printf("%s\n", userInput[k]);
 		}
@@ -364,7 +364,7 @@ void commandPrompt() {
 		//	BuiltInCommands(userCommand);
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
-	}
+	
 }
 
 
