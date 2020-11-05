@@ -292,7 +292,7 @@ void commandPrompt() {
 		userInput[args++]=userCommand;
 		
 		
-		printf("%s %s", word[0], word[1]);
+		printf("%s %s", word[0]);
 		
 //		argCount();
 		
