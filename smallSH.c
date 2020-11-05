@@ -26,7 +26,7 @@ int commandCount = 0;
 char *userInput[MAX_LENGTH];
 //char *userInputString[MAX_ARGS][STR_MAX];
 
-
+char word[MAX_LENGTH];
 
 // int *arr = (int *)malloc(r * c * sizeof(int)); 
 
@@ -251,23 +251,46 @@ void commandPrompt() {
 	//	printf("string is: %s\n", userInput);
 		
 		
-		commandSize = strlen(userInput);
-		if(userInput[commandSize-1] == '\n' )
-		   	userInput[commandSize-1] = 0;
-
-		char *point = strstr(userInput, expansion);
 		
-		char temp[2048];
+		unsigned len =0;
+		int args = 0;
+		
+		len = strlen(word);
+		word[len-1] = '\0';
+		userCommand = (char*) malloc(len);
+		strcpy(userCommand, word);
+		userInput[args++]=userCommand;
 		
 		
-		char *inputItem = strtok(userInput, " ");
-		
-		while(inputItem != NULL) {
-		userInput[i] = inputItem;
-		inputItem = strtok(NULL, " ");
-		i++;
-		commandCount++;
+		for(int k=0; k<args; k++) {
+			printf("%s\n", userInput[k]);
 		}
+		
+//		commandSize = strlen(userInput);
+//		if(userInput[commandSize-1] == '\n' )
+//		   	userInput[commandSize-1] = 0;
+
+
+////////////////expansion
+//		char *point = strstr(userInput, expansion);
+//	
+
+
+
+
+
+////////////////break up tokens	
+//		char temp[2048];
+//		
+//		
+//		char *inputItem = strtok(userInput, " ");
+//		
+//		while(inputItem != NULL) {
+//		userInput[i] = inputItem;
+//		inputItem = strtok(NULL, " ");
+//		i++;
+//		commandCount++;
+//		}
 //		// strip the newline form the input
 //		char str[80];
 //		int len;
@@ -299,14 +322,9 @@ void commandPrompt() {
 //    }
 
 //
- 	for(int g = 0; g< commandCount; g++) {
- 		printf("%s\n", userInput[g]);
-	 }
+ 
     
 
-
-
-userInput[i]
 		
 		
 		
