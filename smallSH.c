@@ -75,23 +75,24 @@ void *parseCommand(char *instructions)
  	char *saveptr;  
     // The first token is the command
     int i = 0;
+    int j = 0
     
     char *token = strtok_r(instructions, " ", &saveptr);
     
-    strcpy(userInputString[i], token);
+    strcpy(userInputString[i][], token);
     i++;
     
     while(token != NULL ) {
     	
     char *token = strtok_r(instructions, " ", &saveptr);
     
-    strcpy(userInputString[i], token);
+    strcpy(userInputString[i][], token);
     i++;
 	}
 	
 	
 	for(i=0 ;i<commandCount ;i++)
-		printf("%s\n",userInputString[i]);		
+		printf("%s\n",userInputString[i][]);		
 	
 }
 
