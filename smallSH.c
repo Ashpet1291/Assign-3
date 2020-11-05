@@ -14,9 +14,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define MAX_LENGTH =  2048;
-#define MAX_ARGS = 512;
-#define STR_MAX = 60;
+#define MAX_LENGTH 2048;
+#define MAX_ARGS 512;
+#define STR_MAX 60;
 
 
 
@@ -209,9 +209,9 @@ void execCommands() {
 */
 void commandPrompt() {
 	
-	struct instructions *userCommand = malloc(sizeof(struct instructions));
+	char *userCommand = malloc(sizeof(char userCommand));
 	
-	buffer = (char *)malloc(bufsize * sizeof(char));
+//	buffer = (char *)malloc(bufsize * sizeof(char));
 	
 	int commandSize;
 	
