@@ -139,6 +139,7 @@ void changeDir() {
 //		if(x == 0) {
 //			printf("change was succesfull \n");
 //		}
+		printf("%d", args);
 	}
 	else {	
 	
