@@ -14,18 +14,21 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define MAX_LENGTH 2048;
-#define MAX_ARGS 512;
-#define STR_MAX 60;
+#define MAX_LENGTH 80
+#define MAX_ARGS 51
+#define STR_MAX 60
 
 
 
 int commandCount = 0;
 		
 // user input
-char userInput[];
-char userInputString[MAX_ARGS][STR_MAX];
+char userInput[MAX_LENGTH];
+char *userInputString[MAX_ARGS][STR_MAX];
 
+
+
+ int *arr = (int *)malloc(r * c * sizeof(int)); 
 
 // var for expansion
 char expansion[] = "$$";
@@ -39,7 +42,7 @@ int breakVal = 2;
 /*
 *
 */
-void instructions *parseCommand(char *instructions)
+void *parseCommand(char *instructions)
 {
 //	struct instructions *currItem = malloc(sizeof(struct instructions));
 
@@ -209,7 +212,7 @@ void execCommands() {
 */
 void commandPrompt() {
 	
-	char *userCommand = malloc(sizeof(char userCommand));
+	char *userCommand; //= malloc(sizeof(userCommand));
 	
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
@@ -222,7 +225,7 @@ void commandPrompt() {
 		char newLine[] = "\n";	
 		
 		
-		fgets(userInput, MAX_LIMIT, stdin); 
+		fgets(userInput, MAX_LENGTH, stdin); 
 	//	printf("string is: %s\n", userInput);
 		
 		
