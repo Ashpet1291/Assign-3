@@ -239,7 +239,7 @@ void commandPrompt() {
 	int i;
 	
 	int commandSize;
-	
+	int args = 0;
 	
 	while(breakVal != 1){
 		printf(": ");
@@ -253,7 +253,7 @@ void commandPrompt() {
 		
 		
 		unsigned len =0;
-		int args = 0;
+		
 		
 		len = strlen(word);
 		word[len-1] = '\0';
