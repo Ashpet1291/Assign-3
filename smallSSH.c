@@ -174,13 +174,25 @@ int exitProgra = 2;
 //			g++;
 //		}
 		
-//    	for (i = 0; i < commandCount ; ++i) {
-//        	printf("%s\n", commands[i]);
-//		}
+    	for (i = 0; i < commandCount ; ++i) {
+        	printf("%s\n", commands[i]);
+		}
     	
-    	printf("%d\n", commandCount);
-		printf("%s\n", commands[0]);	
-		printf("%s\n", commands[1]);
+    	
+    	
+    	
+    	
+    	
+    	
+    	// print 1st 2 commands and and how many commands
+    	
+//    	printf("%d\n", commandCount);
+//		printf("%s\n", commands[0]);	
+//		printf("%s\n", commands[1]);
+
+
+
+
 
 //	for (i=0; token; i++) {
 //		// Check for & to be a background process
