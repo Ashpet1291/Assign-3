@@ -28,7 +28,7 @@ char *userInputString[MAX_ARGS][STR_MAX];
 
 
 
- int *arr = (int *)malloc(r * c * sizeof(int)); 
+// int *arr = (int *)malloc(r * c * sizeof(int)); 
 
 // var for expansion
 char expansion[] = "$$";
@@ -72,7 +72,6 @@ void *parseCommand(char *instructions)
 	// prints number of commnads
 //	printf("%d", commandCount);
 
-	char *token;
  	char *saveptr;  
     // The first token is the command
     int i = 0;
@@ -219,7 +218,7 @@ void commandPrompt() {
 	int commandSize;
 	
 	
-	while(exitProgra != 1){
+	while(breakVal != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -249,7 +248,7 @@ void commandPrompt() {
 		if(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
+			char expandCommand[MAX_LENGTH];
 			commandSize = (strlen(userInput) - 2);
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
@@ -276,7 +275,7 @@ void commandPrompt() {
 		
 		//check if usrInput contains $$
 		//check & is at the end
-			BuiltInCommands(userCommand);
+		//	BuiltInCommands(userCommand);
 		
 		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
 	}
