@@ -73,20 +73,46 @@ int exitProgra = 2;
 //	char *runBack;
        
 	int comCount=0;
+	commandCount = 0;
 //   char string[50] = "Hello! We are learning about strtok";
    // Extract the first token
    char *looptoken = strtok(currLine, " ");
    // loop through the string to extract all other tokens
    
-   commandCount = 0;
-   while(looptoken != NULL ) {
+  
+   
+   
+	while(looptoken != NULL ) {
     //  printf( " %s\n", looptoken ); //printing each token
-      looptoken = strtok(NULL, " ");
-      commands[comCount] = looptoken;
-      comCount++;
-      commandCount++;
+    	commands[comCount++] = looptoken;
+    	looptoken = strtok(NULL, " ");
+      
+        commandCount++;
    }
 		
+		
+		
+		
+//		int main ()
+//{
+//    char buf[] ="abc/qwe/ccd";
+//    int i = 0;
+//    char *p = strtok (buf, "/");
+//    char *array[3];
+//
+//    while (p != NULL)
+//    {
+//        array[i++] = p;
+//        p = strtok (NULL, "/");
+//    }
+//
+//    for (i = 0; i < 3; ++i) 
+//        printf("%s\n", array[i]);
+//
+//    return 0;
+
+
+
 //	// prints number of commnads
 ////	printf("%d", commandCount);
 // 
@@ -140,9 +166,6 @@ int exitProgra = 2;
 
 
 		
-		int i = 0;
-		int g = 0;
-
 //		char *token = strtok(currLine, space);
 //		
 //		while(token != NULL) {
