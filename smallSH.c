@@ -209,7 +209,7 @@ void BuiltInCommands() {
 	char stats[] = "status";
 	char exitProgram[] = "exit";
 	
-	if(user == NULL){
+	if(userInput[0] == NULL){
 	//	exitProgra = 1;
 	}
 	//	may have to use string compare to compare
