@@ -139,13 +139,13 @@ void changeDir() {
 //		if(x == 0) {
 //			printf("change was succesfull \n");
 //		}
-		printf("%d", args);
+//		printf("%d\n", args);
 	}
 	else {	
 	
 		int ch = 0;
 //	ch = chdir(directory);
-		printf("%d", args);
+		printf("%d\n", args);
 		ch = chdir("/hello");
 	
 		if(ch<0) {
@@ -283,7 +283,12 @@ void commandPrompt() {
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
 		
+		
+		
+		printf("%d\n", args);
+		
 		BuiltInCommands();
+		
 //		printargs();
 	}
 
