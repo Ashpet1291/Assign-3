@@ -77,7 +77,7 @@ int exitProgra = 2;
    
    commandCount = 0;
    while(looptoken != NULL ) {
-    //  printf( " %s\n", looptoken ); //printing each token
+      printf( " %s\n", looptoken ); //printing each token
       looptoken = strtok(NULL, " ");
       commandCount++;
    }
