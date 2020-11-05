@@ -276,7 +276,7 @@ void commandPrompt() {
 		strcpy(userCommand, word);
 		userInput[args++]=userCommand;
 		
-		
+		BuiltInCommands();
 //		printargs();
 	}
 
