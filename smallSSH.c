@@ -205,7 +205,7 @@ void BuiltInCommands() {
 /*
 *
 */
-void parseCommand(char *currLine)
+void *parseCommand(char *currLine)
 {
 	struct instructions *currItem = malloc(sizeof(struct instructions));
 
@@ -232,7 +232,7 @@ void parseCommand(char *currLine)
    }
 		
 		
-//	BuiltInCommands();	
+	BuiltInCommands();	
 		
 //		int main ()
 //{
@@ -325,7 +325,7 @@ void commandPrompt() {
 	//	printf("%d", getpid());
 	//	}
 	
-		parseCommand(userInput);
+		userCommand = parseCommand(userInput);
 		//printf("This is comment %s", comment);
 		//printf("this is space%s:", space);
 		//puts(userInput);
