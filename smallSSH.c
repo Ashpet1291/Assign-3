@@ -154,7 +154,7 @@ void status(int exitVal) {
 //	printf("this is in the status command");
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
-	printf("exit value %d", statusValue);
+	printf("exit value %d\n", statusValue);
 	fflush(stdout);
 }
 
@@ -173,41 +173,6 @@ void execCommands() {
 }
 
 
-/*
-*
-*/
-//void BuiltInCommands(struct instructions *userComm) {
-//	
-//	char cd[] = "cd";
-//	char stats[] = "status";
-//	char exitProgram[] = "exit";
-//	
-//	if(userComm->command == NULL){
-//		exitProgra = 1;
-//	}
-//	//	may have to use string compare to compare
-//	if(strcmp(userComm->command, cd) == 0) {
-//	//	printf("this is cd");
-//		changeDir(userComm);	
-//	}
-//	else if(strcmp(userComm->command, stats) == 0) {
-//	//	printf("this is status");
-//		status(1);
-//	}
-//	else if(strcmp(userComm->command, exitProgram) == 0) {
-//	//	printf("this is command");
-//		exitProg();
-//	}
-//	else {
-//		// its a dfferent command and pass it to execv
-//	}
-//}
-
-
-
-
-
-
 void BuiltInCommands() {
 	
 	char cd[] = "cd";
@@ -219,7 +184,7 @@ void BuiltInCommands() {
 	}
 	//	may have to use string compare to compare
 	if(strcmp(commands[0], cd) == 0) {
-		printf("this is cd");
+//		printf("this is cd");
 		changeDir();	
 	}
 	else if(strcmp(commands[0], stats) == 0) {
@@ -239,24 +204,19 @@ void BuiltInCommands() {
 /*
 *
 */
- struct instructions *parseCommand(char *currLine)
+void *parseCommand(char *currLine)
 {
 	struct instructions *currItem = malloc(sizeof(struct instructions));
 
     // For use with strtok_r
     char *saveptr;
-    
-//	char *redirIn;
-//	char *inputFile;
-//	char *redirOut;
-//	char *outputFile;
-//	char *runBack;
+
        
 	int comCount=0;
 	commandCount = 0;
 //   char string[50] = "Hello! We are learning about strtok";
    // Extract the first token
-   char *looptoken = strtok(currLine, " ");
+	char *looptoken = strtok(currLine, " ");
    // loop through the string to extract all other tokens
    
   
@@ -292,48 +252,6 @@ void BuiltInCommands() {
 //    return 0;
 
 
-
-//	// prints number of commnads
-////	printf("%d", commandCount);
-// 
-//    // The first token is the command
-//    char *token = strtok_r(currLine, " ", &saveptr);
-//    currItem->command = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->command, token);
-////    commandCount++;
-	
-//		   
-//	if(commandCount == "2") {
-//    // The next token is Arg[1]
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->arguments = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->arguments, token);
-//	}
-//	
-//	
-//	
-
-
-
-
-//
-//  char buf[] ="abc/qwe/ccd";
-//    int i = 0;
-//    char *p = strtok (buf, "/");
-//    char *array[3];
-//
-//    while (p != NULL)
-//    {
-//        array[i++] = p;
-//        p = strtok (NULL, "/");
-//    }
-//
-//    for (i = 0; i < 3; ++i) 
-//        printf("%s\n", array[i]);
-//
-//    return 0;
-
-
  //  char *looptoken = strtok(currLine, " ");
    // loop through the string to extract all other tokens
    
@@ -344,103 +262,6 @@ void BuiltInCommands() {
 //      commandCount++;
 //   }
 
-
-		
-//		char *token = strtok(currLine, space);
-//		
-//		while(token != NULL) {
-//			commands[i++] = token;
-//			token = strtok(NULL, space);
-//			g++;
-//		}
-
-
-
-
-
-///////////prints all comands
-//		int p;
-//		
-//    	for (p = 0; p < commandCount ; ++p) {
-//        	printf("%s\n", commands[p]);
-//		}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	// print 1st 2 commands and and how many commands
-    	
-//    	printf("%d\n", commandCount);
-//		printf("%s\n", commands[0]);	
-//		printf("%s\n", commands[1]);
-
-
-
-
-
-//	for (i=0; token; i++) {
-//		// Check for & to be a background process
-//		if (!strcmp(token, "&")) {
-//			*background = 1;
-//		}
-//		// Check for < to denote input file
-//		else if (!strcmp(token, "<")) {
-//			token = strtok(NULL, space);
-//			strcpy(inputName, token);
-//		}
-//		// Check for > to denote output file
-//		else if (!strcmp(token, ">")) {
-//			token = strtok(NULL, space);
-//			strcpy(outputName, token);
-//		}
-//		// Otherwise, it's part of the command!
-//		else {
-//			arr[i] = strdup(token);
-//			// Replace $$ with pid
-//			// Only occurs at end of string in testscirpt
-//			for (j=0; arr[i][j]; j++) {
-//				if (arr[i][j] == '$' &&
-//					 arr[i][j+1] == '$') {
-//					arr[i][j] = '\0';
-//					snprintf(arr[i], 256, "%s%d", arr[i], pid);
-//				}
-//			}
-//		}
-//		// Next!
-//		token = strtok(NULL, space);
-//	}
-	
-		
-//	else if(commandCount >= "3")
-//    // The next token is the redirIn
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->redirIn, token);
-//    
-//     // The next token is the inputFile
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->redirIn = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->redirIn, token);
-//
-// 	// The next token is the redirOut
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->inputFile = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->inputFile, token);
-//    
-//     // The next token is the outputFile
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->redirOut = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->redirOut, token);
-//
-// 	// The next token is the backProc
-//    token = strtok_r(NULL, " ", &saveptr);
-//    currItem->outputFile = calloc(strlen(token) + 1, sizeof(char));
-//    strcpy(currItem->outputFile, token);
-//
-    return currItem;
 }
 
 
@@ -469,7 +290,7 @@ void commandPrompt() {
 		if(userInput[commandSize-1] == '\n' )
 		   	userInput[commandSize-1] = 0;
 
-		char *point = strstr(userInput, expansion);
+		
 		
 //		// strip the newline form the input
 //		char str[80];
@@ -479,7 +300,7 @@ void commandPrompt() {
 //		len = strlen(str);
 //		if( str[len-1] == '\n' )
 //    	str[len-1] = 0;
-			
+		char *point = strstr(userInput, expansion);	
 		
 		// this means there is expansion to be done
 		if(point != NULL) {
