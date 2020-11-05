@@ -43,8 +43,6 @@ char expansion[] = "$$";
 char comment[] = "#";
 char space[] = " ";
 
-// basically throw away the line because it is a comment
-char trash;
 
 char *buffer;
     size_t bufsize = 32;
@@ -260,6 +258,7 @@ void commandPrompt() {
 		
 		
 		fgets(userInput, MAX_LIMIT, stdin); 
+		printf("string is: %s\n", userInput);
 		
 		
 		commandSize = strlen(userInput);
