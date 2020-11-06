@@ -46,48 +46,20 @@ char expansion[] = "$$";
 char comment[] = "#";
 char space[] = " ";
 
-
-
-// used to clear the buffer 
-        // and accept the next string 
- //       fflush(stdin); 
  
 int exitstatus = 2;
  
 
-
-//   The cd command changes the working directory of smallsh.
-//   By itself - with no arguments - it changes to the directory specified in the HOME environment variable
-//   This is typically not the location where smallsh was executed from, unless your shell executable is located in the HOME directory, in which case these are the same.
-//   This command can also take one argument: the path of a directory to change to. Your cd command should support both absolute and relative paths.
+// Your cd command should support both absolute and relative paths.
 
 /*
-*
+* This function changes directories
+* if no argument is given after cd, chang to the home environment, otherwise chang to the directory given
 */
 void changeDir() {
 	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
 	// if chdir or fchdir doesn't fail then change directories, else cant change directories
 	// if not ./, then add that and chdir
-	
-		
-//	char *directory = "./happy";
-//	char *homeDir = getenv("HOME");
-	
-	
-//	int ch;
-	
-//	if(userComm->command != NULL) {
-//		
-//	}
-//	else
-//		ch = chdir(directory);
-//	
-//	if(ch<0) {
-//		printf("chdir change of directory NOT successful \n");
-//	}
-//	else {
-//		printf("change was succesfull \n");
-//	}
 	
 	
 	int x;
@@ -97,16 +69,13 @@ void changeDir() {
 //		if(x == 0) {
 //			printf("change was succesfull \n");
 //		}
-//		printf("%d\n", args);
 	}
 	
 	else {	
 	
-		int ch;
-//	ch = chdir(directory);
-	//	printf("%d\n", args);
-		
-			
+		//	int ch;
+		//	ch = chdir(directory);
+	
 		char *directory = commands[1];
 		chdir(directory);
 	
@@ -126,16 +95,15 @@ void changeDir() {
 
 
 /*
-*
+*	prints the exit status or the terminating signal of the last foreground process
 */
 void status(int exitVal) {
 	
 	int statusValue;
 	statusValue = 0;
-//	printf("need to add to this, status");
+
 	statusValue = exitVal;
-//The status command prints out either the exit status or the terminating signal of the last foreground process ran by your shell.
-//	printf("this is in the status command");
+
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
 	printf("exit value %d\n", statusValue);
@@ -144,7 +112,7 @@ void status(int exitVal) {
 
 
 /*
-*
+* kills all process and then exits the program
 */
 void exitProg() {
 	//kill all processs and then exit
@@ -176,7 +144,8 @@ void execCommands() {
     case 0:
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
-      // Replace the current program with "/bin/ls"
+  
+  	  // pass the given argument to exec function
       execlp(process, process, NULL);
       // exec only returns if there is an error
       perror("execlp");
@@ -187,7 +156,6 @@ void execCommands() {
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-
       break;
   }
 }
@@ -203,30 +171,25 @@ void BuiltInCommands() {
 	char exitProgram[] = "exit";
 	char echo1[]= "echo"; 
 	
-	
-//		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
-//    
-//		}
-//		
-//		else
-//	
-	
+	// if input is #, then just reprompt
 	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
 		
 	}
-	//	exitProgra = 1;
+	// if input is a space, also just reprompt
 	else if(strncmp(space, commands[0], strlen(space)) == 0){
 		
 	}
-	//	may have to use string compare to compare
+	// otherwise check if the command is cd, if so change directories
 	else if(strcmp(commands[0], cd) == 0) {
 //		printf("this is cd");
 		changeDir();	
 	}
+	// otherwise check if command is status, if so run status function
 	else if(strcmp(commands[0], stats) == 0) {
 //		printf("this is status");
 		status(1);
 	}
+	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
 		exitstatus = 1;
@@ -235,6 +198,7 @@ void BuiltInCommands() {
 	else if (strcmp(commands[0], echo1) == 0) {
 		
 	}
+	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
 		execCommands();
@@ -243,72 +207,42 @@ void BuiltInCommands() {
 
 
 /*
-*	parses the user input from user
+* parses the user input from user
+* puts user input in pointer array to be referenced later
+* also counts commands while readin them in to know how many were passed in by the user
 */
 void *parseCommand(char *currLine)
 {
 //	struct instructions *currItem = malloc(sizeof();
 
-    // For use with strtok_r
-    char *saveptr;
-
        
 	int comCount=0;
 	commandCount = 0;
-//   char string[50] = "Hello! We are learning about strtok";
+	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
-   // loop through the string to extract all other tokens
-   
-  
-   
-   
+	
+   // loop through the string to extract all other tokens 
 	while(looptoken != NULL ) {
     //  printf( " %s\n", looptoken ); //printing each token
+    
+    	// put items in pointer array to be referenced later
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
       
+      	// cuont for number of cammands entered
         commandCount++;
    }
 		
-		
-	BuiltInCommands();	
-		
-//		int main ()
-//{
-//    char buf[] ="abc/qwe/ccd";
-//    int i = 0;
-//    char *p = strtok (buf, "/");
-//    char *array[3];
-//
-//    while (p != NULL)
-//    {
-//        array[i++] = p;
-//        p = strtok (NULL, "/");
-//    }
-//
-//    for (i = 0; i < 3; ++i) 
-//        printf("%s\n", array[i]);
-//
-//    return 0;
-
-
- //  char *looptoken = strtok(currLine, " ");
-   // loop through the string to extract all other tokens
-   
-//   commandCount = 0;
-//   while(looptoken != NULL ) {
-//    //  printf( " %s\n", looptoken ); //printing each token
-//      looptoken = strtok(NULL, " ");
-//      commandCount++;
-//   }
+//	// check builtin commands	
+//	BuiltInCommands();
 
 }
 
 
 /*
-* This starts the prompt and display : for the user
-* gets user input
+* This starts the prompt and displays : for the user
+* gets user input hands it off to be parsed
 */
 void commandPrompt() {
 	
@@ -324,10 +258,10 @@ void commandPrompt() {
 		fflush(stdout);
 		char newLine[] = "\n";	
 		
-		
+		// get user input
 		fgets(userInput, MAX_LIMIT, stdin); 
 		
-		
+		// strip the newline
 		commandSize = strlen(userInput);
 		if(userInput[commandSize-1] == '\n' )
 		   	userInput[commandSize-1] = 0;
@@ -349,8 +283,11 @@ void commandPrompt() {
 			strcat(userInput, expandCommand);	
 		}
 	
-	
+			// parse the given command
 			userCommand = parseCommand(userInput);
+			
+			// check builtin commands	
+			BuiltInCommands();
 		
 		//check if usrInput contains $$
 		//check & is at the end
