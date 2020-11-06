@@ -75,13 +75,11 @@ void checkRedirection(){
 			fileIn = commands[i];
 			argIn = commands[i-1];
 			printf("this is fileIn %s", commands[i]);
-			printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
 			argOut = commands[i];
 			printf("this is fileOut %s", commands[i+1]);
-			printf("this is ardOut %s", commands[i]);
 		}
 		i++;
 	}
@@ -147,10 +145,6 @@ void status(int exitVal) {
 void exitProg() {
 	//kill all processs and then exit
 //	printf("this is in the exit function");
-	int exitOn;
-	
-	exitOn = exitStatus;
-	
 	exit(0);
 }
 
