@@ -4,7 +4,7 @@
 // sources and inspirations
 // used code from examples given by the instructor (I will label those in code)
 // https://stackoverflow.com/ for trouble shooting and looking up how to o a specific task
-
+// tutorialspoint.com
 
 
 // to run the code
@@ -14,7 +14,6 @@
 // to run with grading script
 // chmod +x ./p3testscript
 // ./p3testscript 2 > & 2
-
 
 
 #include <stdio.h> 
@@ -35,7 +34,6 @@ int commandCount = 0;
 		
 // user input
 char userInput[MAX_LIMIT];
-
 char *commands[MAX_LIMIT];
 
 
@@ -46,22 +44,38 @@ char expansion[] = "$$";
 char comment[] = "#";
 char space[] = " ";
 
+
+char *background;
+char *fileIn;
+char *fileOut;
+
  
 int exitstatus = 2;
  
 
-// Your cd command should support both absolute and relative paths.
+
+/*
+*
+*/
+void checkRedirection(){
+	
+	int i = 0;
+	
+	while(commands[i] != NULL) {
+		printf("%s\n", commands[i]);
+	}
+}
+
+
 
 /*
 * This function changes directories
 * if no argument is given after cd, chang to the home environment, otherwise chang to the directory given
 */
 void changeDir() {
-	// code in program, if user command is cd followed by file, or file descriptor, try to change the directory
-	// if chdir or fchdir doesn't fail then change directories, else cant change directories
+	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	
-	
+		
 	int x;
 		
 	if(commands[1] == NULL) {
@@ -85,12 +99,7 @@ void changeDir() {
 //		else {
 //			printf("change was succesfull \n");
 //		}
-	}
-	
-	
-	
-	
-	
+	}	
 }
 
 
@@ -161,8 +170,8 @@ void execCommands() {
 }
 
 /*
-* this checks if the argument given is a builtin command
-* otherwise passes it to exec
+* this checks if the argument given is a builtin command or a commented or blank line
+* if not builtin, comment line, or blank line, passes command to exec
 */
 void BuiltInCommands() {
 	
@@ -233,10 +242,6 @@ void *parseCommand(char *currLine)
       	// cuont for number of cammands entered
         commandCount++;
    }
-		
-//	// check builtin commands	
-//	BuiltInCommands();
-
 }
 
 
@@ -286,14 +291,13 @@ void commandPrompt() {
 			// parse the given command
 			userCommand = parseCommand(userInput);
 			
+			
+			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
 		
 		//check if usrInput contains $$
 		//check & is at the end
-	//		BuiltInCommands(userCommand);
-		
-		// check if userCommand is one of the builtIns cd, status, exit, if so go to builtIns(userCommand), else fork and got to all others
 	}
 }
 
@@ -301,7 +305,7 @@ void commandPrompt() {
 
 int main(){
 	
-
+	// displays the command prompt
 	commandPrompt();
 
 }
