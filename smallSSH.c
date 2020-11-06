@@ -50,7 +50,7 @@ char *fileIn;
 char *fileOut;
 
 char takIn[] = { "<" };
-char output[] = { ">" };
+char outPut[] = { ">" };
 
 
 int exitstatus = 2;
@@ -68,7 +68,11 @@ void checkRedirection(){
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
 			fileIn = commands[i-1];
-			printf("%s", commands[i-1]);
+		//	printf("%s", commands[i-1]);
+		}
+		if(strcmp(commands[i], outPut) == 0) {
+			outPut = commands[i+1];
+			printf("%s", commands[i+1]);
 		}
 		i++;
 	}
@@ -218,7 +222,7 @@ void BuiltInCommands() {
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
-	//	execCommands();
+		execCommands();
 	}
 }
 
