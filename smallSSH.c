@@ -7,6 +7,16 @@
 
 
 
+// to run the code
+// gcc --std=gnu99 -o smallsh smallSSH.c
+// ./smallsh
+
+// to run with grading script
+// chmod +x ./p3testscript
+// ./p3testscript 2 > & 2
+
+
+
 #include <stdio.h> 
 #include <stdlib.h>  
 #include <unistd.h>   
@@ -142,18 +152,13 @@ void exitProg() {
 	exit(0);
 }
 
-//execlp("ls", "ls", "-al", NULL);
-//  /* exec returns only on error */
-//  perror("execlp");   
-//  exit(EXIT_FAILURE);
-//}
 
-
+// most of this code came from the examples the instructor gave us in the lecture
 /*
-*
+*	runs the other commands
 */
 void execCommands() {
-	//	char *newargv[] = { "/bin/ls", "-al", NULL };
+
 	int childStatus;
 
 	// Fork a new process
@@ -166,7 +171,7 @@ void execCommands() {
   switch(spawnPid){
     case -1:
       perror("fork()\n");
-      exit(1);
+    //  exit(1);
       break;
     case 0:
       // In the child process
@@ -182,7 +187,7 @@ void execCommands() {
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-      exit(0);
+
       break;
   }
 }
