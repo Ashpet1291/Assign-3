@@ -198,11 +198,19 @@ void BuiltInCommands() {
 	char exitProgram[] = "exit";
 	char echo1[]= "echo"; 
 	
-	if(commands[0] == NULL){
+	
+//		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
+//    
+//		}
+//		
+//		else
+//	
+	
+	if(strncmp(comment, commands[0]], strlen(comment) == 0) || (strncmp(space, commands[0], strlen(space) == 0))){
 	//	exitProgra = 1;
 	}
 	//	may have to use string compare to compare
-	if(strcmp(commands[0], cd) == 0) {
+	else if(strcmp(commands[0], cd) == 0) {
 //		printf("this is cd");
 		changeDir();	
 	}
@@ -332,11 +340,6 @@ void commandPrompt() {
 			strcat(userInput, expandCommand);	
 		}
 	
-		if(strncmp(comment, userInput, strlen(comment) == 0) || (strncmp(space, userInput, strlen(space) == 0))) {
-    
-		}
-		
-		else
 	
 			userCommand = parseCommand(userInput);
 		
