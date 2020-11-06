@@ -302,7 +302,7 @@ void commandPrompt() {
 	
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
-//	int commandSize;
+	int commandSize1;
 	
 	
 	while(exitstatus != 1){
@@ -314,9 +314,9 @@ void commandPrompt() {
 		fgets(userInput, MAX_LIMIT, stdin); 
 		
 		// strip the newline
-		commandSize = strlen(userInput);
-		if(userInput[commandSize-1] == '\n' )
-		   	userInput[commandSize-1] = 0;
+		commandSize1 = strlen(userInput);
+		if(userInput[commandSize1-1] == '\n' )
+		   	userInput[commandSize1-1] = 0;
 
 		
 
