@@ -206,8 +206,12 @@ void BuiltInCommands() {
 //		else
 //	
 	
-	if(strncmp(comment, commands[0], strlen(comment)) == 0) || (strncmp(space, commands[0], strlen(space)) == 0){
+	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
+		
+	}
 	//	exitProgra = 1;
+	else if(strncmp(space, commands[0], strlen(space)) == 0){
+		
 	}
 	//	may have to use string compare to compare
 	else if(strcmp(commands[0], cd) == 0) {
