@@ -54,11 +54,8 @@ char *argOut;
 char takIn[] = { "<" };
 char outPut[] = { ">" };
 
-// for loop for command prompt
-int count = 2;
 
-//sets exit status
-int exitStatus;
+int exitstatus = 2;
  
 
 
@@ -220,7 +217,7 @@ void BuiltInCommands() {
 	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
-		count = 1;
+		exitstatus = 1;
 		exitProg();
 	}
 	else if (strcmp(commands[0], echo1) == 0) {
@@ -310,7 +307,7 @@ void commandPrompt() {
 	int commandSize1;
 	
 	
-	while(count != 1){
+	while(exitstatus != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -357,6 +354,7 @@ void commandPrompt() {
 		//	else
 		// fork	
 		
+
 		//check & is at the end
 	}
 }
