@@ -172,7 +172,7 @@ void execCommands() {
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
       // Replace the current program with "/bin/ls"
-      execlp("ls", process, NULL);
+      execlp(process, process, NULL);
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
