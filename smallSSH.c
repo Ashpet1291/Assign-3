@@ -71,7 +71,7 @@ void checkRedirection(){
 		//	printf("%s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
-			outPut = commands[i+1];
+			fileOut = commands[i+1];
 			printf("%s", commands[i+1]);
 		}
 		i++;
