@@ -147,11 +147,11 @@ void status(int exitVal) {
 void exitProg() {
 	//kill all processs and then exit
 //	printf("this is in the exit function");
-	int exitOn =0;
+	int exitOn;
 	
 	exitOn = exitStatus;
 	
-	exit(exitOn);
+	exit(0);
 }
 
 
@@ -358,7 +358,7 @@ void commandPrompt() {
 			
 			// if commands at 0 contains cd or status or exit
 			// check builtin commands	
-	//		BuiltInCommands();
+			BuiltInCommands();
 			
 		//	else
 		// fork	
