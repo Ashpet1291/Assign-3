@@ -74,40 +74,24 @@ void changeDir() {
 //	char *homeDir = getenv("HOME");
 	
 	
-//	int ch;
-	
-//	if(userComm->command != NULL) {
-//		
-//	}
-//	else
-//		ch = chdir(directory);
-//	
-//	if(ch<0) {
-//		printf("chdir change of directory NOT successful \n");
-//	}
-//	else {
-//		printf("change was succesfull \n");
-//	}
-	
-	
 	int x;
 		
 	if(commands[1] == NULL) {
 	x =	chdir(getenv("HOME"));
-		if(x == 0) {
-			printf("change was succesfull \n");
-		}
+//		if(x == 0) {
+//		//	printf("change was succesfull \n");
+//		}
 //		printf("%d\n", args);
 	}
 	
 	else {	
 	
 		int ch;
-//	ch = chdir(directory);
-	//	printf("%d\n", args);
+		//	ch = chdir(directory);
+		//	printf("%d\n", args);
 		
 			
-		char *directory = "./happy";
+		char *directory = commands[1];
 		ch = chdir(directory);
 	
 //		if(ch<0) {
