@@ -48,6 +48,8 @@ char space[] = " ";
 char *background;
 char *fileIn;
 char *fileOut;
+char *argIn;
+char *argOut;
 
 char takIn[] = { "<" };
 char outPut[] = { ">" };
@@ -67,11 +69,13 @@ void checkRedirection(){
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
-			fileIn = commands[i-1];
-			printf("this is fileIn %s", commands[i-1]);
+			fileIn = commands[i];
+			argIn = commands[i-1];
+			printf("this is fileIn %s", commands[i]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
+			argOut = commands[i];
 			printf("this is fileOut %s", commands[i+1]);
 		}
 		i++;
@@ -101,7 +105,7 @@ void changeDir() {
 	
 		//	int ch;
 		//	ch = chdir(directory);
-	
+	// if commands doesn't doesn't start with ./-append to front 
 		char *directory = commands[1];
 		chdir(directory);
 	
@@ -239,9 +243,25 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
+	int commandSize = 0;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
+	
+	char *point = strstr(looptoken, expansion);	
+		
+	// this means there is expansion to be done
+	if(point != NULL) {
+			
+	//	printf("point isn't null, this is pid: %d \n", getpid());
+		char expandCommand[MAX_LIMIT];
+		commandSize = (strlen(looptoken) - 2);
+		strncpy(expandCommand, looptoken, commandSize);
+		strcpy(looptoken, expandCommand);
+		// maybe need to do getppid;
+		sprintf(expandCommand, "%d", getpid());
+		strcat(looptoken, expandCommand);	
+	}
 	
    // loop through the string to extract all other tokens 
 	while(looptoken != NULL ) {
@@ -250,6 +270,21 @@ void *parseCommand(char *currLine)
     	// put items in pointer array to be referenced later
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
+    	
+    	char *point1 = strstr(looptoken, expansion);	
+		
+		// this means there is expansion to be done
+		if(point1 != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			commandSize = (strlen(looptoken) - 2);
+			strncpy(expandCommand, looptoken, commandSize);
+			strcpy(looptoken, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(looptoken, expandCommand);	
+		}
       
       	// cuont for number of cammands entered
         commandCount++;
@@ -267,7 +302,7 @@ void commandPrompt() {
 	
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
-	int commandSize;
+//	int commandSize;
 	
 	
 	while(exitstatus != 1){
@@ -285,20 +320,20 @@ void commandPrompt() {
 
 		
 
-		char *point = strstr(userInput, expansion);	
-		
-		// this means there is expansion to be done
-		if(point != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
-			commandSize = (strlen(userInput) - 2);
-			strncpy(expandCommand, userInput, commandSize);
-			strcpy(userInput, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);	
-		}
+//		char *point = strstr(userInput, expansion);	
+//		
+//		// this means there is expansion to be done
+//		if(point != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LIMIT];
+//			commandSize = (strlen(userInput) - 2);
+//			strncpy(expandCommand, userInput, commandSize);
+//			strcpy(userInput, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(expandCommand, "%d", getpid());
+//			strcat(userInput, expandCommand);	
+//		}
 	
 			// parse the given command
 			userCommand = parseCommand(userInput);
