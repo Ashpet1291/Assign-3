@@ -55,7 +55,9 @@ char takIn[] = { "<" };
 char outPut[] = { ">" };
 
 
-int exitstatus = 2;
+int count = 2;
+
+int exitStatus;
  
 
 
@@ -69,13 +71,15 @@ void checkRedirection(){
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
-			fileIn = commands[i];
+			fileIn = commands[i+1];
 			argIn = commands[i-1];
-			printf("this is fileIn %s", commands[i]);
+			printf("this is fileIn %s", commands[i+1]);
+			printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
 			printf("this is fileOut %s", commands[i+1]);
+			printf("this is ardOut %s", commands[i-1]);
 		}
 		i++;
 	}
@@ -216,7 +220,7 @@ void BuiltInCommands() {
 	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
-		exitstatus = 1;
+		count = 1;
 		exitProg();
 	}
 	else if (strcmp(commands[0], echo1) == 0) {
@@ -273,7 +277,7 @@ void commandPrompt() {
 	int commandSize;
 	
 	
-	while(exitstatus != 1){
+	while(count != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
