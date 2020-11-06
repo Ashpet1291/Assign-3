@@ -232,7 +232,7 @@ void BuiltInCommands() {
 */
 void *parseCommand(char *currLine)
 {
-	struct instructions *currItem = malloc(sizeof(struct instructions));
+//	struct instructions *currItem = malloc(sizeof();
 
     // For use with strtok_r
     char *saveptr;
@@ -296,9 +296,9 @@ void *parseCommand(char *currLine)
 */
 void commandPrompt() {
 	
-	struct instructions *userCommand = malloc(sizeof(struct instructions));
+	char *userCommand = malloc(sizeof(userCommand));
 	
-	buffer = (char *)malloc(bufsize * sizeof(char));
+//	buffer = (char *)malloc(bufsize * sizeof(char));
 	
 	int commandSize;
 	
