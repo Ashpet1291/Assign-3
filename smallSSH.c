@@ -66,7 +66,7 @@ void checkRedirection(){
 	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
-		if(strncmp(commands[i], takIn) == 0) {
+		if(strcmp(commands[i], takIn) == 0) {
 			fileIn = commands[i-1];
 			printf("%s", commands[i-1]);
 		}
