@@ -7,9 +7,9 @@
 
 
 
-#include <stdio.h>  // for perror
-#include <stdlib.h>   // for exit
-#include <unistd.h>   // for execv
+#include <stdio.h> 
+#include <stdlib.h>  
+#include <unistd.h>   
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -28,7 +28,6 @@ char userInput[MAX_LIMIT];
 
 char *commands[MAX_LIMIT];
 
-FILE *fp;
 
 // var for expansion
 char expansion[] = "$$";
@@ -43,7 +42,7 @@ char space[] = " ";
         // and accept the next string 
  //       fflush(stdin); 
  
-int exitProgra = 2;
+int exitstatus = 2;
  
 
 
@@ -116,20 +115,6 @@ void changeDir() {
 }
 
 
-//char *directory = "/tmp";
-//int ret;
-//
-//ret = chdir (directory);
-
-
-// //pass your path in the function
-//    int ch=chdir("xxx");
-//    /*if the change of directory was successful it will print successful otherwise it will print not successful*/
-//    if(ch<0)
-//    printf("chdir change of directory not successful\n");
-//    else
-//    printf("chdir change of directory successful");
-
 /*
 *
 */
@@ -164,13 +149,19 @@ void exitProg() {
 //}
 
 
-
+/*
+*
+*/
 void execCommands() {
-//	char *newargv[] = { "/bin/ls", "-al", NULL };
-  int childStatus;
+	//	char *newargv[] = { "/bin/ls", "-al", NULL };
+	int childStatus;
 
-  // Fork a new process
-  pid_t spawnPid = fork();
+	// Fork a new process
+	pid_t spawnPid = fork();
+  
+	char *process;
+  
+	process = commands[0];
 
   switch(spawnPid){
     case -1:
@@ -179,9 +170,9 @@ void execCommands() {
       break;
     case 0:
       // In the child process
-      printf("CHILD(%d) running ls command\n", getpid());
+  //    printf("CHILD(%d) running ls command\n", getpid());
       // Replace the current program with "/bin/ls"
-      execlp("ls", "ls", "-al", NULL);
+      execlp("ls", process, NULL);
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
@@ -196,7 +187,10 @@ void execCommands() {
   }
 }
 
-
+/*
+* this checks if the argument given is a builtin command
+* otherwise passes it to exec
+*/
 void BuiltInCommands() {
 	
 	char cd[] = "cd";
@@ -228,7 +222,7 @@ void BuiltInCommands() {
 
 
 /*
-*
+*	parses the user input from user
 */
 void *parseCommand(char *currLine)
 {
@@ -292,7 +286,8 @@ void *parseCommand(char *currLine)
 
 
 /*
-*
+* This starts the prompt and display : for the user
+* gets user input
 */
 void commandPrompt() {
 	
@@ -303,7 +298,7 @@ void commandPrompt() {
 	int commandSize;
 	
 	
-	while(exitProgra != 1){
+	while(exitstatus != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -317,15 +312,7 @@ void commandPrompt() {
 		   	userInput[commandSize-1] = 0;
 
 		
-		
-//		// strip the newline form the input
-//		char str[80];
-//		int len;
-//		fgets(str,sizeof(str),fp);
-//		// remove newline
-//		len = strlen(str);
-//		if( str[len-1] == '\n' )
-//    	str[len-1] = 0;
+
 		char *point = strstr(userInput, expansion);	
 		
 		// this means there is expansion to be done
@@ -346,17 +333,8 @@ void commandPrompt() {
 		}
 		
 		else
-	//	if(point != NULL) {
-	//	printf("%d", getpid());
-	//	}
 	
-		userCommand = parseCommand(userInput);
-		//printf("This is comment %s", comment);
-		//printf("this is space%s:", space);
-		//puts(userInput);
-		// checking for string and comments
-		
-	//	printf("usercommand command %s", userCommand->command);
+			userCommand = parseCommand(userInput);
 		
 		//check if usrInput contains $$
 		//check & is at the end
