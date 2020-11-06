@@ -93,10 +93,10 @@ void changeDir() {
 	int x;
 		
 	if(commands[1] == NULL) {
-	x =	chdir(getenv("HOME"));
-		if(x == 0) {
-			printf("change was succesfull \n");
-		}
+	chdir(getenv("HOME"));
+//		if(x == 0) {
+//			printf("change was succesfull \n");
+//		}
 //		printf("%d\n", args);
 	}
 	
