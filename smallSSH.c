@@ -196,6 +196,7 @@ void BuiltInCommands() {
 	char cd[] = "cd";
 	char stats[] = "status";
 	char exitProgram[] = "exit";
+	char echo1[]= "echo"; 
 	
 	if(commands[0] == NULL){
 	//	exitProgra = 1;
@@ -213,6 +214,9 @@ void BuiltInCommands() {
 //		printf("this is exit");
 		exitstatus = 1;
 		exitProg();
+	}
+	else if (strcmp(commands[0], echo1) == 0) {
+		
 	}
 	else {
 		// its a dfferent command and pass it to execv
