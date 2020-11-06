@@ -49,7 +49,10 @@ char *background;
 char *fileIn;
 char *fileOut;
 
- 
+char takIn[] = { < };
+char output[] = { > };
+
+
 int exitstatus = 2;
  
 
@@ -62,12 +65,13 @@ void checkRedirection(){
 	int i = 0;
 	
 	while(commands[i] != NULL) {
-		printf("%s\n", commands[i]);
+	//	printf("%s\n", commands[i]);
+		if(strncmp(commands[i],)
 		i++;
 	}
 }
 
-
+//(strncmp(comment, commands[0], strlen(comment)) == 0)
 
 /*
 * This function changes directories
