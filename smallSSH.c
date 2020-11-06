@@ -91,7 +91,7 @@ void changeDir() {
 		//	printf("%d\n", args);
 		
 			
-		char *directory = commands[1];
+		char *directory = "./happy";
 		ch = chdir(directory);
 	
 //		if(ch<0) {
