@@ -358,7 +358,7 @@ void commandPrompt() {
 			
 			// if commands at 0 contains cd or status or exit
 			// check builtin commands	
-			BuiltInCommands();
+	//		BuiltInCommands();
 			
 		//	else
 		// fork	
