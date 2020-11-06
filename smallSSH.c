@@ -49,8 +49,8 @@ char *background;
 char *fileIn;
 char *fileOut;
 
-char takIn[] = { < };
-char output[] = { > };
+char takIn[] = { "<" };
+char output[] = { ">" };
 
 
 int exitstatus = 2;
@@ -66,7 +66,10 @@ void checkRedirection(){
 	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
-		if(strncmp(commands[i],)
+		if(strncmp(commands[i], takIn) {
+			fileIn = commands[i-1];
+			printf("%s", commands[i-1]);
+		}
 		i++;
 	}
 }
