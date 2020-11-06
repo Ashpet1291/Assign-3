@@ -74,21 +74,37 @@ void changeDir() {
 //	char *homeDir = getenv("HOME");
 	
 	
+//	int ch;
+	
+//	if(userComm->command != NULL) {
+//		
+//	}
+//	else
+//		ch = chdir(directory);
+//	
+//	if(ch<0) {
+//		printf("chdir change of directory NOT successful \n");
+//	}
+//	else {
+//		printf("change was succesfull \n");
+//	}
+	
+	
 	int x;
 		
 	if(commands[1] == NULL) {
 	x =	chdir(getenv("HOME"));
-//		if(x == 0) {
-//		//	printf("change was succesfull \n");
-//		}
+		if(x == 0) {
+			printf("change was succesfull \n");
+		}
 //		printf("%d\n", args);
 	}
 	
 	else {	
 	
 		int ch;
-		//	ch = chdir(directory);
-		//	printf("%d\n", args);
+//	ch = chdir(directory);
+	//	printf("%d\n", args);
 		
 			
 		char *directory = "./happy";
@@ -136,6 +152,12 @@ void exitProg() {
 	exit(0);
 }
 
+//execlp("ls", "ls", "-al", NULL);
+//  /* exec returns only on error */
+//  perror("execlp");   
+//  exit(EXIT_FAILURE);
+//}
+
 
 // most of this code came from the examples the instructor gave us in the lecture
 /*
@@ -155,7 +177,7 @@ void execCommands() {
   switch(spawnPid){
     case -1:
       perror("fork()\n");
-    //  exit(1);
+      exit(1);
       break;
     case 0:
       // In the child process
@@ -171,7 +193,7 @@ void execCommands() {
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-
+      exit(0);
       break;
   }
 }
