@@ -181,7 +181,7 @@ void execCommands() {
       // In the parent process
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
-      printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
       exit(0);
       break;
   }
