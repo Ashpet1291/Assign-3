@@ -63,6 +63,7 @@ void checkRedirection(){
 	
 	while(commands[i] != NULL) {
 		printf("%s\n", commands[i]);
+		i++;
 	}
 }
 
