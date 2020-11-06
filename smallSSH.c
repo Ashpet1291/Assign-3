@@ -54,8 +54,11 @@ char *argOut;
 char takIn[] = { "<" };
 char outPut[] = { ">" };
 
+// for loop for command prompt
+int count = 2;
 
-int exitstatus = 2;
+//sets exit status
+int exitStatus;
  
 
 
@@ -72,11 +75,13 @@ void checkRedirection(){
 			fileIn = commands[i];
 			argIn = commands[i-1];
 			printf("this is fileIn %s", commands[i]);
+			printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
 			argOut = commands[i];
 			printf("this is fileOut %s", commands[i+1]);
+			printf("this is ardOut %s", commands[i]);
 		}
 		i++;
 	}
@@ -142,7 +147,11 @@ void status(int exitVal) {
 void exitProg() {
 	//kill all processs and then exit
 //	printf("this is in the exit function");
-	exit(0);
+	int exitOn =0;
+	
+	exitOn = exitStatus;
+	
+	exit(exitOn);
 }
 
 
@@ -217,7 +226,7 @@ void BuiltInCommands() {
 	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
-		exitstatus = 1;
+		count = 1;
 		exitProg();
 	}
 	else if (strcmp(commands[0], echo1) == 0) {
@@ -307,7 +316,7 @@ void commandPrompt() {
 	int commandSize1;
 	
 	
-	while(exitstatus != 1){
+	while(count != 1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -341,11 +350,19 @@ void commandPrompt() {
 			userCommand = parseCommand(userInput);
 			
 			
+			
+		// check if entire argument contains < or > 
+		// if so, check redir 
+		// fork from there
 			checkRedirection();
+			
+			// if commands at 0 contains cd or status or exit
 			// check builtin commands	
 			BuiltInCommands();
+			
+		//	else
+		// fork	
 		
-		//check if usrInput contains $$
 		//check & is at the end
 	}
 }
