@@ -107,8 +107,8 @@ void changeDir() {
 	//	printf("%d\n", args);
 		
 			
-		char *directory = "./happy";
-		ch = chdir(directory);
+		char *directory = commands[1];
+		chdir(directory);
 	
 //		if(ch<0) {
 //			printf("chdir change of directory NOT successful \n");
@@ -152,12 +152,6 @@ void exitProg() {
 	exit(0);
 }
 
-//execlp("ls", "ls", "-al", NULL);
-//  /* exec returns only on error */
-//  perror("execlp");   
-//  exit(EXIT_FAILURE);
-//}
-
 
 // most of this code came from the examples the instructor gave us in the lecture
 /*
@@ -193,7 +187,7 @@ void execCommands() {
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-      exit(0);
+
       break;
   }
 }
