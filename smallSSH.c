@@ -6,6 +6,7 @@
 // https://stackoverflow.com/ for trouble shooting and looking up how to o a specific task
 
 
+
 #include <stdio.h>  // for perror
 #include <stdlib.h>   // for exit
 #include <unistd.h>   // for execv
@@ -14,17 +15,8 @@
 #include <sys/wait.h>
 
 
-#define MAX_LIMIT 60
+#define MAX_LIMIT 100
 
-struct instructions {
-	char *command;
-	char *arguments;
-	char *redirIn;
-	char *inputFile;
-	char *redirOut;
-	char *outputFile;
-	char *runBack;
-};
 
 // counts total items in string
 int itemCount = 0;
@@ -47,9 +39,6 @@ char space[] = " ";
 
 
 
-char *buffer;
-    size_t bufsize = 32;
-    size_t characters;
 // used to clear the buffer 
         // and accept the next string 
  //       fflush(stdin); 
@@ -92,7 +81,7 @@ void changeDir() {
 //	}
 	
 	
-	int x =0;
+	int x;
 		
 	if(commands[1] == NULL) {
 	x =	chdir(getenv("HOME"));
@@ -104,7 +93,7 @@ void changeDir() {
 	
 	else {	
 	
-		int ch = 0;
+		int ch;
 //	ch = chdir(directory);
 	//	printf("%d\n", args);
 		
@@ -112,12 +101,12 @@ void changeDir() {
 		char *directory = "./happy";
 		ch = chdir(directory);
 	
-		if(ch<0) {
-			printf("chdir change of directory NOT successful \n");
-		}
-		else {
-			printf("change was succesfull \n");
-		}
+//		if(ch<0) {
+//			printf("chdir change of directory NOT successful \n");
+//		}
+//		else {
+//			printf("change was succesfull \n");
+//		}
 	}
 	
 	
@@ -168,8 +157,43 @@ void exitProg() {
 	exit(0);
 }
 
+//execlp("ls", "ls", "-al", NULL);
+//  /* exec returns only on error */
+//  perror("execlp");   
+//  exit(EXIT_FAILURE);
+//}
+
+
+
 void execCommands() {
-	
+//	char *newargv[] = { "/bin/ls", "-al", NULL };
+  int childStatus;
+
+  // Fork a new process
+  pid_t spawnPid = fork();
+
+  switch(spawnPid){
+    case -1:
+      perror("fork()\n");
+      exit(1);
+      break;
+    case 0:
+      // In the child process
+      printf("CHILD(%d) running ls command\n", getpid());
+      // Replace the current program with "/bin/ls"
+      execlp("ls", "ls", "-al", NULL);
+      // exec only returns if there is an error
+      perror("execlp");
+      exit(EXIT_FAILURE);
+      break;
+    default:
+      // In the parent process
+      // Wait for child's termination
+      spawnPid = waitpid(spawnPid, &childStatus, 0);
+      printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      exit(0);
+      break;
+  }
 }
 
 
@@ -198,6 +222,7 @@ void BuiltInCommands() {
 	}
 	else {
 		// its a dfferent command and pass it to execv
+		execCommands();
 	}
 }
 
