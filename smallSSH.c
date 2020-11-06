@@ -211,7 +211,7 @@ void BuiltInCommands() {
 	}
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
-		exitProgra = 1;
+		exitstatus = 1;
 		exitProg();
 	}
 	else {
