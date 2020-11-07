@@ -539,7 +539,7 @@ void commandPrompt() {
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
-		//	strcat(userInput, expandCommand);	
+			strcat(userInput, expandCommand);	
 		}
 	
 			// parse the given command
