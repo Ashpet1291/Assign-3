@@ -387,9 +387,9 @@ void BuiltInCommands() {
 		count = 1;
 		exitProg();
 	}
-	else if (strcmp(commands[0], echo1) == 0) {
-		
-	}
+//	else if (strcmp(commands[0], echo1) == 0) {
+//		
+//	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
