@@ -410,7 +410,7 @@ void BuiltInCommands() {
 void *parseCommand(char *currLine)
 {
 //	struct instructions *currItem = malloc(sizeof();
-
+	int commandSize;
        
 	int comCount=0;
 	commandCount = 0;
