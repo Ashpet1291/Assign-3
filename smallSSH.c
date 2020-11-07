@@ -102,7 +102,6 @@ void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
 	char absFile[] = { "./" };
-	int x;
 	
 	char tempcomm[] = {"0"};
 		
@@ -192,7 +191,7 @@ void execCommands() {
   //    printf("CHILD(%d) running ls command\n", getpid());
   
   	  // pass the given argument to exec function
-      execlp("ls", process, NULL);
+      execlp(process, process, NULL);
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
@@ -247,7 +246,25 @@ void BuiltInCommands() {
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
-		execCommands();
+		checkRedirection();
+		
+		if((inPresent == 1) && outPresent == 1) {
+			// do exe with args for both
+			printf("both input and output are in command- do exec and dup for both");
+		}
+		else if (inPresent == 1) {
+			// do exec with one arg
+			printf("Input exec and dup for in");
+		}
+		else if (outPresent == 1) {
+			//do out with exec and 1 arg
+			printf("Input exec and dup for out");
+		}
+		else {
+			// do exec with no args
+			printf("just do exec");
+		}
+//		execCommands();
 	}
 }
 
