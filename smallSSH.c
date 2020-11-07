@@ -247,7 +247,7 @@ void BuiltInCommands() {
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
-	//	execCommands();
+		execCommands();
 	}
 }
 
