@@ -66,7 +66,7 @@ int bothPresent = 0;
 
 
 /*
-*
+* This checks if file redirection is included in the arguments, if so it passes the args to an exec function
 */
 void checkRedirection(){
 	
@@ -207,6 +207,67 @@ void execCommands() {
       break;
   }
 }
+
+
+
+
+void execCommandsFileRedir() {
+	
+	FILE *in;
+	FILE *out;
+	
+
+	int childStatus1;
+
+	// Fork a new process
+	pid_t spawnPid = fork();
+  
+	char *process1;
+  
+	process1 = argIn;
+
+  switch(spawnPid){
+    case -1:
+      perror("fork()\n");
+      exit(1);
+      break;
+    case 0:
+      // In the child process
+  //    printf("CHILD(%d) running ls command\n", getpid());
+  	  in = fopen(fileIn,"r");
+  	  
+  	  int fI= fileno(in);
+  	  
+  	  
+  	  out = fopen(fileOut,"a");
+  	  
+  	  int fO = fileno(out);
+  	  
+  	  
+  	  dup2(fI, 0);
+  	  
+  	  dup2(fO, 1);
+  	  
+  	  
+  	  fclose(in);
+      fclose(out);
+  	  
+  	  // pass the given argument to exec function
+      execlp(process1, process1, NULL);
+      // exec only returns if there is an error
+      perror("execlp");
+      exit(EXIT_FAILURE);
+      break;
+    default:
+      // In the parent process
+      // Wait for child's termination
+      spawnPid = waitpid(spawnPid, &childStatus1, 0);
+    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      break;
+  }
+}
+
+
 
 /*
 * this checks if the argument given is a builtin command or a commented or blank line
