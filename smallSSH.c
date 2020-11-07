@@ -487,7 +487,7 @@ void *parseCommand(char *currLine)
 			strcpy(looptoken, expandCommand);
 			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
-			strcat(looptoken, expandCommand);	
+		//	strcat(looptoken, expandCommand);	
 		}
       	
       
