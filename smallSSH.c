@@ -54,12 +54,15 @@ char *argOut;
 char takIn[] = { "<" };
 char outPut[] = { ">" };
 
-// for loop for command prompt
+
 int count = 2;
 
-//sets exit status
 int exitStatus;
- 
+
+
+int inPresent = 0;
+int outPresent = 0;
+int bothPresent = 0;
 
 
 /*
@@ -72,16 +75,18 @@ void checkRedirection(){
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
-			fileIn = commands[i=1];
+			fileIn = commands[i+1];
 			argIn = commands[i-1];
-//			printf("this is fileIn %s", commands[i]);
-//			printf("this is argIn %s", commands[i-1]);
+			inPresent = 1;
+		//	printf("this is fileIn %s", commands[i+1]);
+		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
 			argOut = commands[i-1];
-//			printf("this is fileOut %s", commands[i+1]);
-//			printf("this is ardOut %s", commands[i]);
+			outPresent = 1;
+		//	printf("this is fileOut %s", commands[i+1]);
+		//	printf("this is ardOut %s", commands[i-1]);
 		}
 		i++;
 	}
@@ -96,8 +101,10 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-		
+	char absFile[] = { "./" }
 	int x;
+	
+	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
 	chdir(getenv("HOME"));
@@ -110,9 +117,27 @@ void changeDir() {
 	
 		//	int ch;
 		//	ch = chdir(directory);
-	// if commands doesn't doesn't start with ./-append to front 
-		char *directory = commands[1];
-		chdir(directory);
+		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
+			char *directory = commands[1];
+			chdir(directory);
+		}
+		else {
+			// append ./ to change directories
+			strcat(absFile, commands[1]);
+			
+			// now directory name gets argy
+			char *directory1 = absFile;
+			chdir(directory1);
+			//strcpy(tempcomm, absFile); 			
+		}
+	
+
+	char src[] = "Look Here";
+	char dest[DEST_SIZE] = "Unimaginable";
+
+	strcat(dest, src);
+	printf(dest);
+	
 	
 //		if(ch<0) {
 //			printf("chdir change of directory NOT successful \n");
@@ -147,10 +172,6 @@ void status(int exitVal) {
 void exitProg() {
 	//kill all processs and then exit
 //	printf("this is in the exit function");
-	int exitOn =0;
-	
-	exitOn = exitStatus;
-	
 	exit(0);
 }
 
@@ -236,6 +257,20 @@ void BuiltInCommands() {
 	else {
 		// its a dfferent command and pass it to execv
 	//	execCommands();
+		checkRedirection();
+		
+		if((inPresent == 1) && outPresent == 1) {
+			// do exe with args for both
+		}
+		else if (inPresent == 1) {
+			// do exec with one arg
+		}
+		else if (outPresent == 1) {
+			//do out with exec and 1 arg
+		}
+		else {
+			// do exec with no args
+		}
 	}
 }
 
@@ -252,25 +287,9 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
-	int commandSize = 0;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
-	
-//	char *point = strstr(looptoken, expansion);	
-//		
-//	// this means there is expansion to be done
-//	if(point != NULL) {
-//			
-//	//	printf("point isn't null, this is pid: %d \n", getpid());
-//		char expandCommand[MAX_LIMIT];
-//		commandSize = (strlen(looptoken) - 2);
-//		strncpy(expandCommand, looptoken, commandSize);
-//		strcpy(looptoken, expandCommand);
-//		// maybe need to do getppid;
-//		sprintf(expandCommand, "%d", getpid());
-//		strcat(looptoken, expandCommand);	
-//	}
 	
    // loop through the string to extract all other tokens 
 	while(looptoken != NULL ) {
@@ -279,10 +298,14 @@ void *parseCommand(char *currLine)
     	// put items in pointer array to be referenced later
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
-    	
-    	
-    	
-    	char *point1 = strstr(looptoken, expansion);	
+      
+      	// cuont for number of cammands entered
+        commandCount++;
+   }
+   
+   
+   
+   	char *point1 = strstr(looptoken, expansion);	
 		
 		// this means there is expansion to be done
 		if(point1 != NULL) {
@@ -296,10 +319,7 @@ void *parseCommand(char *currLine)
 			sprintf(expandCommand, "%d", getpid());
 			strcat(looptoken, expandCommand);	
 		}
-      
-      	// cuont for number of cammands entered
-        commandCount++;
-   }
+     
 }
 
 
@@ -313,7 +333,7 @@ void commandPrompt() {
 	
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
-	int commandSize1;
+	int commandSize;
 	
 	
 	while(count != 1){
@@ -325,42 +345,36 @@ void commandPrompt() {
 		fgets(userInput, MAX_LIMIT, stdin); 
 		
 		// strip the newline
-		commandSize1 = strlen(userInput);
-		if(userInput[commandSize1-1] == '\n' )
-		   	userInput[commandSize1-1] = 0;
+		commandSize = strlen(userInput);
+		if(userInput[commandSize-1] == '\n' )
+		   	userInput[commandSize-1] = 0;
 
 		
 
-//		char *point = strstr(userInput, expansion);	
-//		
-//		// this means there is expansion to be done
-//		if(point != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			commandSize = (strlen(userInput) - 2);
-//			strncpy(expandCommand, userInput, commandSize);
-//			strcpy(userInput, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(expandCommand, "%d", getpid());
-//			strcat(userInput, expandCommand);	
-//		}
+		char *point = strstr(userInput, expansion);	
+		
+		// this means there is expansion to be done
+		if(point != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			commandSize = (strlen(userInput) - 2);
+			strncpy(expandCommand, userInput, commandSize);
+			strcpy(userInput, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(userInput, expandCommand);	
+		}
 	
 			// parse the given command
 			userCommand = parseCommand(userInput);
 			
-		// check if entire argument contains < or > 
-		// if so, check redir 
-		// fork from there
-	//		checkRedirection();
 			
-			// if commands at 0 contains cd or status or exit
+			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
-			
-		//	else
-		// fork	
 		
+		//check if usrInput contains $$
 		//check & is at the end
 	}
 }
