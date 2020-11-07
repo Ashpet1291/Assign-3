@@ -59,6 +59,7 @@ char outPut[] = { ">" };
 int count = 2;
 
 int exitStatus;
+int background = 0;
 
 
 int inPresent = 0;
@@ -95,6 +96,10 @@ void checkRedirection(){
 		i++;
 	}
 }
+
+
+//if((len = strlen(str)) > 3 && !strcmp(str + len - 4, ".txt"))
+
 
 //(strncmp(comment, commands[0], strlen(comment)) == 0)
 
@@ -534,12 +539,18 @@ void commandPrompt() {
 			
 			// lower the size by 2
 			commandSize = (strlen(userInput) - 2);
+			
 			//cop 
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
 			strcat(userInput, expandCommand);	
+		}
+	
+		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+			printf("THis is in the background");
+			background = 1;
 		}
 	
 			// parse the given command
