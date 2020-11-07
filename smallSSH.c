@@ -280,6 +280,7 @@ void execCommandsFileredirect() {
 	pid_t spawnPid = fork();
   
 	char *process2;
+	char *process3;
   
 	process2 = argIn;
 	process3 = argOut;
