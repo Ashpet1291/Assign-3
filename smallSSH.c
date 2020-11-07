@@ -459,7 +459,7 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
-	int argSize = 0;
+	int commandSize = 0;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
@@ -471,26 +471,6 @@ void *parseCommand(char *currLine)
     	// put items in pointer array to be referenced later
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
-      
-      	char *point = strstr(looptoken, expansion);	
-		
-		// this means there is expansion to be done
-		if(point != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
-			
-			// lower the size by 2
-			argSize = (strlen(looptoken) - 2);
-			//copy new input in
-			strncpy(expandCommand, looptoken, argSize);
-			strcpy(looptoken, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-		//	strcat(looptoken, expandCommand);	
-		}
-      	
-      
       
       	// cuont for number of cammands entered
         commandCount++;
@@ -554,12 +534,12 @@ void commandPrompt() {
 			
 			// lower the size by 2
 			commandSize = (strlen(userInput) - 2);
-			//copy new input in
+			//cop 
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);	
+		//	strcat(userInput, expandCommand);	
 		}
 	
 			// parse the given command
