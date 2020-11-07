@@ -352,7 +352,7 @@ void commandPrompt() {
 		// check if entire argument contains < or > 
 		// if so, check redir 
 		// fork from there
-			checkRedirection();
+	//		checkRedirection();
 			
 			// if commands at 0 contains cd or status or exit
 			// check builtin commands	
