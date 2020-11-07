@@ -101,7 +101,7 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	char absFile[] = { "./" }
+	char absFile[] = { "./" };
 	int x;
 	
 	char tempcomm[] = {"0"};
@@ -130,13 +130,6 @@ void changeDir() {
 			chdir(directory1);
 			//strcpy(tempcomm, absFile); 			
 		}
-	
-
-	char src[] = "Look Here";
-	char dest[DEST_SIZE] = "Unimaginable";
-
-	strcat(dest, src);
-	printf(dest);
 	
 	
 //		if(ch<0) {
@@ -287,6 +280,8 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
+	
+	int commandSize;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
