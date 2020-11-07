@@ -73,6 +73,8 @@ void checkRedirection(){
 	int i = 0;
 	inPresent =0;
 	outPresent = 0;
+	
+	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
@@ -297,6 +299,22 @@ void *parseCommand(char *currLine)
       	// cuont for number of cammands entered
         commandCount++;
    }
+   
+   
+   char *point1 = strstr(looptoken, expansion);	
+		
+		// this means there is expansion to be done
+		if(point1 != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			commandSize = (strlen(looptoken) - 2);
+			strncpy(expandCommand, looptoken, commandSize);
+			strcpy(looptoken, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(looptoken, expandCommand);	
+		}
    
     
 }
