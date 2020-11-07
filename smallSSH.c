@@ -253,7 +253,6 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
-	int commandSize;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
@@ -272,20 +271,7 @@ void *parseCommand(char *currLine)
    
    
    
-   	char *point1 = strstr(looptoken, expansion);	
-		
-		// this means there is expansion to be done
-		if(point1 != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
-			commandSize = (strlen(looptoken) - 2);
-			strncpy(expandCommand, looptoken, commandSize);
-			strcpy(looptoken, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(looptoken, expandCommand);	
-		}
+  
    
 }
 
