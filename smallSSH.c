@@ -295,7 +295,7 @@ void execCommandsFileRedir() {
     default:
       // In the parent process
       // Wait for child's termination
-      spawnPid = waitpid(spawnPid, &childStatus, 0);
+      spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
       break;
   }
