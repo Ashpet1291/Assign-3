@@ -46,7 +46,7 @@ char comment[] = "#";
 char space[] = " ";
 
 
-char *background;
+//char *background;
 char *fileIn;
 char *fileOut;
 char *argIn;
@@ -512,6 +512,7 @@ void commandPrompt() {
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
 	int commandSize;
+	int len =0;
 	
 	
 	while(count != 1){
