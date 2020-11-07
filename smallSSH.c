@@ -268,6 +268,77 @@ void execCommandsFileRedir() {
 }
 
 
+void execCommandsFileredirect() {
+	
+	FILE *in;
+	FILE *out;
+	
+
+	int childStatus2;
+
+	// Fork a new process
+	pid_t spawnPid = fork();
+  
+	char *process2;
+  
+	process2 = argIn;
+	process3 = argOut;
+
+  switch(spawnPid){
+    case -1:
+      perror("fork()\n");
+      exit(1);
+      break;
+    case 0:
+      // In the child process
+      
+      if(inPresent == 1) {
+      	//    printf("CHILD(%d) running ls command\n", getpid());
+  	  	in = fopen(fileIn,"r");
+  	  	int fI= fileno(in);
+  	  
+  	  	dup2(fI, 0);
+  	  
+  	  
+  	 	fclose(in);
+      	
+  	  
+  	  	// pass the given argument to exec function
+      	execlp(process2, process2, NULL);
+	  }
+	  
+	  else {
+	  	
+	  	out = fopen(fileOut,"a");
+  	  
+  	  	int fO = fileno(out);
+  	  	
+  	  	dup2(fO, 1);
+  	  	
+  	  	fclose(out);
+  	  	
+  	  	
+  	  	// pass the given argument to exec function
+      	execlp(process3, process3, NULL);
+	  	
+	  }
+ 	  
+//  	  // pass the given argument to exec function
+//      execlp(process2, process2, NULL);
+      // exec only returns if there is an error
+      perror("execlp");
+      exit(EXIT_FAILURE);
+      break;
+    default:
+      // In the parent process
+      // Wait for child's termination
+      spawnPid = waitpid(spawnPid, &childStatus2, 0);
+    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      break;
+  }
+}
+
+
 
 /*
 * this checks if the argument given is a builtin command or a commented or blank line
@@ -319,11 +390,13 @@ void BuiltInCommands() {
 		}
 		else if (inPresent == 1) {
 			// do exec with one arg
-			printf("Input exec and dup for in");
+		//	printf("Input exec and dup for in");
+			execCommandsFileredirect();
 		}
 		else if (outPresent == 1) {
 			//do out with exec and 1 arg
-			printf("Input exec and dup for out");
+		//	printf("Input exec and dup for out");
+			execCommandsFileredirect();
 		}
 		else {
 			execCommands();
