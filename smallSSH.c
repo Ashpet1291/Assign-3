@@ -22,6 +22,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <pwd.h>
 
 
 #define MAX_LIMIT 100
@@ -109,10 +110,33 @@ void changeDir() {
 	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
-	chdir(getenv("HOME"));
+		
+//	chdir(getenv("HOME"));
 //		if(x == 0) {
 //			printf("change was succesfull \n");
 //		}
+
+
+
+
+	char *homedir = getenv("HOME");
+
+        if (homedir != NULL) {
+                printf("Home dir in enviroment");
+                printf("%s\n", homedir);
+        }
+
+        uid_t uid = getuid();
+        struct passwd *pw = getpwuid(uid);
+
+        if (pw == NULL) {
+                printf("Failed\n");
+                exit(EXIT_FAILURE);
+        }
+
+        printf("%s\n", pw->pw_dir);
+
+
 	}
 	
 	else {	
