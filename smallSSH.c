@@ -318,7 +318,7 @@ void execCommandsFileredirect() {
 //   }
 //}
       	/////////////////////////////check if file exist, if so open, else print error
-//  	  	if(in = fopen(fileIn,"r")) {
+  	  	if(in = fopen(fileIn,"r")) {
   	  		
   	  		int fI= fileno(in);
   	  
@@ -329,12 +329,12 @@ void execCommandsFileredirect() {
   	  
   	  		// pass the given argument to exec function
       		execlp(process2, process2, NULL);
- //       }
+        }
         
         // print error message because file doesn't exist
-//      	else {
-//      		printf("file doesn't exist");
-//	    }
+      	else {
+      		printf("file doesn't exist");
+	    }
 	  }
 	  
 	  else {
