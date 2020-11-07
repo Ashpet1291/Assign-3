@@ -533,7 +533,7 @@ void commandPrompt() {
 			char expandCommand[MAX_LIMIT];
 			
 			// lower the size by 2
-			commandSize = (strlen(userInput) - 2);
+			commandSize = (strlen(userInput) - 3);
 			//copy new input in
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
