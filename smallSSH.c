@@ -58,11 +58,15 @@ char outPut[] = { ">" };
 int count = 2;
 
 int exitStatus;
- 
+
+
+int inPresent = 0;
+int outPresent = 0;
+int bothPresent = 0;
 
 
 /*
-*
+* This checks if file redirection is included in the arguments, if so it passes the args to an exec function
 */
 void checkRedirection(){
 	
@@ -73,13 +77,16 @@ void checkRedirection(){
 		if(strcmp(commands[i], takIn) == 0) {
 			fileIn = commands[i+1];
 			argIn = commands[i-1];
-			printf("this is fileIn %s", commands[i+1]);
-			printf("this is argIn %s", commands[i-1]);
+			inPresent = 1;
+		//	printf("this is fileIn %s", commands[i+1]);
+		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
-			printf("this is fileOut %s", commands[i+1]);
-			printf("this is ardOut %s", commands[i-1]);
+			argOut = commands[i-1];
+			outPresent = 1;
+		//	printf("this is fileOut %s", commands[i+1]);
+		//	printf("this is ardOut %s", commands[i-1]);
 		}
 		i++;
 	}
@@ -94,8 +101,10 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-		
+	char absFile[] = { "./" }
 	int x;
+	
+	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
 	chdir(getenv("HOME"));
@@ -108,10 +117,19 @@ void changeDir() {
 	
 		//	int ch;
 		//	ch = chdir(directory);
-	
-		char *directory = commands[1];
-		chdir(directory);
-	
+		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
+			char *directory = commands[1];
+			chdir(directory);
+		}
+		else {
+			// append ./ to change directories
+			strcat(absFile, commands[1]);
+			
+			// now directory name gets argument plus ./ appended to front
+			char *directory1 = absFile;
+			chdir(directory1);
+			//strcpy(tempcomm, absFile); 			
+		}
 //		if(ch<0) {
 //			printf("chdir change of directory NOT successful \n");
 //		}
@@ -188,6 +206,137 @@ void execCommands() {
   }
 }
 
+// int in, out;
+//  char *grep_args[] = {"grep", "Villanova", NULL};
+//
+//  // open input and output files
+//
+//  in = open("scores", O_RDONLY);
+//  out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+//
+//  // replace standard input with input file
+//
+//  dup2(in, 0);
+//
+//  // replace standard output with output file
+//
+//  dup2(out, 1);
+//
+//  // close unused file descriptors
+//
+//  close(in);
+//  close(out);
+//
+//  // execute grep
+//
+//  execvp("grep", grep_args);
+  
+  
+  
+  
+//  
+//  FILE *fp;
+//   int c;
+//  
+//   fp = fopen("file.txt","r");
+//   while(1) {
+//      c = fgetc(fp);
+//      if( feof(fp) ) { 
+//         break ;
+//      }
+//      printf("%c", c);
+//   }
+//   fclose(fp);
+//   
+//   return(0);
+  
+  
+void execCommandsFileRedir() {
+	
+	FILE *in;
+	FILE *out;
+	
+
+	int childStatus1;
+
+	// Fork a new process
+	pid_t spawnPid = fork();
+  
+	char *process1;
+  
+	process1 = argIn;
+
+  switch(spawnPid){
+    case -1:
+      perror("fork()\n");
+      exit(1);
+      break;
+    case 0:
+      // In the child process
+  //    printf("CHILD(%d) running ls command\n", getpid());
+  	  in = fopen(fileIn,"r");
+  	  out = fopen(fileOut,"a");
+  	  
+  	  
+  	  dup2(in, 0);
+  	  
+  	  dup2(out, 1);
+  	  
+  	  
+  	  close(in);
+      close(out);
+  	  
+  	  // pass the given argument to exec function
+      execlp(process1, process1, NULL);
+      // exec only returns if there is an error
+      perror("execlp");
+      exit(EXIT_FAILURE);
+      break;
+    default:
+      // In the parent process
+      // Wait for child's termination
+      spawnPid = waitpid(spawnPid, &childStatus, 0);
+    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      break;
+  }
+}
+ 
+  
+//void execCommandArgs() {
+//
+//	int childStatus;
+//
+//	// Fork a new process
+//	pid_t spawnPid = fork();
+//  
+//	char *process;
+//  
+//	process = commands[0];
+//
+//  switch(spawnPid){
+//    case -1:
+//      perror("fork()\n");
+//      exit(1);
+//      break;
+//    case 0:
+//      // In the child process
+//  //    printf("CHILD(%d) running ls command\n", getpid());
+//  
+//  	  // pass the given argument to exec function
+//      execlp(process, process, NULL);
+//      // exec only returns if there is an error
+//      perror("execlp");
+//      exit(EXIT_FAILURE);
+//      break;
+//    default:
+//      // In the parent process
+//      // Wait for child's termination
+//      spawnPid = waitpid(spawnPid, &childStatus, 0);
+//    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+//      break;
+//  }
+//}
+
 /*
 * this checks if the argument given is a builtin command or a commented or blank line
 * if not builtin, comment line, or blank line, passes command to exec
@@ -230,8 +379,27 @@ void BuiltInCommands() {
 	else {
 		// its a dfferent command and pass it to execv
 	//	execCommands();
+		checkRedirection();
+		
+		if((inPresent == 1) && outPresent == 1) {
+			// do exe with args for both
+			printf("both input and output are in command- do exec and dup for both");
+		}
+		else if (inPresent == 1) {
+			// do exec with one arg
+			printf("Input exec and dup for in");
+		}
+		else if (outPresent == 1) {
+			//do out with exec and 1 arg
+			printf("Input exec and dup for out");
+		}
+		else {
+			// do exec with no args
+			printf("just do exec");
+		}
 	}
 }
+
 
 
 /*
@@ -261,6 +429,24 @@ void *parseCommand(char *currLine)
       	// cuont for number of cammands entered
         commandCount++;
    }
+   
+   
+   
+   	char *point1 = strstr(looptoken, expansion);	
+		
+		// this means there is expansion to be done
+		if(point1 != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			commandSize = (strlen(looptoken) - 2);
+			strncpy(expandCommand, looptoken, commandSize);
+			strcpy(looptoken, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(looptoken, expandCommand);	
+		}
+     
 }
 
 
@@ -311,7 +497,7 @@ void commandPrompt() {
 			userCommand = parseCommand(userInput);
 			
 			
-			checkRedirection();
+		//	checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
 		
