@@ -111,30 +111,25 @@ void changeDir() {
 		
 	if(commands[1] == NULL) {
 		
-//	chdir(getenv("HOME"));
-//		if(x == 0) {
-//			printf("change was succesfull \n");
-//		}
 
-
-
-
-	char *homedir = getenv("HOME");
+		char *homedir = getenv("HOME");
 
         if (homedir != NULL) {
-                printf("Home dir in enviroment");
-                printf("%s\n", homedir);
+        //        printf("Home dir in enviroment");
+        //        printf("%s\n", homedir);
+        
+    		chdir(homedir);
         }
 
         uid_t uid = getuid();
         struct passwd *pw = getpwuid(uid);
 
         if (pw == NULL) {
-                printf("Failed\n");
+                printf("cd HOME Failed\n");
                 exit(EXIT_FAILURE);
         }
 
-        printf("%s\n", pw->pw_dir);
+    //    printf("%s\n", pw->pw_dir);
 
 
 	}
@@ -331,17 +326,8 @@ void execCommandsFileredirect() {
       if(inPresent == 1) {
       	//    printf("CHILD(%d) running ls command\n", getpid());
       	
-      	
-      	
-      	
-//      	if (file = fopen("a.txt", "r")) {
-//      fclose(file);
-//      printf("file exists");
-//   } else {
-//      printf("file doesn't exist");
-//   }
-//}
-      	/////////////////////////////check if file exist, if so open, else print error
+
+      	// check if file exist, if so open, else print error
   	  	if(in = fopen(fileIn,"r")) {
   	  		
   	  		int fI= fileno(in);
@@ -486,6 +472,27 @@ void *parseCommand(char *currLine)
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
       
+      
+      	
+		char *point = strstr(userInput, expansion);	
+		
+		// this means there is expansion to be done
+		if(point != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			
+			// lower the size by 2
+			commandSize = (strlen(looptoken) - 2);
+			//copy new input in
+			strncpy(expandCommand, looptoken, commandSize);
+			strcpy(looptoken, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(looptoken, expandCommand);	
+		}
+      
+      
       	// cuont for number of cammands entered
         commandCount++;
    }
@@ -537,21 +544,24 @@ void commandPrompt() {
 		   	userInput[commandSize-1] = 0;
 
 		
-
-		char *point = strstr(userInput, expansion);	
-		
-		// this means there is expansion to be done
-		if(point != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
-			commandSize = (strlen(userInput) - 2);
-			strncpy(expandCommand, userInput, commandSize);
-			strcpy(userInput, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);	
-		}
+//
+//		char *point = strstr(userInput, expansion);	
+//		
+//		// this means there is expansion to be done
+//		if(point != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LIMIT];
+//			
+//			// lower the size by 2
+//			commandSize = (strlen(userInput) - 2);
+//			//copy new input in
+//			strncpy(expandCommand, userInput, commandSize);
+//			strcpy(userInput, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(expandCommand, "%d", getpid());
+//			strcat(userInput, expandCommand);	
+//		}
 	
 			// parse the given command
 			userCommand = parseCommand(userInput);
