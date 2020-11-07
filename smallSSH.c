@@ -284,6 +284,7 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
+	int commandSize = 0;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
