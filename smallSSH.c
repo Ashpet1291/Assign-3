@@ -193,7 +193,7 @@ void execCommands() {
     case 0:
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
-  	  if(strncmp(cats, commands[0]) == 0) {
+  	  if(strcmp(cats, commands[0]) == 0) {
   	  	
   	  	char *processCat;
   	  	
