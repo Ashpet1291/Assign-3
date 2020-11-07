@@ -101,7 +101,7 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	char absFile[] = { "./" }
+	char absFile[] = { "./" };
 	int x;
 	
 	char tempcomm[] = {"0"};
@@ -275,16 +275,22 @@ void execCommandsFileRedir() {
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
   	  in = fopen(fileIn,"r");
+  	  
+  	  int fI= fileno(in);
+  	  
+  	  
   	  out = fopen(fileOut,"a");
   	  
-  	  
-  	  dup2(in, 0);
-  	  
-  	  dup2(out, 1);
+  	  int fO = fileno(stream);
   	  
   	  
-  	  close(in);
-      close(out);
+  	  dup2(fI, 0);
+  	  
+  	  dup2(fO, 1);
+  	  
+  	  
+  	  fclose(in);
+      fclose(out);
   	  
   	  // pass the given argument to exec function
       execlp(process1, process1, NULL);
