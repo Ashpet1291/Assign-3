@@ -474,7 +474,7 @@ void *parseCommand(char *currLine)
       
       
       	
-		char *point = strstr(userInput, expansion);	
+		char *point = strstr(looptoken, expansion);	
 		
 		// this means there is expansion to be done
 		if(point != NULL) {
