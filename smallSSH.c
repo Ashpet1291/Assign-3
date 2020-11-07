@@ -176,6 +176,7 @@ void exitProg() {
 void execCommands() {
 
 	int childStatus;
+	char cats[] = "cat";
 
 	// Fork a new process
 	pid_t spawnPid = fork();
@@ -192,9 +193,18 @@ void execCommands() {
     case 0:
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
-  
+  	  if(strncmp(cats, commands[0]) == 0) {
+  	  	
+  	  	char *processCat;
+  	  	
+  	  	processCat = commands[1];
+  	  	
+  	  	execlp(process, process, processCat, NULL);	
+		}
+	  else {
   	  // pass the given argument to exec function
       execlp(process, process, NULL);
+  	  }
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
