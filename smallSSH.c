@@ -101,10 +101,8 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	char absFile[] = { "./" };
+		
 	int x;
-	
-	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
 	chdir(getenv("HOME"));
@@ -117,20 +115,9 @@ void changeDir() {
 	
 		//	int ch;
 		//	ch = chdir(directory);
-		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
-			char *directory = commands[1];
-			chdir(directory);
-		}
-		else {
-			// append ./ to change directories
-			strcat(absFile, commands[1]);
-			
-			// now directory name gets argy
-			char *directory1 = absFile;
-			chdir(directory1);
-			//strcpy(tempcomm, absFile); 			
-		}
 	
+		char *directory = commands[1];
+		chdir(directory);
 	
 //		if(ch<0) {
 //			printf("chdir change of directory NOT successful \n");
@@ -250,20 +237,6 @@ void BuiltInCommands() {
 	else {
 		// its a dfferent command and pass it to execv
 	//	execCommands();
-		checkRedirection();
-		
-		if((inPresent == 1) && outPresent == 1) {
-			// do exe with args for both
-		}
-		else if (inPresent == 1) {
-			// do exec with one arg
-		}
-		else if (outPresent == 1) {
-			//do out with exec and 1 arg
-		}
-		else {
-			// do exec with no args
-		}
 	}
 }
 
@@ -280,8 +253,6 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
-	
-	int commandSize;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
@@ -314,7 +285,7 @@ void *parseCommand(char *currLine)
 			sprintf(expandCommand, "%d", getpid());
 			strcat(looptoken, expandCommand);	
 		}
-     
+   
 }
 
 
