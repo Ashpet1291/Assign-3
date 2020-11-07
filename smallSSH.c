@@ -192,7 +192,7 @@ void execCommands() {
   //    printf("CHILD(%d) running ls command\n", getpid());
   
   	  // pass the given argument to exec function
-      execlp(process, process, NULL);
+      execlp("ls", process, NULL);
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
