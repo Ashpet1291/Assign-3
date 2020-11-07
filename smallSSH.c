@@ -339,6 +339,7 @@ void execCommandsFileredirect() {
 //      execlp(process2, process2, NULL);
       // exec only returns if there is an error
       perror("execlp");
+      exit(EXIT_FAILURE);
     //  exit(EXIT_FAILURE);
       break;
     default:
