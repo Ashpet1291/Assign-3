@@ -508,6 +508,7 @@ void *parseCommand(char *currLine)
 void commandPrompt() {
 	
 	char *userCommand = malloc(sizeof(userCommand));
+	char shpid[] = {"0"};
 	
 //	buffer = (char *)malloc(bufsize * sizeof(char));
 	
@@ -545,12 +546,12 @@ void commandPrompt() {
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(userInput, expandCommand);	
+			sprintf(shpid, "%d", getpid());
+			strcat(userInput, shpid);	
 		}
 	
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
-			printf("THis is in the background");
+		//	printf("This is in the background");
 			background = 1;
 		}
 	
