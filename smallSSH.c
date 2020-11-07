@@ -71,7 +71,8 @@ int bothPresent = 0;
 void checkRedirection(){
 	
 	int i = 0;
-	
+	inPresent =0;
+	outPresent = 0;
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
