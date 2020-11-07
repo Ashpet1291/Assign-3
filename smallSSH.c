@@ -101,8 +101,10 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-		
+	char absFile[] = { "./" };
 	int x;
+	
+	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
 	chdir(getenv("HOME"));
@@ -115,10 +117,19 @@ void changeDir() {
 	
 		//	int ch;
 		//	ch = chdir(directory);
-	
-		char *directory = commands[1];
-		chdir(directory);
-	
+		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
+			char *directory = commands[1];
+			chdir(directory);
+		}
+		else {
+			// append ./ to change directories
+			strcat(absFile, commands[1]);
+			
+			// now directory name gets argument plus ./ appended to front
+			char *directory1 = absFile;
+			chdir(directory1);
+			//strcpy(tempcomm, absFile); 			
+		}
 //		if(ch<0) {
 //			printf("chdir change of directory NOT successful \n");
 //		}
@@ -269,10 +280,7 @@ void *parseCommand(char *currLine)
         commandCount++;
    }
    
-   
-   
-  
-   
+    
 }
 
 
