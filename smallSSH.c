@@ -547,6 +547,7 @@ void commandPrompt() {
 		}
 	
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+			userInput[commandSize-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
