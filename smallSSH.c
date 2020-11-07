@@ -314,6 +314,7 @@ void BuiltInCommands() {
 		
 		if((inPresent == 1) && outPresent == 1) {
 			// do exe with args for both
+			execCommandsFileRedir();
 			printf("both input and output are in command- do exec and dup for both");
 		}
 		else if (inPresent == 1) {
