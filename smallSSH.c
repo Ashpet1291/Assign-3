@@ -202,11 +202,12 @@ void execCommands() {
   	  	execlp(process, process, processCat, NULL);	
 		}
 	  else {
+	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
-      execlp(process, process, NULL);
+      execvp(process, commands);
   	  }
       // exec only returns if there is an error
-      perror("execlp");
+      perror("execvp");
       exit(EXIT_FAILURE);
       break;
     default:
