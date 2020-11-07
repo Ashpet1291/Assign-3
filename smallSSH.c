@@ -110,19 +110,17 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	char absFile[] = { "./" };
+	char absFile[] = { "/" };
 	
 	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
 		
-
 		char *homedir = getenv("HOME");
 
         if (homedir != NULL) {
         //        printf("Home dir in enviroment");
-        //        printf("%s\n", homedir);
-        
+        //        printf("%s\n", homedir);       
     		chdir(homedir);
         }
 
@@ -133,9 +131,7 @@ void changeDir() {
                 printf("cd HOME Failed\n");
                 exit(EXIT_FAILURE);
         }
-
     //    printf("%s\n", pw->pw_dir);
-
 
 	}
 	
