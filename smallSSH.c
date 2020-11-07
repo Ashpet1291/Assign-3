@@ -472,27 +472,6 @@ void *parseCommand(char *currLine)
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
       
-      
-      	
-		char *point = strstr(looptoken, expansion);	
-		
-		// this means there is expansion to be done
-		if(point != NULL) {
-			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
-			
-			// lower the size by 2
-			commandSize = (strlen(looptoken) - 2);
-			//copy new input in
-			strncpy(expandCommand, looptoken, commandSize);
-			strcpy(looptoken, expandCommand);
-			// maybe need to do getppid;
-			sprintf(expandCommand, "%d", getpid());
-			strcat(looptoken, expandCommand);	
-		}
-      
-      
       	// cuont for number of cammands entered
         commandCount++;
    }
@@ -544,24 +523,24 @@ void commandPrompt() {
 		   	userInput[commandSize-1] = 0;
 
 		
-//
-//		char *point = strstr(userInput, expansion);	
-//		
-//		// this means there is expansion to be done
-//		if(point != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			
-//			// lower the size by 2
-//			commandSize = (strlen(userInput) - 2);
-//			//copy new input in
-//			strncpy(expandCommand, userInput, commandSize);
-//			strcpy(userInput, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(expandCommand, "%d", getpid());
-//			strcat(userInput, expandCommand);	
-//		}
+
+		char *point = strstr(userInput, expansion);	
+		
+		// this means there is expansion to be done
+		if(point != NULL) {
+			
+		//	printf("point isn't null, this is pid: %d \n", getpid());
+			char expandCommand[MAX_LIMIT];
+			
+			// lower the size by 2
+			commandSize = (strlen(userInput) - 2);
+			//copy new input in
+			strncpy(expandCommand, userInput, commandSize);
+			strcpy(userInput, expandCommand);
+			// maybe need to do getppid;
+			sprintf(expandCommand, "%d", getpid());
+			strcat(userInput, expandCommand);	
+		}
 	
 			// parse the given command
 			userCommand = parseCommand(userInput);
