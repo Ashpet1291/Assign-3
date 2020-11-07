@@ -281,7 +281,7 @@ void execCommandsFileRedir() {
   	  
   	  out = fopen(fileOut,"a");
   	  
-  	  int fO = fileno(stream);
+  	  int fO = fileno(out);
   	  
   	  
   	  dup2(fI, 0);
