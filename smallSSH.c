@@ -72,16 +72,16 @@ void checkRedirection(){
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		if(strcmp(commands[i], takIn) == 0) {
-			fileIn = commands[i];
+			fileIn = commands[i=1];
 			argIn = commands[i-1];
-			printf("this is fileIn %s", commands[i]);
-			printf("this is argIn %s", commands[i-1]);
+//			printf("this is fileIn %s", commands[i]);
+//			printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 			fileOut = commands[i+1];
-			argOut = commands[i];
-			printf("this is fileOut %s", commands[i+1]);
-			printf("this is ardOut %s", commands[i]);
+			argOut = commands[i-1];
+//			printf("this is fileOut %s", commands[i+1]);
+//			printf("this is ardOut %s", commands[i]);
 		}
 		i++;
 	}
@@ -151,7 +151,7 @@ void exitProg() {
 	
 	exitOn = exitStatus;
 	
-	exit(exitOn);
+	exit(0);
 }
 
 
