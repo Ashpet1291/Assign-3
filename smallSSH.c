@@ -306,17 +306,35 @@ void execCommandsFileredirect() {
       
       if(inPresent == 1) {
       	//    printf("CHILD(%d) running ls command\n", getpid());
-  	  	in = fopen(fileIn,"r");
-  	  	int fI= fileno(in);
+      	
+      	
+      	
+      	
+//      	if (file = fopen("a.txt", "r")) {
+//      fclose(file);
+//      printf("file exists");
+//   } else {
+//      printf("file doesn't exist");
+//   }
+//}
+      	/////////////////////////////check if file exist, if so open, else print error
+  	  	if(in = fopen(fileIn,"r")) {
+  	  		
+  	  		int fI= fileno(in);
   	  
-  	  	dup2(fI, 0);
-  	  
-  	  
-  	 	fclose(in);
+  	  		dup2(fI, 0);
+  	    	  
+  	 		fclose(in);
       	
   	  
-  	  	// pass the given argument to exec function
-      	execlp(process2, process2, NULL);
+  	  		// pass the given argument to exec function
+      		execlp(process2, process2, NULL);
+        }
+        
+        // print error message because file doesn't exist
+      	else {
+      		printf("file doesn't exist");
+	    }
 	  }
 	  
 	  else {
