@@ -233,17 +233,11 @@ void execCommands() {
     default:
     	
       if(background == 1) {
-      	// if it's a background process don't wait on it
       	  spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
 	  }
 	  else {
 	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
 	  }
-	  
-	  
-	  
-	  
-	  
       // In the parent process
       // Wait for child's termination
  //     spawnPid = waitpid(spawnPid, &childStatus, 0);
@@ -631,7 +625,7 @@ void commandPrompt() {
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 			
 			// then strip the background char to feed the command where it goes
-			userInput[len-1] = 0;
+		//	userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
