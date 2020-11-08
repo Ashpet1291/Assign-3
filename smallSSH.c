@@ -225,7 +225,7 @@ void execCommands() {
   	  	processCat = commands[1];
   	  	
   	  	execlp(process, process, processCat, NULL);	
-	  }
+		}
 	  else {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
@@ -243,7 +243,7 @@ void execCommands() {
 //	  }
 //	  else {
 	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
-//	  }
+	  }
 	  
 	  
 ///////////////////////////////////////////////////////////
@@ -365,16 +365,11 @@ void execCommandsFileRedir() {
   	  int fO = fileno(out);
   	  
   	  
-  	  if(dup2(fI, 0) == -1) {
-  	  	  perror("dup2");
-  	  	  exit(EXIT_FAILURE);
-	  }
+  	  dup2(fI, 0);
   	  
-  	  if(dup2(fO, 1) == -1) {
-  	      perror("dup2");
-  	  	  exit(EXIT_FAILURE);
-	  }
-  	  	  
+  	  dup2(fO, 1); }
+  	  
+  	  
   	  fclose(in);
       fclose(out);
   	  
@@ -394,13 +389,15 @@ void execCommandsFileRedir() {
 }
 
 /*
-* this is used if there is only one redirection,not 2
+*
 */
+// this is used if there is only one redirection,not 2
 void execCommandsFileredirect() {
 	
 	FILE *in;
 	FILE *out;
 	
+
 	int childStatus2;
 
 	// Fork a new process
@@ -425,14 +422,11 @@ void execCommandsFileredirect() {
       	
 
       	// check if file exist, if so open, else print error
-  	//  	if(in = fopen(fileIn,"r")) {
-  	  		in = fopen(fileIn,"r");
+  	  	if(in = fopen(fileIn,"r")) {
+  	  		
   	  		int fI= fileno(in);
   	  
-  	  		if(dup2(fI, 0) == -1){
-  	  			perror("dup2");
-  	  			exit(EXIT_FAILURE);
-//			}
+  	  		dup2(fI, 0);
   	    	  
   	 		fclose(in);
   // this error checks dup2    	
@@ -445,9 +439,9 @@ void execCommandsFileredirect() {
         }
         
         // print error message because file doesn't exist
-//      	else {
-//      		printf("file doesn't exist");
-//	    }
+      	else {
+      		printf("file doesn't exist");
+	    }
 	  }
 	  
 	  else {
@@ -456,14 +450,13 @@ void execCommandsFileredirect() {
   	  
   	  	int fO = fileno(out);
   	  	
-  	  	if(dup2(fO, 1) == -1) {
-  	  		perror("dup2");
-  	  		exit(EXIT_FAILURE);
-		}	  	
+  	  	dup2(fO, 1);
+  	  	
   	  	fclose(out);
   	  	 	  	
   	  	// pass the given argument to exec function
-      	execlp(process3, process3, NULL);	  	
+      	execlp(process3, process3, NULL);
+	  	
 	  }
  	  
 //  	  // pass the given argument to exec function
