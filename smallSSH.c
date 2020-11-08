@@ -367,12 +367,12 @@ void execCommandsFileRedir() {
   	  
   	  if(dup2(fI, 0) == -1) {
   	  	  perror("dup2");
-  	  	  return 1
+  	  	  return 1;
 	  }
   	  
   	  if(dup2(fO, 1) == -1) {
   	      perror("dup2");
-  	  	  return 1
+  	  	  return 1;
 	  }
   	  	  
   	  fclose(in);
@@ -431,7 +431,7 @@ void execCommandsFileredirect() {
   	  
   	  		if(dup2(fI, 0) == -1){
   	  			perror("dup2");
-  	  			return 1
+  	  			return 1;
 //			}
   	    	  
   	 		fclose(in);
@@ -458,7 +458,7 @@ void execCommandsFileredirect() {
   	  	
   	  	if(dup2(fO, 1) == -1) {
   	  		perror("dup2");
-  	  		return 1
+  	  		return 1;
 		}	  	
   	  	fclose(out);
   	  	 	  	
