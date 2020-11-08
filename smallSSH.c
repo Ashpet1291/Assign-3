@@ -5,7 +5,7 @@
 // used code from examples given by the instructor (I will label those in code)
 // https://stackoverflow.com/ for trouble shooting and looking up how to o a specific task
 // tutorialspoint.com
-
+// https://www.stev.org/post/cgethomedirlocationinlinux for home directory code, and to error check
 
 // to run the code
 // gcc --std=gnu99 -o smallsh smallSSH.c
@@ -202,6 +202,11 @@ void execCommands() {
 	pid_t spawnPid = fork();
   
 	char *process;
+	// backGroundProcess directory
+	char *backProcess;
+	
+	// used if it's a background process and reirection is not given
+	backProcess = "/dev/null";
   
 	process = commands[0];
 
@@ -220,7 +225,7 @@ void execCommands() {
   	  	processCat = commands[1];
   	  	
   	  	execlp(process, process, processCat, NULL);	
-		}
+	  }
 	  else {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
@@ -231,22 +236,107 @@ void execCommands() {
       exit(EXIT_FAILURE);
       break;
     default:
+    	
+    	// if it's a background process don't wait on it	
+//      if(background == 1) {
+//      	  spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
+//	  }
+//	  else {
+	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
+	  }
+	  
+	  
+///////////////////////////////////////////////////////////
+//This means that a background command should use /dev/null for input only when input redirection is not specified in the command.
+//Similarly a background command should use /dev/null for output only when output redirection is not specified in the command.
+//Your parent shell will need to periodically check for the background child processes to complete, so that they can be cleaned up, as the shell continues to run and process commands. 
+
+//Consider storing the PIDs of non-completed background processes in an array. Then every time BEFORE returning access to the command line to the user, you can check the status of these processes using waitpid(...NOHANG...).
+//Alternatively, you may use a signal handler to immediately wait() for child processes that terminate, as opposed to periodically checking a list of started background processes
+//The time to print out when these background processes have completed is just BEFORE command line access and control are returned to the user, every time that happens
+
+	  
+      // In the parent process
+      // Wait for child's termination
+ //     spawnPid = waitpid(spawnPid, &childStatus, 0);
+      
+      // this mans parent dont wait for child
+ //      childPid = waitpid(childPid, &childStatus, WNOHANG);
+ 
+// printf("Parent process's pid = %d\n", getpid());
+
+///////////////////////////////this is from example code
+//  int   childStatus;
+//	pid_t childPid = fork();
+//
+//  if(childPid == -1){
+//    perror("fork() failed!");
+//		exit(1);
+//  } else if(childPid == 0){
+//    // Child process executes this branch
+//    sleep(10);
+//  } else{
+//    // The parent process executes this branch
+//    printf("Child's pid = %d\n", childPid);
+//    // WNOHANG specified. If the child hasn't terminated, waitpid will immediately return with value 0
+//    childPid = waitpid(childPid, &childStatus, WNOHANG);
+//    printf("In the parent process waitpid returned value %d\n", childPid);
+//  }
+//  printf("The process with pid %d is returning from main\n", getpid());
+//  return 0;
+//}
+
+    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+    
+    
+ //////////////////////other ex code 
+
+/*
+The following program forks a child process. The child process then replaces the program using execv to run "/bin/ls". The parent process waits for the child process to terminate.
+
+  char *newargv[] = { "/bin/ls", "-al", NULL };
+  int childStatus;
+
+  // Fork a new process
+  pid_t spawnPid = fork();
+
+  switch(spawnPid){
+    case -1:
+      perror("fork()\n");
+      exit(1);
+      break;
+    case 0:
+      // In the child process
+      printf("CHILD(%d) running ls command\n", getpid());
+      // Replace the current program with "/bin/ls"
+      execv(newargv[0], newargv);
+      // exec only returns if there is an error
+      perror("execve");
+      exit(2);
+      break;
+    default:
       // In the parent process
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
-    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+      exit(0);
+      break;
+  } 
+}   
+*/   
+    
       break;
   }
 }
 
 
-
-
+/*
+* this is used if there is files redirected in and redirected out
+*/
 void execCommandsFileRedir() {
 	
 	FILE *in;
 	FILE *out;
-	
 
 	int childStatus1;
 
@@ -275,11 +365,16 @@ void execCommandsFileRedir() {
   	  int fO = fileno(out);
   	  
   	  
-  	  dup2(fI, 0);
+  	  if(dup2(fI, 0) == -1) {
+  	  	  perror("dup2");
+  	  	  //return 1
+	  }
   	  
-  	  dup2(fO, 1);
-  	  
-  	  
+  	  if(dup2(fO, 1) == -1) {
+  	      perror("dup2");
+  	  	  //return 1
+	  }
+  	  	  
   	  fclose(in);
       fclose(out);
   	  
@@ -298,13 +393,14 @@ void execCommandsFileRedir() {
   }
 }
 
-
+/*
+* this is used if there is only one redirection,not 2
+*/
 void execCommandsFileredirect() {
 	
 	FILE *in;
 	FILE *out;
 	
-
 	int childStatus2;
 
 	// Fork a new process
@@ -329,23 +425,29 @@ void execCommandsFileredirect() {
       	
 
       	// check if file exist, if so open, else print error
-  	  	if(in = fopen(fileIn,"r")) {
-  	  		
+  	//  	if(in = fopen(fileIn,"r")) {
+  	  		in = fopen(fileIn,"r")
   	  		int fI= fileno(in);
   	  
-  	  		dup2(fI, 0);
+  	  		if(dup2(fI, 0) == -1){
+  	  			perror("dup2");
+  	  			//return 1
+//			}
   	    	  
   	 		fclose(in);
-      	
-  	  
+  // this error checks dup2    	
+//  	  if(dup2(fd2[0], STDIN_FILENO) == -1){
+//			perror("dup2");
+//			return 1;
+
   	  		// pass the given argument to exec function
       		execlp(process2, process2, NULL);
         }
         
         // print error message because file doesn't exist
-      	else {
-      		printf("file doesn't exist");
-	    }
+//      	else {
+//      		printf("file doesn't exist");
+//	    }
 	  }
 	  
 	  else {
@@ -354,14 +456,14 @@ void execCommandsFileredirect() {
   	  
   	  	int fO = fileno(out);
   	  	
-  	  	dup2(fO, 1);
-  	  	
+  	  	if(dup2(fO, 1) == -1) {
+  	  		perror("dup2");
+  	  		//return 1
+		}	  	
   	  	fclose(out);
-  	  	
-  	  	
+  	  	 	  	
   	  	// pass the given argument to exec function
-      	execlp(process3, process3, NULL);
-	  	
+      	execlp(process3, process3, NULL);	  	
 	  }
  	  
 //  	  // pass the given argument to exec function
@@ -417,9 +519,6 @@ void BuiltInCommands() {
 		count = 1;
 		exitProg();
 	}
-//	else if (strcmp(commands[0], echo1) == 0) {
-//		
-//	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
@@ -456,8 +555,7 @@ void BuiltInCommands() {
 void *parseCommand(char *currLine)
 {
 //	struct instructions *currItem = malloc(sizeof();
-
-       
+      
 	int comCount=0;
 	commandCount = 0;
 	int commandSize = 0;
@@ -475,25 +573,7 @@ void *parseCommand(char *currLine)
       
       	// cuont for number of cammands entered
         commandCount++;
-   }
-   
-//   
-//   char *point1 = strstr(looptoken, expansion);	
-//		
-//		// this means there is expansion to be done
-//		if(point1 != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			commandSize = (strlen(looptoken) - 2);
-//			strncpy(expandCommand, looptoken, commandSize);
-//			strcpy(looptoken, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(expandCommand, "%d", getpid());
-//			strcat(looptoken, expandCommand);	
-//		}
-   
-    
+   }    
 }
 
 
@@ -546,22 +626,20 @@ void commandPrompt() {
 			strcat(userInput, shpid);	
 		}
 	
+		// check if command given contains & at the end, if so thats a bcakground process
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
-			userInput[len-1] = 0;
+			
+		    // then strip the background char to feed the command where it goes
+		//	userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
-	
 			// parse the given command
 			userCommand = parseCommand(userInput);
-			
-			
+			// check if there is reirection to be donee			
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
-		
-		//check if usrInput contains $$
-		//check & is at the end
 	}
 }
 
