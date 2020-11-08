@@ -243,7 +243,7 @@ void execCommands() {
 //	  }
 //	  else {
 	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
-	  }
+//	  }
 	  
 	  
 ///////////////////////////////////////////////////////////
@@ -426,7 +426,7 @@ void execCommandsFileredirect() {
 
       	// check if file exist, if so open, else print error
   	//  	if(in = fopen(fileIn,"r")) {
-  	  		in = fopen(fileIn,"r")
+  	  		in = fopen(fileIn,"r");
   	  		int fI= fileno(in);
   	  
   	  		if(dup2(fI, 0) == -1){
