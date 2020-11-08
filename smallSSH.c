@@ -234,72 +234,7 @@ void execCommands() {
       // In the parent process
       // Wait for child's termination
       spawnPid = waitpid(spawnPid, &childStatus, 0);
-      
-      // this mans parent dont wait for child
- //      childPid = waitpid(childPid, &childStatus, WNOHANG);
- 
-// printf("Parent process's pid = %d\n", getpid());
-
-///////////////////////////////this is from example code
-//  int   childStatus;
-//	pid_t childPid = fork();
-//
-//  if(childPid == -1){
-//    perror("fork() failed!");
-//		exit(1);
-//  } else if(childPid == 0){
-//    // Child process executes this branch
-//    sleep(10);
-//  } else{
-//    // The parent process executes this branch
-//    printf("Child's pid = %d\n", childPid);
-//    // WNOHANG specified. If the child hasn't terminated, waitpid will immediately return with value 0
-//    childPid = waitpid(childPid, &childStatus, WNOHANG);
-//    printf("In the parent process waitpid returned value %d\n", childPid);
-//  }
-//  printf("The process with pid %d is returning from main\n", getpid());
-//  return 0;
-//}
-
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-    
-    
- //////////////////////other ex code 
-
-/*
-The following program forks a child process. The child process then replaces the program using execv to run "/bin/ls". The parent process waits for the child process to terminate.
-
-  char *newargv[] = { "/bin/ls", "-al", NULL };
-  int childStatus;
-
-  // Fork a new process
-  pid_t spawnPid = fork();
-
-  switch(spawnPid){
-    case -1:
-      perror("fork()\n");
-      exit(1);
-      break;
-    case 0:
-      // In the child process
-      printf("CHILD(%d) running ls command\n", getpid());
-      // Replace the current program with "/bin/ls"
-      execv(newargv[0], newargv);
-      // exec only returns if there is an error
-      perror("execve");
-      exit(2);
-      break;
-    default:
-      // In the parent process
-      // Wait for child's termination
-      spawnPid = waitpid(spawnPid, &childStatus, 0);
-      printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-      exit(0);
-      break;
-  } 
-}   
-*/   
-    
       break;
   }
 }
