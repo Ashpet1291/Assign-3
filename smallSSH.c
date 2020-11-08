@@ -202,11 +202,6 @@ void execCommands() {
 	pid_t spawnPid = fork();
   
 	char *process;
-	// backGroundProcess directory
-	char *backProcess;
-	
-	// used if it's a background process and reirection is not given
-	backProcess = "/dev/null";
   
 	process = commands[0];
 
@@ -237,24 +232,17 @@ void execCommands() {
       break;
     default:
     	
-    	// if it's a background process don't wait on it	
-//      if(background == 1) {
-//      	  spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
-//	  }
-//	  else {
+      if(background == 1) {
+      	// if it's a background process don't wait on it
+      	  spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
+	  }
+	  else {
 	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
 	  }
 	  
 	  
-///////////////////////////////////////////////////////////
-//This means that a background command should use /dev/null for input only when input redirection is not specified in the command.
-//Similarly a background command should use /dev/null for output only when output redirection is not specified in the command.
-//Your parent shell will need to periodically check for the background child processes to complete, so that they can be cleaned up, as the shell continues to run and process commands. 
-
-//Consider storing the PIDs of non-completed background processes in an array. Then every time BEFORE returning access to the command line to the user, you can check the status of these processes using waitpid(...NOHANG...).
-//Alternatively, you may use a signal handler to immediately wait() for child processes that terminate, as opposed to periodically checking a list of started background processes
-//The time to print out when these background processes have completed is just BEFORE command line access and control are returned to the user, every time that happens
-
+	  
+	  
 	  
       // In the parent process
       // Wait for child's termination
@@ -570,7 +558,21 @@ void *parseCommand(char *currLine)
         commandCount++;
    }
    
-
+//   
+//   char *point1 = strstr(looptoken, expansion);	
+//		
+//		// this means there is expansion to be done
+//		if(point1 != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LIMIT];
+//			commandSize = (strlen(looptoken) - 2);
+//			strncpy(expandCommand, looptoken, commandSize);
+//			strcpy(looptoken, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(expandCommand, "%d", getpid());
+//			strcat(looptoken, expandCommand);	
+//		}
    
     
 }
@@ -629,7 +631,7 @@ void commandPrompt() {
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 			
 			// then strip the background char to feed the command where it goes
-		//	userInput[len-1] = 0;
+			userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
