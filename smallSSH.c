@@ -231,16 +231,9 @@ void execCommands() {
       exit(EXIT_FAILURE);
       break;
     default:
-    	
-      if(background == 1) {
-      	  spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
-	  }
-	  else {
-	  	  spawnPid = waitpid(spawnPid, &childStatus, 0);
-	  }
       // In the parent process
       // Wait for child's termination
- //     spawnPid = waitpid(spawnPid, &childStatus, 0);
+      spawnPid = waitpid(spawnPid, &childStatus, 0);
       
       // this mans parent dont wait for child
  //      childPid = waitpid(childPid, &childStatus, WNOHANG);
@@ -349,7 +342,8 @@ void execCommandsFileRedir() {
   	  
   	  dup2(fI, 0);
   	  
-  	  dup2(fO, 1);   	  
+  	  dup2(fO, 1); }
+  	  
   	  
   	  fclose(in);
       fclose(out);
