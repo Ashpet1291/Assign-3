@@ -337,6 +337,7 @@ void execCommandsFileRedir() {
 	
 	FILE *in;
 	FILE *out;
+	
 
 	int childStatus1;
 
@@ -388,10 +389,7 @@ void execCommandsFileRedir() {
   }
 }
 
-/*
-*
-*/
-// this is used if there is only one redirection,not 2
+// this is used if there is only 
 void execCommandsFileredirect() {
 	
 	FILE *in;
