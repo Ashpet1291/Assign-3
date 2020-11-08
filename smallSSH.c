@@ -330,9 +330,8 @@ The following program forks a child process. The child process then replaces the
 }
 
 
-/*
-* this is used if there is files redirected in and redirected out
-*/
+
+
 void execCommandsFileRedir() {
 	
 	FILE *in;
@@ -389,7 +388,7 @@ void execCommandsFileRedir() {
   }
 }
 
-// this is used if there is only 
+
 void execCommandsFileredirect() {
 	
 	FILE *in;
@@ -451,7 +450,8 @@ void execCommandsFileredirect() {
   	  	dup2(fO, 1);
   	  	
   	  	fclose(out);
-  	  	 	  	
+  	  	
+  	  	
   	  	// pass the given argument to exec function
       	execlp(process3, process3, NULL);
 	  	
@@ -510,6 +510,9 @@ void BuiltInCommands() {
 		count = 1;
 		exitProg();
 	}
+//	else if (strcmp(commands[0], echo1) == 0) {
+//		
+//	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
@@ -546,7 +549,8 @@ void BuiltInCommands() {
 void *parseCommand(char *currLine)
 {
 //	struct instructions *currItem = malloc(sizeof();
-      
+
+       
 	int comCount=0;
 	commandCount = 0;
 	int commandSize = 0;
@@ -564,7 +568,11 @@ void *parseCommand(char *currLine)
       
       	// cuont for number of cammands entered
         commandCount++;
-   }    
+   }
+   
+
+   
+    
 }
 
 
@@ -620,17 +628,22 @@ void commandPrompt() {
 		// check if command given contains & at the end, if so thats a bcakground process
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 			
-		    // then strip the background char to feed the command where it goes
+			// then strip the background char to feed the command where it goes
 		//	userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
+	
 			// parse the given command
 			userCommand = parseCommand(userInput);
-			// check if there is reirection to be donee			
+			
+			
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
+		
+		//check if usrInput contains $$
+		//check & is at the end
 	}
 }
 
