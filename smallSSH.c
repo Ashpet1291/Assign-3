@@ -349,8 +349,7 @@ void execCommandsFileRedir() {
   	  
   	  dup2(fI, 0);
   	  
-  	  dup2(fO, 1); }
-  	  
+  	  dup2(fO, 1);   	  
   	  
   	  fclose(in);
       fclose(out);
