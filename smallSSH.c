@@ -37,6 +37,8 @@ int commandCount = 0;
 char userInput[MAX_LIMIT];
 char *commands[MAX_LIMIT];
 
+char *pidArray;
+
 
 // var for expansion
 char expansion[] = "$$";
@@ -420,9 +422,6 @@ void BuiltInCommands() {
 		count = 1;
 		exitProg();
 	}
-//	else if (strcmp(commands[0], echo1) == 0) {
-//		
-//	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
@@ -541,7 +540,7 @@ void commandPrompt() {
 			// lower the size by 2
 			commandSize = (strlen(userInput) - 2);
 			
-			//cop 
+			// 
 			strncpy(expandCommand, userInput, commandSize);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
@@ -571,7 +570,13 @@ void commandPrompt() {
 	}
 }
 
+//Any non built-in command with an & at the end must be run as a background command and the shell must not wait for such a command to complete.
+// For such commands, the parent must return command line access and control to the user immediately after forking off the child.
 
+//The shell will print the process id of a background process when it begins.
+//When a background process terminates, a message showing the process id and exit status will be printed. This message must be printed just before the prompt for a new command is displayed.
+//If the user doesn't redirect the standard input for a background command, then standard input should be redirected to /dev/null
+//If the user doesn't redirect the standard output for a background command, then standard output should be redirected to /dev/null
 
 int main(){
 	
