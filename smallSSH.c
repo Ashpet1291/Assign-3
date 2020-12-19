@@ -28,6 +28,9 @@
 #define MAX_LIMIT 100
 
 
+#define MAX_CHARS 2048
+#define MAX_ARGS 512
+
 // counts total items in string
 int itemCount = 0;
 
