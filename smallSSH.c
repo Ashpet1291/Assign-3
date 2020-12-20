@@ -629,6 +629,7 @@ void commandPrompt() {
 			strcat(userInput, shpid);	
 			
 			memset(shpid, '\0', strlen(shpid));
+			memset(expandCommand, '\0', strlen(expandCommand));
 		}
 	
 		
