@@ -570,9 +570,9 @@ void commandPrompt() {
 			sprintf(shpid, "%d", getpid());
 			strcat(userInput, shpid);
 			
-			*point = NULL;
+			point = NULL;
 			
-			*point = strstr(userInput, expansion);	
+			point = strstr(userInput, expansion);	
 		}
 	
 	
