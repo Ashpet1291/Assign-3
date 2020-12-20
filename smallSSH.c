@@ -245,8 +245,8 @@ void execCommands() {
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 		printf("pid is: %d", spawnPid);
-	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
-	   	if (WIFEXITED(childStatus2)) 
+	   	spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
+	   	if (WIFEXITED(childStatus)) 
             printf("Child %d terminated with status: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus)); 
       } 
@@ -311,13 +311,13 @@ void execCommandsFileRedir() {
       // Wait for child's termination
       
       if(background == 0) {
-      	spawnPid = waitpid(spawnPid, &childStatus2, 0);
+      	spawnPid = waitpid(spawnPid, &childStatus1, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 	  	printf("pid is: %d", spawnPid);
 	   	spawnPid = waitpid(spawnPid, &childStatus1, WNOHANG);
-	   	if (WIFEXITED(childStatus2)) 
+	   	if (WIFEXITED(childStatus1)) 
             printf("Child %d terminated with status: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus1)); 
     } 
