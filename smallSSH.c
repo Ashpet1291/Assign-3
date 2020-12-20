@@ -523,7 +523,7 @@ void *parseCommand(char *currLine)
       
       	// cuont for number of cammands entered
         commandCount++;
-   }
+}
    
 //   
 //   char *point1 = strstr(looptoken, expansion);	
@@ -558,6 +558,8 @@ void commandPrompt() {
 	
 	int commandSize;
 	int len =0;
+	
+	char builtIns[] = "cd, status, exit";
 	
 	
 	while(count != 1){
@@ -595,15 +597,31 @@ void commandPrompt() {
 		}
 	
 	
+		char *tmptr = strstr(builtIns, userInput)
+		
+		// it's abuilt in command, no need to check for background processes
+		if(tmptr != NULL) {
+			
+						// parse the given command
+			userCommand = parseCommand(userInput);
+			
+			
+			checkRedirection();
+			// check builtin commands	
+			BuiltInCommands();
+		}
+		else {
+			
 		// check if command given contains & at the end, if so thats a background process
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+		
 			
 			// then strip the background char to feed the command where it goes
-		//	userInput[len-1] = 0;
+			userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
 		}
-	
+
 			// parse the given command
 			userCommand = parseCommand(userInput);
 			
@@ -611,10 +629,28 @@ void commandPrompt() {
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
+		}
 		
 	}
 }
 
+
+
+har str[] = "teacher teach tea";
+	char search[] = "ac";
+	char *ptr = strstr(str, search);
+
+	if (ptr != NULL) /* Substring found */
+	{
+		printf("'%s' contains '%s'\n", str, search);
+	}
+	else /* Substring not found */
+	{
+		printf("'%s' doesn't contain '%s'\n", str, search);
+	}
+
+	return 0;
+}
 //Any non built-in command with an & at the end must be run as a background command and the shell must not wait for such a command to complete.
 // For such commands, the parent must return command line access and control to the user immediately after forking off the child.
 
