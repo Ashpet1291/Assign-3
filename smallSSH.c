@@ -91,34 +91,29 @@ void checkRedirection(){
 	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
-		
+	
+	
 		if(strcmp(commands[i], takIn) == 0) {
-			
 			if (checkFile = fopen(commands[i+1], "r")) {
       			fclose(checkFile);
-			
 				fileIn = commands[i+1];
 				argIn = commands[i-1];
 				inPresent = 1;
-				
-			}
 			else {
-			 	perror("File don't exist");
+				perror("File don't exist\n");
 			}
 		//	printf("this is fileIn %s", commands[i+1]);
 		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
-			
 			if (checkFile = fopen(commands[i+1], "r")) {
-      			fclose(checkFile);
+				fclose(checkFile);
 				fileOut = commands[i+1];
 				argOut = commands[i-1];
 				outPresent = 1;
-			}
 			else {
-				perror("File don't exist");
-			}
+				perror("File don't exist\n");
+			}	
 		//	printf("this is fileOut %s", commands[i+1]);
 		//	printf("this is ardOut %s", commands[i-1]);
 		}
@@ -126,7 +121,7 @@ void checkRedirection(){
 	}
 }
 
-/* try to open file to read */
+///* try to open file to read */
 //   FILE *file;
 //   if (file = fopen("a.txt", "r")) {
 //      fclose(file);
