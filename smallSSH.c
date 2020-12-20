@@ -622,7 +622,7 @@ void commandPrompt() {
 		//	commandSize = (strlen(userInput) - 2);
 			// had command size in spot for size
 			// 
-			strncpy(expandCommand, userInput, strlen(userInput) - 4);
+			strncpy(expandCommand, userInput, strlen(userInput) - 2);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
