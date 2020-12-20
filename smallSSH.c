@@ -625,8 +625,9 @@ void commandPrompt() {
 			strcat(userInput, shpid);	
 		}
 	
+		
 	
-		char *tmptr = strstr(builtIns, userInput);
+		char *tmptr = strstr(userInput, "status");
 		
 		// it's abuilt in command, no need to check for background processes
 		if(tmptr != NULL) {
