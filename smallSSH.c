@@ -612,8 +612,8 @@ void commandPrompt() {
 		}
 		else {
 			
-		// check if command given contains & at the end, if so thats a background process
-		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+			// check if command given contains & at the end, if so thats a background process
+			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 		
 			
 			// then strip the background char to feed the command where it goes
