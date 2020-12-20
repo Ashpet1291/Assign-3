@@ -72,6 +72,11 @@ int outPresent = 0;
 int bothPresent = 0;
 
 
+
+
+
+
+
 /*
 * This checks if file redirection is included in the arguments, if so it passes the args to an exec function
 */
@@ -81,20 +86,39 @@ void checkRedirection(){
 	inPresent =0;
 	outPresent = 0;
 	
+	FILE *checkFile;
+	
 	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
+		
 		if(strcmp(commands[i], takIn) == 0) {
-			fileIn = commands[i+1];
-			argIn = commands[i-1];
-			inPresent = 1;
+			
+			if (checkFile = fopen(commands[i+1], "r")) {
+      			fclose(file);
+			
+				fileIn = commands[i+1];
+				argIn = commands[i-1];
+				inPresent = 1;
+				
+			}
+			else {
+			 	perror("File don't exist");
+			}
 		//	printf("this is fileIn %s", commands[i+1]);
 		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
-			fileOut = commands[i+1];
-			argOut = commands[i-1];
-			outPresent = 1;
+			
+			if (checkFile = fopen(commands[i+1], "r")) {
+      			fclose(file);
+				fileOut = commands[i+1];
+				argOut = commands[i-1];
+				outPresent = 1;
+			}
+			else {
+				perror("File don't exist");
+			}
 		//	printf("this is fileOut %s", commands[i+1]);
 		//	printf("this is ardOut %s", commands[i-1]);
 		}
@@ -102,7 +126,14 @@ void checkRedirection(){
 	}
 }
 
-
+/* try to open file to read */
+   FILE *file;
+   if (file = fopen("a.txt", "r")) {
+      fclose(file);
+      printf("file exists");
+   } else {
+      printf("file doesn't exist");
+   }
 //if((len = strlen(str)) > 3 && !strcmp(str + len - 4, ".txt"))
 
 
