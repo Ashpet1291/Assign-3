@@ -273,7 +273,7 @@ void execCommands() {
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 	  	// it is a background process, so don't wait and print process id
-		printf("pid is: %d\n", spawnPid);
+		printf("background pid is: %d\n", spawnPid);
 		fflush(stdout);
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
@@ -284,6 +284,7 @@ void execCommands() {
       } 
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+    background = 0;
       break;
   }
 }
@@ -357,6 +358,7 @@ void execCommandsFileRedir() {
     } 
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+     background = 0;
       break;
   }
 }
@@ -458,6 +460,7 @@ void execCommandsFileredirect() {
     } 
      // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+     background = 0;
       break;
   }
 }
@@ -646,7 +649,7 @@ void commandPrompt() {
 			// check if command given contains & at the end, if so thats a background process
 			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 		
-			printf("this is background proc\n");
+		//	printf("this is background proc\n");
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
 		//	printf("This is in the background");
