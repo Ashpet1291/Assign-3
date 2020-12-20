@@ -627,6 +627,8 @@ void commandPrompt() {
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
 			strcat(userInput, shpid);	
+			
+			memset(shpid, '\0', strlen(shpid))
 		}
 	
 		
