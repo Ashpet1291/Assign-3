@@ -238,7 +238,19 @@ void execCommands() {
     default:
       // In the parent process
       // Wait for child's termination
-      spawnPid = waitpid(spawnPid, &childStatus, 0);
+      
+      if(background == 0) {
+      	spawnPid = waitpid(spawnPid, &childStatus2, 0);
+	  }
+	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+	  else {
+		printf("pid is: %d", spawnPid)
+	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
+	   	if (WIFEXITED(childStatus2)) 
+            printf("Child %d terminated with status: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus2)); 
+      } 
+      //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
       break;
   }
@@ -297,11 +309,24 @@ void execCommandsFileRedir() {
     default:
       // In the parent process
       // Wait for child's termination
-      spawnPid = waitpid(spawnPid, &childStatus1, 0);
+      
+      if(background == 0) {
+      	spawnPid = waitpid(spawnPid, &childStatus2, 0);
+	  }
+	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+	  else {
+	  	printf("pid is: %d", spawnPid)
+	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
+	   	if (WIFEXITED(childStatus2)) 
+            printf("Child %d terminated with status: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus2)); 
+    } 
+     // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
       break;
   }
 }
+
 
 
 void execCommandsFileredirect() {
@@ -382,7 +407,19 @@ void execCommandsFileredirect() {
     default:
       // In the parent process
       // Wait for child's termination
-      spawnPid = waitpid(spawnPid, &childStatus2, 0);
+      // if it's a foreground process-wait for it to finish
+      if(background == 0) {
+      	spawnPid = waitpid(spawnPid, &childStatus2, 0);
+	  }
+	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+	  else {
+	   printf("pid is: %d", spawnPid)
+	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
+	   	if (WIFEXITED(childStatus2)) 
+            printf("Child %d terminated with status: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus2)); 
+    } 
+     // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
       break;
   }
@@ -530,32 +567,11 @@ void commandPrompt() {
 		   	userInput[commandSize-1] = 0;
 
 		
-//		// check for expansion
-//		char *point = strstr(userInput, expansion);	
-//		
-//		// this means there is expansion to be done
-//		if(point != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			
-//			// lower the size by 2
-//			commandSize = (strlen(userInput) - 2);
-//			
-//			// 
-//			strncpy(expandCommand, userInput, commandSize);
-//			strcpy(userInput, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(shpid, "%d", getpid());
-//			strcat(userInput, shpid);	
-//		}
-
-
 		// check for expansion
 		char *point = strstr(userInput, expansion);	
 		
 		// this means there is expansion to be done
-		while(point != NULL) {
+		if(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
 			char expandCommand[MAX_LIMIT];
@@ -568,16 +584,8 @@ void commandPrompt() {
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
-			strcat(userInput, shpid);
-			
-			point = NULL;
-			
-			point = strstr(userInput, expansion);	
+			strcat(userInput, shpid);	
 		}
-	
-	
-	
-	
 	
 	
 		// check if command given contains & at the end, if so thats a background process
@@ -597,8 +605,6 @@ void commandPrompt() {
 			// check builtin commands	
 			BuiltInCommands();
 		
-		//check if usrInput contains $$
-		//check & is at the end
 	}
 }
 
