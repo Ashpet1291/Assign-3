@@ -635,22 +635,22 @@ void commandPrompt() {
 }
 
 
-
-har str[] = "teacher teach tea";
-	char search[] = "ac";
-	char *ptr = strstr(str, search);
-
-	if (ptr != NULL) /* Substring found */
-	{
-		printf("'%s' contains '%s'\n", str, search);
-	}
-	else /* Substring not found */
-	{
-		printf("'%s' doesn't contain '%s'\n", str, search);
-	}
-
-	return 0;
-}
+//
+//har str[] = "teacher teach tea";
+//	char search[] = "ac";
+//	char *ptr = strstr(str, search);
+//
+//	if (ptr != NULL) /* Substring found */
+//	{
+//		printf("'%s' contains '%s'\n", str, search);
+//	}
+//	else /* Substring not found */
+//	{
+//		printf("'%s' doesn't contain '%s'\n", str, search);
+//	}
+//
+//	return 0;
+//}
 //Any non built-in command with an & at the end must be run as a background command and the shell must not wait for such a command to complete.
 // For such commands, the parent must return command line access and control to the user immediately after forking off the child.
 
