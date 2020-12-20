@@ -63,7 +63,7 @@ char outPut[] = { ">" };
 
 int count = 2;
 
-int exitStatus;
+int terminateProgram;
 int background = 0;
 
 
@@ -465,7 +465,6 @@ void *parseCommand(char *currLine)
        
 	int comCount=0;
 	commandCount = 0;
-	int commandSize = 0;
 	
    // Extract the first token
 	char *looptoken = strtok(currLine, " ");
@@ -531,11 +530,32 @@ void commandPrompt() {
 		   	userInput[commandSize-1] = 0;
 
 		
+//		// check for expansion
+//		char *point = strstr(userInput, expansion);	
+//		
+//		// this means there is expansion to be done
+//		if(point != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LIMIT];
+//			
+//			// lower the size by 2
+//			commandSize = (strlen(userInput) - 2);
+//			
+//			// 
+//			strncpy(expandCommand, userInput, commandSize);
+//			strcpy(userInput, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(shpid, "%d", getpid());
+//			strcat(userInput, shpid);	
+//		}
 
+
+		// check for expansion
 		char *point = strstr(userInput, expansion);	
 		
 		// this means there is expansion to be done
-		if(point != NULL) {
+		while(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
 			char expandCommand[MAX_LIMIT];
@@ -548,10 +568,19 @@ void commandPrompt() {
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
-			strcat(userInput, shpid);	
+			strcat(userInput, shpid);
+			
+			*point = NULL;
+			
+			*point = strstr(userInput, expansion);	
 		}
 	
-		// check if command given contains & at the end, if so thats a bcakground process
+	
+	
+	
+	
+	
+		// check if command given contains & at the end, if so thats a background process
 		if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
 			
 			// then strip the background char to feed the command where it goes
