@@ -99,6 +99,7 @@ void checkRedirection(){
 				fileIn = commands[i+1];
 				argIn = commands[i-1];
 				inPresent = 1;
+			}
 			else {
 				perror("File don't exist\n");
 			}
@@ -111,6 +112,7 @@ void checkRedirection(){
 				fileOut = commands[i+1];
 				argOut = commands[i-1];
 				outPresent = 1;
+			}
 			else {
 				perror("File don't exist\n");
 			}	
