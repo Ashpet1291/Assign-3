@@ -244,12 +244,12 @@ void execCommands() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-		printf("pid is: %d", spawnPid);
-		fflush(stdout);
+//		printf("pid is: %d\n", spawnPid);
+//		fflush(stdout);
 	   	spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
 	   	if (WIFEXITED(childStatus)) 
-            printf("Child %d terminated with status: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus));
+//            printf("Child %d terminated with status: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus));
 				   	fflush(stdout); 
       } 
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
@@ -317,13 +317,13 @@ void execCommandsFileRedir() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-	  	printf("pid is: %d", spawnPid);
-	  	fflush(stdout);
+//	  	printf("pid is: %d\n", spawnPid);
+//	  	fflush(stdout);
 	   	spawnPid = waitpid(spawnPid, &childStatus1, WNOHANG);
-	   	if (WIFEXITED(childStatus1)) 
-            printf("Child %d terminated with status: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus1));
-				   	fflush(stdout); 
+//	   	if (WIFEXITED(childStatus1)) 
+//            printf("Child %d terminated with status: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus1));
+//				   	fflush(stdout); 
     } 
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
@@ -418,13 +418,13 @@ void execCommandsFileredirect() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-	   printf("pid is: %d", spawnPid);
-	   	fflush(stdout);
+//	   printf("pid is: %d", spawnPid);
+//	   	fflush(stdout);
 	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
-	   	if (WIFEXITED(childStatus2)) 
-            printf("Child %d terminated with status: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus2));
-				   	fflush(stdout); 
+//	   	if (WIFEXITED(childStatus2)) 
+//            printf("Child %d terminated with status: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus2));
+//				   	fflush(stdout); 
     } 
      // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
