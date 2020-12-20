@@ -619,10 +619,10 @@ void commandPrompt() {
 			char expandCommand[MAX_LIMIT];
 			
 			// lower the size by 2
-			commandSize = (strlen(userInput) - 2);
-			
+		//	commandSize = (strlen(userInput) - 2);
+			// had command size in spot for size
 			// 
-			strncpy(expandCommand, userInput, commandSize);
+			strncpy(expandCommand, userInput, strlen(userInput) - 2);
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
@@ -668,23 +668,6 @@ void commandPrompt() {
 	}
 }
 
-
-//
-//har str[] = "teacher teach tea";
-//	char search[] = "ac";
-//	char *ptr = strstr(str, search);
-//
-//	if (ptr != NULL) /* Substring found */
-//	{
-//		printf("'%s' contains '%s'\n", str, search);
-//	}
-//	else /* Substring not found */
-//	{
-//		printf("'%s' doesn't contain '%s'\n", str, search);
-//	}
-//
-//	return 0;
-//}
 //Any non built-in command with an & at the end must be run as a background command and the shell must not wait for such a command to complete.
 // For such commands, the parent must return command line access and control to the user immediately after forking off the child.
 
