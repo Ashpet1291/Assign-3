@@ -597,7 +597,7 @@ void commandPrompt() {
 		}
 	
 	
-		char *tmptr = strstr(builtIns, userInput)
+		char *tmptr = strstr(builtIns, userInput);
 		
 		// it's abuilt in command, no need to check for background processes
 		if(tmptr != NULL) {
