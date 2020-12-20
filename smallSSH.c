@@ -272,8 +272,9 @@ void execCommands() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-//		printf("pid is: %d\n", spawnPid);
-//		fflush(stdout);
+	  	// it is a background process, so don't wait and print process id
+		printf("pid is: %d\n", spawnPid);
+		fflush(stdout);
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus)) 
@@ -346,8 +347,8 @@ void execCommandsFileRedir() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-//	  	printf("pid is: %d\n", spawnPid);
-//	  	fflush(stdout);
+	  	printf("pid is: %d\n", spawnPid);
+	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
 //	   	if (WIFEXITED(childStatus1)) 
 //            printf("Child %d terminated with status: %d\n", 
@@ -410,7 +411,7 @@ void execCommandsFileredirect() {
         
         // print error message because file doesn't exist
       	else {
-      		printf("file doesn't exist");
+      	//	printf("file doesn't exist\n");
       		fflush(stdout);
 	    }
 	  }
@@ -447,8 +448,8 @@ void execCommandsFileredirect() {
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
-//	   printf("pid is: %d", spawnPid);
-//	   	fflush(stdout);
+	   printf("pid is: %d", spawnPid);
+	   	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
 	   	if (WIFEXITED(childStatus2)) 
             printf("Child %d terminated with status: %d\n", 
