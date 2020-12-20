@@ -94,28 +94,28 @@ void checkRedirection(){
 	
 	
 		if(strcmp(commands[i], takIn) == 0) {
-			if (checkFile = fopen(commands[i+1], "r")) {
-      			fclose(checkFile);
+//			if (checkFile = fopen(commands[i+1], "r")) {
+//      			fclose(checkFile);
 				fileIn = commands[i+1];
 				argIn = commands[i-1];
 				inPresent = 1;
-			}
-			else {
-				perror("File don't exist\n");
-			}
+//			}
+//			else {
+//				perror("File don't exist\n");
+//			}
 		//	printf("this is fileIn %s", commands[i+1]);
 		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
-			if (checkFile = fopen(commands[i+1], "r")) {
-				fclose(checkFile);
+//			if (checkFile = fopen(commands[i+1], "r")) {
+//				fclose(checkFile);
 				fileOut = commands[i+1];
 				argOut = commands[i-1];
 				outPresent = 1;
-			}
-			else {
-				perror("File don't exist\n");
-			}	
+//			}
+//			else {
+//				perror("File don't exist\n");
+//			}	
 		//	printf("this is fileOut %s", commands[i+1]);
 		//	printf("this is ardOut %s", commands[i-1]);
 		}
