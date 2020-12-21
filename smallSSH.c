@@ -309,8 +309,7 @@ void execCommands() {
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
     background = 0;
-  
-  
+
   
 }
 
@@ -368,7 +367,28 @@ void execCommandsFileRedir() {
       // In the parent process
       // Wait for child's termination
       
-      if(background == 0) {
+//      if(background == 0) {
+//      	waitpid(spawnPid, &childStatus1, 0);
+//	  }
+//	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+//	  else {
+//	  	printf("pid is: %d\n", spawnPid);
+//	  	fflush(stdout);
+//	   	waitpid(spawnPid, &childStatus1, WNOHANG);
+//	   	if (WIFEXITED(childStatus1)) 
+//            printf("background pid %d is done: exit value: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus1));
+//				   	fflush(stdout); 
+//    } 
+//     // spawnPid = waitpid(spawnPid, &childStatus1, 0);
+//    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+//     background = 0;
+      break;
+  }
+  
+  
+  
+  if(background == 0) {
       	waitpid(spawnPid, &childStatus1, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
@@ -384,8 +404,6 @@ void execCommandsFileRedir() {
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
-      break;
-  }
 }
 
 
@@ -470,7 +488,26 @@ void execCommandsFileredirect() {
       // In the parent process
       // Wait for child's termination
       // if it's a foreground process-wait for it to finish
-      if(background == 0) {
+//      if(background == 0) {
+//      	waitpid(spawnPid, &childStatus2, 0);
+//	  }
+//	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+//	  else {
+//	   printf("pid is: %d", spawnPid);
+//	   	fflush(stdout);
+//	   	waitpid(spawnPid, &childStatus2, WNOHANG);
+//	   	if (WIFEXITED(childStatus2)) 
+//            printf("background pid %d is done: exit value: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus2));
+//				   	fflush(stdout); 
+//    } 
+//     // spawnPid = waitpid(spawnPid, &childStatus2, 0);
+//    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+//     background = 0;
+      break;
+  }
+  
+  if(background == 0) {
       	waitpid(spawnPid, &childStatus2, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
@@ -486,8 +523,6 @@ void execCommandsFileredirect() {
      // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
-      break;
-  }
 }
 
 
