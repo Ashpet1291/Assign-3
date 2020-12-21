@@ -369,9 +369,9 @@ void execCommandsFileRedir() {
       break;
   }
   
-  	if (WIFEXITED(childStatus)) 
+  	if (WIFEXITED(childStatus1)) 
             printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus));
+                   spawnPid, WEXITSTATUS(childStatus1));
 				   	fflush(stdout); 
 }
 
@@ -477,9 +477,9 @@ void execCommandsFileredirect() {
   }
   
   
-  	if (WIFEXITED(childStatus)) 
+  	if (WIFEXITED(childStatus2)) 
             printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus));
+                   spawnPid, WEXITSTATUS(childStatus2));
 				   	fflush(stdout); 
 }
 
