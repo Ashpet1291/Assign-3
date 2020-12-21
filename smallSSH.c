@@ -278,10 +278,10 @@ void execCommands() {
 		// 
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
-//	   	if (WIFEXITED(childStatus)) 
-//            printf("background pid %d is done: exit value: %d\n", 
-//                   spawnPid, WEXITSTATUS(childStatus));
-//				   	fflush(stdout); 
+	   	if (WIFEXITED(childStatus)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus));
+				   	fflush(stdout); 
       } 
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
@@ -289,10 +289,7 @@ void execCommands() {
       break;
   }
   
-  	if (WIFEXITED(childStatus)) 
-            printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus));
-				   	fflush(stdout); 
+  
   
 }
 
@@ -358,21 +355,16 @@ void execCommandsFileRedir() {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
-//	   	if (WIFEXITED(childStatus1)) 
-//            printf("background pid %d is done: exit value: %d\n", 
-//                   spawnPid, WEXITSTATUS(childStatus1));
-//				   	fflush(stdout); 
+	   	if (WIFEXITED(childStatus1)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus1));
+				   	fflush(stdout); 
     } 
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
       break;
   }
-  
-  	if (WIFEXITED(childStatus1)) 
-            printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus1));
-				   	fflush(stdout); 
 }
 
 
@@ -465,22 +457,16 @@ void execCommandsFileredirect() {
 	   printf("pid is: %d", spawnPid);
 	   	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
-//	   	if (WIFEXITED(childStatus2)) 
-//            printf("background pid %d is done: exit value: %d\n", 
-//                   spawnPid, WEXITSTATUS(childStatus2));
-//				   	fflush(stdout); 
+	   	if (WIFEXITED(childStatus2)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus2));
+				   	fflush(stdout); 
     } 
      // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
       break;
   }
-  
-  
-  	if (WIFEXITED(childStatus2)) 
-            printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus2));
-				   	fflush(stdout); 
 }
 
 
