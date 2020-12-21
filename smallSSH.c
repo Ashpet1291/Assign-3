@@ -262,23 +262,43 @@ void execCommands() {
       // exec only returns if there is an error
       perror("execvp");
       exit(EXIT_FAILURE);
-      
-      	printf("background pid is: %d\n", spawnPid);
-		fflush(stdout);
       break;
     default:
       // In the parent process
       // Wait for child's termination
       
-      if(background == 0) {
+//      if(background == 0) {
+//      	waitpid(spawnPid, &childStatus, 0);
+//	  }
+//	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+//	  else {
+//	  	// it is a background process, so don't wait and print process id
+//		printf("background pid is: %d\n", spawnPid);
+//		fflush(stdout);
+//		// 
+//	   	waitpid(spawnPid, &childStatus, WNOHANG);
+//	   	
+//	   	if (WIFEXITED(childStatus)) 
+//            printf("background pid %d is done: exit value: %d\n", 
+//                   spawnPid, WEXITSTATUS(childStatus));
+//				   	fflush(stdout); 
+//      } 
+//      //spawnPid = waitpid(spawnPid, &childStatus, 0);
+//    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
+//    background = 0;
+      break;
+  }
+  
+  
+   if(background == 0) {
       	waitpid(spawnPid, &childStatus, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 	  	// it is a background process, so don't wait and print process id
-//		printf("background pid is: %d\n", spawnPid);
-//		fflush(stdout);
-		// dont wait
+		printf("background pid is: %d\n", spawnPid);
+		fflush(stdout);
+		// 
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus)) 
@@ -289,8 +309,9 @@ void execCommands() {
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
     background = 0;
-      break;
-  }
+  
+  
+  
 }
 
 
