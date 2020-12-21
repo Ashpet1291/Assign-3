@@ -277,16 +277,15 @@ void execCommands() {
 		fflush(stdout);
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
+	   	if (WIFEXITED(childStatus)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus));
+				   	fflush(stdout); 
       } 
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
     background = 0;
       break;
-      
-      if (WIFEXITED(childStatus)) 
-            printf("background pid %d is done: exit value: %d\n", 
-                   spawnPid, WEXITSTATUS(childStatus));
-				   	fflush(stdout); 
   }
 }
 
