@@ -617,16 +617,42 @@ void commandPrompt() {
 		char *point = strstr(userInput, expansion);	
 		
 		// this means there is expansion to be done
-		if(point != NULL) {
+//		if(point != NULL) {
+//			
+//		//	printf("point isn't null, this is pid: %d \n", getpid());
+//			char expandCommand[MAX_LIMIT];
+//			
+//			// lower the size by 2
+//		//	commandSize = (strlen(userInput) - 2);
+//		
+//			// had command size in spot for size
+//			// 
+//			strncpy(expandCommand, userInput, strlen(userInput) - 2);
+//			strcpy(userInput, expandCommand);
+//			// maybe need to do getppid;
+//			sprintf(shpid, "%d", getpid());
+//			strcat(userInput, shpid);	
+//			
+//			memset(shpid, '\0', strlen(shpid));
+//			
+//		//	clears for cd, but then gets hung on -- Testing foreground-only mode--kill -SIGTSTP $$
+//	//	//	memset(expandCommand, '\0', strlen(expandCommand));
+//		}
+
+		while(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
 			char expandCommand[MAX_LIMIT];
 			
 			// lower the size by 2
 		//	commandSize = (strlen(userInput) - 2);
+		
 			// had command size in spot for size
 			// 
 			strncpy(expandCommand, userInput, strlen(userInput) - 2);
+			
+			memset(userInput, '\0', strlen(userInput));
+			
 			strcpy(userInput, expandCommand);
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
@@ -636,6 +662,9 @@ void commandPrompt() {
 			
 		//	clears for cd, but then gets hung on -- Testing foreground-only mode--kill -SIGTSTP $$
 	//	//	memset(expandCommand, '\0', strlen(expandCommand));
+	
+			point = strstr(userInput, expansion);
+	
 		}
 	
 		
