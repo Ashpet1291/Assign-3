@@ -276,7 +276,7 @@ void execCommands() {
 		printf("background pid is: %d\n", spawnPid);
 		fflush(stdout);
 		// 
-	   	waitpid(spawnPid, &childStatus, WNOHANG);
+	   	spawnPid = waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus)) 
             printf("background pid %d is done: exit value: %d\n", 
@@ -354,7 +354,7 @@ void execCommandsFileRedir() {
 	  else {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
-	   	waitpid(spawnPid, &childStatus1, WNOHANG);
+	   	spawnPid = waitpid(spawnPid, &childStatus1, WNOHANG);
 	   	if (WIFEXITED(childStatus1)) 
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus1));
@@ -456,7 +456,7 @@ void execCommandsFileredirect() {
 	  else {
 	   printf("pid is: %d", spawnPid);
 	   	fflush(stdout);
-	   	waitpid(spawnPid, &childStatus2, WNOHANG);
+	   	spawnPid = waitpid(spawnPid, &childStatus2, WNOHANG);
 	   	if (WIFEXITED(childStatus2)) 
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus2));
