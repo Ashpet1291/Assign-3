@@ -262,6 +262,9 @@ void execCommands() {
       // exec only returns if there is an error
       perror("execvp");
       exit(EXIT_FAILURE);
+      
+      	printf("background pid is: %d\n", spawnPid);
+		fflush(stdout);
       break;
     default:
       // In the parent process
@@ -273,8 +276,9 @@ void execCommands() {
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 	  	// it is a background process, so don't wait and print process id
-		printf("background pid is: %d\n", spawnPid);
-		fflush(stdout);
+//		printf("background pid is: %d\n", spawnPid);
+//		fflush(stdout);
+		// dont wait
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus)) 
