@@ -202,7 +202,7 @@ void changeDir() {
 	else {	
 //	printf("this is arg after cd");
 
-		printf("this is comm at 1 %s", commands[2]);
+	//	printf("this is comm at 1 %s", commands[2]);
 		//	int ch;
 		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
