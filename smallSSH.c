@@ -181,7 +181,7 @@ void changeDir() {
 	if(commands[1] == NULL) {
 		
 		
-		chdir(homedir);
+		chdir(getenv("HOME");
 		
 		printf("this is nothing after cd");
 		
@@ -200,7 +200,9 @@ void changeDir() {
 	}
 	
 	else {	
-	printf("this is arg after cd");
+//	printf("this is arg after cd");
+
+		printf("this is comm at 1 %s", commands[1]);
 		//	int ch;
 		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
@@ -581,7 +583,6 @@ void BuiltInCommands() {
 		else {
 			execCommands();
 		}
-//		execCommands();
 	}
 }
 
@@ -612,25 +613,8 @@ void *parseCommand(char *currLine)
       
       	// cuont for number of cammands entered
         commandCount++;
-}
+	}
    
-//   
-//   char *point1 = strstr(looptoken, expansion);	
-//		
-//		// this means there is expansion to be done
-//		if(point1 != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			commandSize = (strlen(looptoken) - 2);
-//			strncpy(expandCommand, looptoken, commandSize);
-//			strcpy(looptoken, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(expandCommand, "%d", getpid());
-//			strcat(looptoken, expandCommand);	
-//		}
-   
-    
 }
 
 
