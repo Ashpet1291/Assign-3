@@ -407,7 +407,7 @@ void execCommandsFileRedir() {
      background = 0;
       break;
   }
-  memset(commands, '\0', sizeof(commands);
+  memset(commands, '\0', sizeof(commands));
 }
 
 
