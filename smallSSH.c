@@ -638,11 +638,11 @@ void commandPrompt() {
 //		//	clears for cd, but then gets hung on -- Testing foreground-only mode--kill -SIGTSTP $$
 //	//	//	memset(expandCommand, '\0', strlen(expandCommand));
 //		}
-
+		char expandCommand[MAX_LIMIT];
 		while(point != NULL) {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
-			char expandCommand[MAX_LIMIT];
+			
 			memset(expandCommand, '\0', MAX_LIMIT);
 			
 			// lower the size by 2
