@@ -34,10 +34,7 @@
 
 
 
-struct sigaction SIGINT_action = {0};
-struct sigaction SIGTSTP_action = {0};
-
-
+char *homedir;
 // counts total items in string
 int itemCount = 0;
 
@@ -184,10 +181,10 @@ void changeDir() {
 	if(commands[1] == NULL) {
 		
 		
-		chdir(getenv("HOME"));
+		chdir(homedir);
 		
-		printf("PATH : %s\n", getenv("PATH"));
-   		printf("HOME : %s\n", getenv("HOME"));
+//		printf("PATH : %s\n", getenv("PATH"));
+//   		printf("HOME : %s\n", getenv("HOME"));
 		
 //		char *homedir = getenv("HOME");
 //
@@ -775,7 +772,8 @@ void commandPrompt() {
 //If the user doesn't redirect the standard output for a background command, then standard output should be redirected to /dev/null
 
 int main(){
-	
+
+	homedir = getenv("HOME");	
 //	
 //	// SIGINT handling - default is ignore
 //	SIGINT_action.sa_handler = SIG_IGN;
