@@ -212,17 +212,13 @@ void execCommands() {
   	  	char *processCat;
   	  	
   	  	processCat = commands[1];
-  	  	
+  	  		printf("failed on execStatus");
   	  	execlp(process, process, processCat, NULL);	
 		}
 	  else {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
-      execStatus = execvp(process, commands);
-      
-      if(execStatus != 0) {
-      	printf("failed on execStatus");
-	  }
+      execvp(process, commands);     
   	  }
   	  
   	  	if(background == 1) {
