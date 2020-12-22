@@ -387,6 +387,10 @@ void execCommandsFileredirect() {
 	process3 = argOut;
 
   switch(spawnPid){
+  	
+  	
+  //	char message[] = "terminated by signal %d"
+  	
     case -1:
       perror("fork()\n");
       exit(1);
@@ -435,6 +439,12 @@ void execCommandsFileredirect() {
   	  	
   	  	// pass the given argument to exec function
       	execlp(process3, process3, NULL);
+      	
+      	
+      	if(background == 1) {
+      		signal(SIGINT, SIG_IGN);
+		  }
+      	
 	  	
 	  }
  	  
@@ -450,6 +460,8 @@ void execCommandsFileredirect() {
       // Wait for child's termination
       // if it's a foreground process-wait for it to finish
       if(background == 0) {
+      	
+      	printf("terminated by signal %d", getpid());
       	waitpid(spawnPid, &childStatus2, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
@@ -461,14 +473,13 @@ void execCommandsFileredirect() {
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus2));
 				   	fflush(stdout); 
-    } 
+      } 
      // spawnPid = waitpid(spawnPid, &childStatus2, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
       break;
   }
 }
-
 
 
 /*
