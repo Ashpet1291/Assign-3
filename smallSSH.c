@@ -183,7 +183,7 @@ void changeDir() {
 		
 		chdir(getenv("HOME");
 		
-		printf("this is nothing after cd");
+	//	printf("this is nothing after cd");
 		
 //		printf("PATH : %s\n", getenv("PATH"));
 //   		printf("HOME : %s\n", getenv("HOME"));
