@@ -178,7 +178,7 @@ void changeDir() {
 	
 	char tempcomm[] = {"0"};
 		
-	if(commands[1] == NULL) {
+	if(commands[2] == NULL) {
 		
 		
 		chdir(getenv("HOME"));
@@ -202,7 +202,7 @@ void changeDir() {
 	else {	
 //	printf("this is arg after cd");
 
-		printf("this is comm at 1 %s", commands[1]);
+		printf("this is comm at 1 %s", commands[2]);
 		//	int ch;
 		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
