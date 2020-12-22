@@ -177,7 +177,7 @@ void checkRedirection(){
 void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
-	char absFile[] = { "/" };
+	char absFile[] = { "./" };
 	
 	char tempcomm[] = {"0"};
 		
@@ -781,16 +781,16 @@ void commandPrompt() {
 
 int main(){
 	
-	
-	// SIGINT handling - default is ignore
-	SIGINT_action.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &SIGINT_action, NULL);
-
-	// SIGTSTP handling - foreground only mode
-	SIGTSTP_action.sa_handler = handle_SIGSTP;
-	sigfillset(&SIGTSTP_action.sa_mask);
-	SIGTSTP_action.sa_flags = SA_RESTART;
-	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
+//	
+//	// SIGINT handling - default is ignore
+//	SIGINT_action.sa_handler = SIG_IGN;
+//	sigaction(SIGINT, &SIGINT_action, NULL);
+//
+//	// SIGTSTP handling - foreground only mode
+//	SIGTSTP_action.sa_handler = handle_SIGSTP;
+//	sigfillset(&SIGTSTP_action.sa_mask);
+//	SIGTSTP_action.sa_flags = SA_RESTART;
+//	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
 	// displays the command prompt
 	commandPrompt();
 
