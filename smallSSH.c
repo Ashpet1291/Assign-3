@@ -178,7 +178,7 @@ void changeDir() {
 	
 	char tempcomm[] = {"0"};
 		
-	if(commands[2] == NULL) {
+	if(commands[1] == NULL) {
 		
 		
 		chdir(getenv("HOME"));
