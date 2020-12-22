@@ -182,7 +182,7 @@ void exitProg() {
 	exit(0);
 }
 
-
+int execStatus = 0;
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
@@ -218,7 +218,11 @@ void execCommands() {
 	  else {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
-      execvp(process, commands);
+      execStatus = execvp(process, commands);
+      
+      if(execStatus != 0) {
+      	printf("failed on execStatus");
+	  }
   	  }
   	  
   	  	if(background == 1) {
