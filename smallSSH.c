@@ -32,12 +32,45 @@
 #define MAX_CHARS 2048
 #define MAX_ARGS 512
 
+
+
+struct sigaction SIGINT_action = {0};
+struct sigaction SIGTSTP_action = {0};
+
+
 void handle_SIGINT(int signo){
 	char* message = "Caught SIGINT\n";
   // We are using write rather than printf
-	write(STDOUT_FILENO, message, 39);
+	write(STDOUT_FILENO, message, 30);
 	sleep(10);
 }
+
+
+void handle_SIGSTP(int signo){
+	char* message = "Entering foreground-only mode (& is now ignored)\n";
+	
+	// If it's 1, set it to 0 and display a message reentrantly
+	if (background == 1) {
+		char* message = "Entering foreground-only mode (& is now ignored)\n";
+		write(1, message, 49);
+		fflush(stdout);
+	//	background = 0;
+	}
+
+	// If it's 0, set it to 1 and display a message reentrantly
+	else {
+		char* message = "Exiting foreground-only mode\n";
+		write (1, message, 48);
+		fflush(stdout);
+	//	allowBackground = 1;
+	}
+	
+//	sleep(10);
+}
+
+
+
+
 
 // counts total items in string
 int itemCount = 0;
@@ -78,11 +111,6 @@ int background = 0;
 int inPresent = 0;
 int outPresent = 0;
 int bothPresent = 0;
-
-
-
-
-
 
 
 /*
@@ -755,6 +783,16 @@ void commandPrompt() {
 
 int main(){
 	
+	
+	// SIGINT handling - default is ignore
+	SIGINT_action.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &SIGINT_action, NULL);
+
+	// SIGTSTP handling - foreground only mode
+	SIGTSTP_action.sa_handler = handle_SIGSTP;
+	sigfillset(&SIGTSTP_action.sa_mask);
+	SIGTSTP_action.sa_flags = SA_RESTART;
+	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
 	// displays the command prompt
 	commandPrompt();
 
