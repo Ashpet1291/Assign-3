@@ -186,6 +186,9 @@ void changeDir() {
 		
 		chdir(getenv("HOME"));
 		
+		printf("PATH : %s\n", getenv("PATH"));
+   		printf("HOME : %s\n", getenv("HOME"));
+		
 //		char *homedir = getenv("HOME");
 //
 //        if (homedir != NULL) {
@@ -194,14 +197,6 @@ void changeDir() {
 //    		chdir(homedir);
 //        }
 //
-//        uid_t uid = getuid();
-//        struct passwd *pw = getpwuid(uid);
-//
-//        if (pw == NULL) {
-//                printf("cd HOME Failed\n");
-//                exit(EXIT_FAILURE);
-//        }
-    //    printf("%s\n", pw->pw_dir);
 
 	}
 	
