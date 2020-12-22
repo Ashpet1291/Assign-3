@@ -220,7 +220,7 @@ void execCommands() {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
   	  if(strcmp(commands[1], "test") == 0) {
-  	  	printf("error");
+  	  	printf("%s", commands[2]);
 		}
       execvp(process, commands);     
   	  }
