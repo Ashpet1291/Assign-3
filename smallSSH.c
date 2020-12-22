@@ -212,17 +212,16 @@ void execCommands() {
   	  	char *processCat;
   	  	
   	  	processCat = commands[1];
-  	  	execStatus = execlp(process, process, processCat, NULL);
-			
-		if(execStatus != 0) {
-			printf("error ");
-		}	
+  	  	execlp(process, process, processCat, NULL);	
 //  	  	perror("execlp");
 //      	exit(EXIT_FAILURE);
 		}
 	  else {
 	  commands[commandCount] = NULL;
   	  // pass the given argument to exec function
+  	  if(strcmp(commands[1], "test") == 0) {
+  	  	printf("error");
+		}
       execvp(process, commands);     
   	  }
   	  
@@ -258,8 +257,6 @@ void execCommands() {
     background = 0;
       break;
   }
-  
-  
    memset(commands, '\0', sizeof(commands));
 }
 
@@ -432,7 +429,7 @@ void execCommandsFileredirect() {
       //	printf("background pid %d is done: terminated by signal %d", getpid());
       	waitpid(spawnPid, &childStatus2, 0);
 	  }
-	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+	  //otherwise it's a background process and work on it, but give control back to user for other processes
 	  else {
 	   printf("pid is: %d", spawnPid);
 	   	fflush(stdout);
@@ -586,13 +583,7 @@ void commandPrompt() {
 			
 			memset(expandCommand, '\0', MAX_LIMIT);
 			
-			// lower the size by 2
-		//	commandSize = (strlen(userInput) - 2);
-		
-			// had command size in spot for size
-			// 
 			strncpy(expandCommand, userInput, strlen(userInput) - 2);
-			
 			
 			memset(userInput, '\0', strlen(userInput));
 			
@@ -620,8 +611,7 @@ void commandPrompt() {
 			
 						// parse the given command
 			userCommand = parseCommand(userInput);
-			
-			
+						
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
