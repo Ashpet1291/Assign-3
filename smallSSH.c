@@ -651,9 +651,13 @@ void commandPrompt() {
 			// 
 			strncpy(expandCommand, userInput, strlen(userInput) - 2);
 			
+			
 			memset(userInput, '\0', strlen(userInput));
 			
 			strcpy(userInput, expandCommand);
+			
+			memset(expandCommand, '\0', strlen(expandCommand));
+			
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
 			strcat(userInput, shpid);	
