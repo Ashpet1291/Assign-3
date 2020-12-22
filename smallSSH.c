@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <pwd.h>
+#include <signal.h> 
 
 
 #define MAX_LIMIT 100
@@ -259,6 +260,10 @@ void execCommands() {
   	  // pass the given argument to exec function
       execvp(process, commands);
   	  }
+  	  
+  	  	if(background == 1) {
+      		signal(SIGINT, SIG_IGN);
+		  }
       // exec only returns if there is an error
       perror("execvp");
       exit(EXIT_FAILURE);
@@ -339,6 +344,11 @@ void execCommandsFileRedir() {
   	  
   	  // pass the given argument to exec function
       execlp(process1, process1, NULL);
+      
+      
+      	if(background == 1) {
+      		signal(SIGINT, SIG_IGN);
+		  }
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
@@ -461,7 +471,7 @@ void execCommandsFileredirect() {
       // if it's a foreground process-wait for it to finish
       if(background == 0) {
       	
-      	printf("terminated by signal %d", getpid());
+      //	printf("background pid %d is done: terminated by signal %d", getpid());
       	waitpid(spawnPid, &childStatus2, 0);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
@@ -469,6 +479,7 @@ void execCommandsFileredirect() {
 	   printf("pid is: %d", spawnPid);
 	   	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
+	   	
 	   	if (WIFEXITED(childStatus2)) 
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus2));
