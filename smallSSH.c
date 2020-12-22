@@ -660,7 +660,7 @@ void commandPrompt() {
 		//	memset(expandCommand, '\0', strlen(expandCommand));
 			
 			// maybe need to do getppid;
-			sprintf(shpid, "%d", getpid());
+			sprintf(shpid, "%d", getppid());
 			strcat(userInput, shpid);	
 			
 			memset(shpid, '\0', strlen(shpid));
@@ -672,7 +672,7 @@ void commandPrompt() {
 	
 		}
 		
-		printf("parent pid %d:  other pid %d: ", getpid(), getppid());
+	//	printf("parent pid %d:  other pid %d: ", getpid(), getppid());
 	
 		
 	
