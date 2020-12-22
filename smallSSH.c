@@ -643,6 +643,7 @@ void commandPrompt() {
 			
 		//	printf("point isn't null, this is pid: %d \n", getpid());
 			char expandCommand[MAX_LIMIT];
+			memset(expandCommand, '\0', MAX_LIMIT);
 			
 			// lower the size by 2
 		//	commandSize = (strlen(userInput) - 2);
@@ -656,7 +657,7 @@ void commandPrompt() {
 			
 			strcpy(userInput, expandCommand);
 			
-			memset(expandCommand, '\0', strlen(expandCommand));
+		//	memset(expandCommand, '\0', strlen(expandCommand));
 			
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getpid());
