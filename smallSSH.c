@@ -200,7 +200,7 @@ void changeDir() {
 	}
 	
 	else {	
-	
+	printf("this is arg after cd");
 		//	int ch;
 		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
