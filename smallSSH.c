@@ -671,6 +671,8 @@ void commandPrompt() {
 			point = strstr(userInput, expansion);
 	
 		}
+		
+		printf("parent pid %d:  other pid %d: ", getpid(), getppid());
 	
 		
 	
