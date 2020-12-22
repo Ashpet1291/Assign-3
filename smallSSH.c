@@ -76,37 +76,6 @@ int outPresent = 0;
 int bothPresent = 0;
 
 
-void handle_SIGINT(int signo){
-	char* message = "Caught SIGINT\n";
-  // We are using write rather than printf
-	write(STDOUT_FILENO, message, 30);
-	sleep(10);
-}
-
-
-void handle_SIGSTP(int signo){
-	char* message = "Entering foreground-only mode (& is now ignored)\n";
-	
-	// If it's 1, set it to 0 and display a message reentrantly
-	if (background == 1) {
-		char* message = "Entering foreground-only mode (& is now ignored)\n";
-		write(1, message, 49);
-		fflush(stdout);
-	//	background = 0;
-	}
-
-	// If it's 0, set it to 1 and display a message reentrantly
-	else {
-		char* message = "Exiting foreground-only mode\n";
-		write (1, message, 48);
-		fflush(stdout);
-	//	allowBackground = 1;
-	}
-	
-//	sleep(10);
-}
-
-
 
 /*
 * This checks if file redirection is included in the arguments, if so it passes the args to an exec function
@@ -133,9 +102,6 @@ void checkRedirection(){
 //			}
 //			else {
 //				perror("File don't exist\n");
-//			}
-		//	printf("this is fileIn %s", commands[i+1]);
-		//	printf("this is argIn %s", commands[i-1]);
 		}
 		if(strcmp(commands[i], outPut) == 0) {
 //			if (checkFile = fopen(commands[i+1], "r")) {
@@ -143,29 +109,11 @@ void checkRedirection(){
 				fileOut = commands[i+1];
 				argOut = commands[i-1];
 				outPresent = 1;
-//			}
-//			else {
-//				perror("File don't exist\n");
-//			}	
-		//	printf("this is fileOut %s", commands[i+1]);
-		//	printf("this is ardOut %s", commands[i-1]);
+
 		}
 		i++;
 	}
 }
-
-///* try to open file to read */
-//   FILE *file;
-//   if (file = fopen("a.txt", "r")) {
-//      fclose(file);
-//      printf("file exists");
-//   } else {
-//      printf("file doesn't exist");
-//   }
-//if((len = strlen(str)) > 3 && !strcmp(str + len - 4, ".txt"))
-
-
-//(strncmp(comment, commands[0], strlen(comment)) == 0)
 
 /*
 * This function changes directories
@@ -182,20 +130,6 @@ void changeDir() {
 		
 		
 		chdir(getenv("HOME"));
-		
-	//	printf("this is nothing after cd");
-		
-//		printf("PATH : %s\n", getenv("PATH"));
-//   		printf("HOME : %s\n", getenv("HOME"));
-		
-//		char *homedir = getenv("HOME");
-//
-//        if (homedir != NULL) {
-//        //        printf("Home dir in enviroment");
-//        //        printf("%s\n", homedir);       
-//    		chdir(homedir);
-//        }
-//
 
 	}
 	
@@ -218,12 +152,6 @@ void changeDir() {
 			chdir(absFile);
 			//strcpy(tempcomm, absFile); 			
 		}
-//		if(ch<0) {
-//			printf("chdir change of directory NOT successful \n");
-//		}
-//		else {
-//			printf("change was succesfull \n");
-//		}
 	}	
 }
 
@@ -331,13 +259,10 @@ void execCommands() {
 }
 
 
-
-
 void execCommandsFileRedir() {
 	
 	FILE *in;
 	FILE *out;
-	
 
 	int childStatus1;
 
@@ -369,8 +294,7 @@ void execCommandsFileRedir() {
   	  dup2(fI, 0);
   	  
   	  dup2(fO, 1);
-  	  
-  	  
+  	   
   	  fclose(in);
       fclose(out);
   	  
@@ -478,17 +402,13 @@ void execCommandsFileredirect() {
   	  	dup2(fO, 1);
   	  	
   	  	fclose(out);
-  	  	
-  	  	
+  	  		  	
   	  	// pass the given argument to exec function
       	execlp(process3, process3, NULL);
-      	
-      	
+      	      	
       	if(background == 1) {
       		signal(SIGINT, SIG_IGN);
-		  }
-      	
-	  	
+		  }	
 	  }
  	  
 //  	  // pass the given argument to exec function
@@ -653,28 +573,7 @@ void commandPrompt() {
 		// check for expansion
 		char *point = strstr(userInput, expansion);	
 		
-		// this means there is expansion to be done
-//		if(point != NULL) {
-//			
-//		//	printf("point isn't null, this is pid: %d \n", getpid());
-//			char expandCommand[MAX_LIMIT];
-//			
-//			// lower the size by 2
-//		//	commandSize = (strlen(userInput) - 2);
-//		
-//			// had command size in spot for size
-//			// 
-//			strncpy(expandCommand, userInput, strlen(userInput) - 2);
-//			strcpy(userInput, expandCommand);
-//			// maybe need to do getppid;
-//			sprintf(shpid, "%d", getpid());
-//			strcat(userInput, shpid);	
-//			
-//			memset(shpid, '\0', strlen(shpid));
-//			
-//		//	clears for cd, but then gets hung on -- Testing foreground-only mode--kill -SIGTSTP $$
-//	//	//	memset(expandCommand, '\0', strlen(expandCommand));
-//		}
+	
 		char expandCommand[MAX_LIMIT];
 		while(point != NULL) {
 			
@@ -708,11 +607,7 @@ void commandPrompt() {
 			point = strstr(userInput, expansion);
 	
 		}
-		
-	//	printf("parent pid %d:  other pid %d: ", getpid(), getppid());
-	
-		
-	
+		//	printf("parent pid %d:  other pid %d: ", getpid(), getppid());
 		char *tmptr = strstr(userInput, "status");
 		
 		// it's abuilt in command, no need to check for background processes
@@ -760,18 +655,6 @@ void commandPrompt() {
 
 int main(){
 
-	homedir = getenv("HOME");	
-//	
-//	// SIGINT handling - default is ignore
-//	SIGINT_action.sa_handler = SIG_IGN;
-//	sigaction(SIGINT, &SIGINT_action, NULL);
-//
-//	// SIGTSTP handling - foreground only mode
-//	SIGTSTP_action.sa_handler = handle_SIGSTP;
-//	sigfillset(&SIGTSTP_action.sa_mask);
-//	SIGTSTP_action.sa_flags = SA_RESTART;
-//	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
-	// displays the command prompt
 	commandPrompt();
 
 }
