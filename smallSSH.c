@@ -32,6 +32,13 @@
 #define MAX_CHARS 2048
 #define MAX_ARGS 512
 
+void handle_SIGINT(int signo){
+	char* message = "Caught SIGINT\n";
+  // We are using write rather than printf
+	write(STDOUT_FILENO, message, 39);
+	sleep(10);
+}
+
 // counts total items in string
 int itemCount = 0;
 
@@ -150,21 +157,24 @@ void changeDir() {
 		
 	if(commands[1] == NULL) {
 		
-		char *homedir = getenv("HOME");
-
-        if (homedir != NULL) {
-        //        printf("Home dir in enviroment");
-        //        printf("%s\n", homedir);       
-    		chdir(homedir);
-        }
-
-        uid_t uid = getuid();
-        struct passwd *pw = getpwuid(uid);
-
-        if (pw == NULL) {
-                printf("cd HOME Failed\n");
-                exit(EXIT_FAILURE);
-        }
+		
+		chdir(getenv("HOME"));
+		
+//		char *homedir = getenv("HOME");
+//
+//        if (homedir != NULL) {
+//        //        printf("Home dir in enviroment");
+//        //        printf("%s\n", homedir);       
+//    		chdir(homedir);
+//        }
+//
+//        uid_t uid = getuid();
+//        struct passwd *pw = getpwuid(uid);
+//
+//        if (pw == NULL) {
+//                printf("cd HOME Failed\n");
+//                exit(EXIT_FAILURE);
+//        }
     //    printf("%s\n", pw->pw_dir);
 
 	}
@@ -174,16 +184,16 @@ void changeDir() {
 		//	int ch;
 		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
-			char *directory = commands[1];
-			chdir(directory);
+		//	char *directory = commands[1];
+			chdir(commands[1]);
 		}
 		else {
 			// append ./ to change directories
 			strcat(absFile, commands[1]);
 			
 			// now directory name gets argument plus ./ appended to front
-			char *directory1 = absFile;
-			chdir(directory1);
+		//	char *directory1 = absFile;
+			chdir(absFile);
 			//strcpy(tempcomm, absFile); 			
 		}
 //		if(ch<0) {
