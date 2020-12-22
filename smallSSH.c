@@ -212,8 +212,13 @@ void execCommands() {
   	  	char *processCat;
   	  	
   	  	processCat = commands[1];
-  	  		printf("failed on execStatus");
-  	  	execlp(process, process, processCat, NULL);	
+  	  	execStatus = execlp(process, process, processCat, NULL);
+			
+		if(execStatus != 0) {
+			printf("error ");
+		}	
+//  	  	perror("execlp");
+//      	exit(EXIT_FAILURE);
 		}
 	  else {
 	  commands[commandCount] = NULL;
