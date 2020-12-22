@@ -327,7 +327,7 @@ void execCommands() {
   }
   
   
-   memset(commands, '\0', MAXSIZE);
+   memset(commands, '\0', commandSize);
 }
 
 
@@ -407,7 +407,7 @@ void execCommandsFileRedir() {
      background = 0;
       break;
   }
-  memset(commands, '\0', MAXSIZE);
+  memset(commands, '\0', commandSize);
 }
 
 
