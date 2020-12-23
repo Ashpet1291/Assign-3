@@ -80,7 +80,7 @@ struct sigaction SIGINT_action = {0};
 
 void handle_SIGINT(int sig) 
 { 
-	kill(getpid(), SIGKILL);
+	kill(pidArray, SIGKILL);
 //	char* message = "Entering foreground-only mode (& is now ignored) \n";
 //  // We are using write rather than printf
 //	write(STDOUT_FILENO, message, 39);
@@ -203,7 +203,7 @@ void execCommands() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   
-   // pidArray = int(spawnPid);
+    pidArray = (int)spawnPid;
   
 	char *process;
   
@@ -290,7 +290,7 @@ void execCommandsFileRedir() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   	
-  //	pidArray = int(spawnPid);
+  	pidArray = (int)spawnPid;
   
 	char *process1;
   
@@ -379,7 +379,7 @@ void execCommandsFileredirect() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   
-   // pidArray = int(spawnPid);
+    pidArray = (int)spawnPid;
   
 	char *process2;
 	char *process3;
