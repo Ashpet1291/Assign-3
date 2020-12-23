@@ -80,7 +80,7 @@ struct sigaction SIGINT_action = {0};
 
 void handle_SIGINT(int sig) 
 { 
-	kill(pidArray, SIGKILL);
+	kill(pidArray, SIGTERM);
 //	char* message = "Entering foreground-only mode (& is now ignored) \n";
 //  // We are using write rather than printf
 //	write(STDOUT_FILENO, message, 39);
