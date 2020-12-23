@@ -216,9 +216,10 @@ void execCommands() {
       		signal(SIGINT, SIG_IGN);
 		}
 		else {
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_IGN);
-			killpg(getpid(), SIGKILL);
+//			signal(SIGINT, SIG_DFL);
+//			signal(SIGQUIT, SIG_IGN);
+
+			kill(spawnPid, SIGKILL);
 		}
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
@@ -301,7 +302,7 @@ void execCommandsFileRedir() {
 	else {
 		signal(SIGINT, SIG_DFL);
 //			signal(SIGQUIT, SIG_IGN);
-//			kill(-parent_pid, SIGQUIT);
+		kill(spawnPid, SIGKILL);
 	}
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
@@ -391,7 +392,7 @@ void execCommandsFileredirect() {
 		else {
 			signal(SIGINT, SIG_DFL);
 //			signal(SIGQUIT, SIG_IGN);
-//			kill(-parent_pid, SIGQUIT);
+			kill(spawnPid, SIGKILL);
 		}
 		
       if(inPresent == 1) {
