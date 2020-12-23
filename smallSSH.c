@@ -218,7 +218,7 @@ void execCommands() {
 		else {
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_IGN);
-			kill(getpid(), SIGQUIT);
+			killpg(getpid(), SIGKILL);
 		}
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
