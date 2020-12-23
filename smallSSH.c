@@ -201,7 +201,7 @@ void execCommands() {
 	char cats[] = "cat";
 
 	// Fork a new process
-	pid_t spawnPid = fork();
+	int spawnPid = fork();
   
     pidArray = (int)spawnPid;
   
@@ -288,7 +288,7 @@ void execCommandsFileRedir() {
 	int childStatus1;
 
 	// Fork a new process
-	pid_t spawnPid = fork();
+	int spawnPid = fork();
   	
   	pidArray = (int)spawnPid;
   
@@ -377,7 +377,7 @@ void execCommandsFileredirect() {
 	int childStatus2;
 
 	// Fork a new process
-	pid_t spawnPid = fork();
+	int spawnPid = fork();
   
     pidArray = (int)spawnPid;
   
