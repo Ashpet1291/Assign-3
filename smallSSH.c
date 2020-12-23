@@ -74,7 +74,7 @@ int outPresent = 0;
 int bothPresent = 0;
 
 
-int pidArray[20];
+int pidArray = 0;
 
 struct sigaction SIGINT_action = {0};
 
