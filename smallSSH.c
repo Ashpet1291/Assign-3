@@ -80,7 +80,7 @@ struct sigaction SIGINT_action = {0};
 
 void handle_SIGINT(int sig) 
 { 
-	kill(pidArray, SIGKILL);
+	kill(getpid(), SIGKILL);
 //	char* message = "Entering foreground-only mode (& is now ignored) \n";
 //  // We are using write rather than printf
 //	write(STDOUT_FILENO, message, 39);
@@ -190,7 +190,7 @@ void exitProg() {
 
 int execStatus = 0;
 
-memset(pidArray, "\0", sizeof(pidArray))
+memset(pidArray, '\0', sizeof(pidArray))
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
@@ -278,7 +278,7 @@ void execCommands() {
    memset(commands, '\0', sizeof(commands));
 }
 
-memset(pidArray, "\0", sizeof(pidArray));
+memset(pidArray,  '\0', sizeof(pidArray));
 
 void execCommandsFileRedir() {
 	
@@ -366,7 +366,7 @@ void execCommandsFileRedir() {
   memset(commands, '\0', sizeof(commands));
 }
 
-memset(pidArray, "\0", sizeof(pidArray));
+memset(pidArray,  '\0', sizeof(pidArray));
 
 void execCommandsFileredirect() {
 	
