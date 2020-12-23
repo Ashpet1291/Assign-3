@@ -203,7 +203,7 @@ void execCommands() {
 	// Fork a new process
 	int spawnPid = fork();
   
-    pidArray = (int)spawnPid;
+    pidArray = spawnPid;
   
 	char *process;
   
@@ -290,7 +290,7 @@ void execCommandsFileRedir() {
 	// Fork a new process
 	int spawnPid = fork();
   	
-  	pidArray = (int)spawnPid;
+  	pidArray = spawnPid;
   
 	char *process1;
   
@@ -379,7 +379,7 @@ void execCommandsFileredirect() {
 	// Fork a new process
 	int spawnPid = fork();
   
-    pidArray = (int)spawnPid;
+    pidArray = spawnPid;
   
 	char *process2;
 	char *process3;
