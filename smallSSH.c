@@ -44,7 +44,7 @@ int commandCount = 0;
 char userInput[MAX_LIMIT];
 char *commands[MAX_LIMIT];
 
-char *pidArray;
+int pidArray;
 
 
 // var for expansion
@@ -76,11 +76,22 @@ int outPresent = 0;
 int bothPresent = 0;
 
 
+void handle_SIGINT(int sig) 
+{ 
+	char* message = "Entering foreground-only mode (& is now ignored) \n";
+  // We are using write rather than printf
+	write(STDOUT_FILENO, message, 39);
+   	fflush(stdout); 
+} 
+
+
+
+struct sigaction SIGINT_action = {0};
 
 /*
 * This checks if file redirection is included in the arguments, if so it passes the args to an exec function
 */
-void checkRedirection(){
+void checkRedirection() {
 	
 	int i = 0;
 	inPresent =0;
@@ -88,11 +99,9 @@ void checkRedirection(){
 	
 	FILE *checkFile;
 	
-	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
-	
-	
+		
 		if(strcmp(commands[i], takIn) == 0) {
 //			if (checkFile = fopen(commands[i+1], "r")) {
 //      			fclose(checkFile);
@@ -134,11 +143,7 @@ void changeDir() {
 	}
 	
 	else {	
-//	printf("this is arg after cd");
 
-	//	printf("this is comm at 1 %s", commands[2]);
-		//	int ch;
-		//	ch = chdir(directory);
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
 		//	char *directory = commands[1];
 			chdir(commands[1]);
@@ -205,6 +210,16 @@ void execCommands() {
       exit(1);
       break;
     case 0:
+    	
+    	      
+     	if(background == 1) {
+      		signal(SIGINT, SIG_IGN);
+		}
+		else {
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_IGN);
+			kill(getpid(), SIGQUIT);
+		}
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
   	  if(strcmp(cats, commands[0]) == 0) {
@@ -222,10 +237,7 @@ void execCommands() {
 
       execvp(process, commands);     
   	  }
-  	  
-  	  	if(background == 1) {
-      		signal(SIGINT, SIG_IGN);
-		  }
+
       // exec only returns if there is an error
       perror("execvp");
       exit(EXIT_FAILURE);
@@ -233,7 +245,9 @@ void execCommands() {
     default:
       // In the parent process
       // Wait for child's termination
-      
+            
+      signal(SIGINT, SIG_IGN);
+
       if(background == 0) {
       	waitpid(spawnPid, &childStatus, 0);
 	  }
@@ -279,6 +293,16 @@ void execCommandsFileRedir() {
       exit(1);
       break;
     case 0:
+    	
+           
+    if(background == 1) {
+     	signal(SIGINT, SIG_IGN);
+	}
+	else {
+		signal(SIGINT, SIG_DFL);
+//			signal(SIGQUIT, SIG_IGN);
+//			kill(-parent_pid, SIGQUIT);
+	}
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
   	  in = fopen(fileIn,"r");
@@ -289,8 +313,7 @@ void execCommandsFileRedir() {
   	  out = fopen(fileOut,"a");
   	  
   	  int fO = fileno(out);
-  	  
-  	  
+  	  	  
   	  dup2(fI, 0);
   	  
   	  dup2(fO, 1);
@@ -301,15 +324,14 @@ void execCommandsFileRedir() {
   	  // pass the given argument to exec function
       execlp(process1, process1, NULL);
       
-      
-      	if(background == 1) {
-      		signal(SIGINT, SIG_IGN);
-		  }
+
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
       break;
     default:
+    	
+      signal(SIGINT, SIG_IGN);
       // In the parent process
       // Wait for child's termination
       
@@ -326,6 +348,7 @@ void execCommandsFileRedir() {
                    spawnPid, WEXITSTATUS(childStatus1));
 				   	fflush(stdout); 
     } 
+   
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
      background = 0;
@@ -333,7 +356,6 @@ void execCommandsFileRedir() {
   }
   memset(commands, '\0', sizeof(commands));
 }
-
 
 
 void execCommandsFileredirect() {
@@ -354,8 +376,7 @@ void execCommandsFileredirect() {
 	process3 = argOut;
 
   switch(spawnPid){
-  	
-  	
+  		
   //	char message[] = "terminated by signal %d"
   	
     case -1:
@@ -364,11 +385,18 @@ void execCommandsFileredirect() {
       break;
     case 0:
       // In the child process
-      
+        if(background == 1) {
+      		signal(SIGINT, SIG_IGN);
+		}
+		else {
+			signal(SIGINT, SIG_DFL);
+//			signal(SIGQUIT, SIG_IGN);
+//			kill(-parent_pid, SIGQUIT);
+		}
+		
       if(inPresent == 1) {
       	//    printf("CHILD(%d) running ls command\n", getpid());
-      	
-
+    
       	// check if file exist, if so open, else print error
   	  	if(in = fopen(fileIn,"r")) {
   	  		
@@ -389,7 +417,7 @@ void execCommandsFileredirect() {
         // print error message because file doesn't exist
       	else {
       	//	printf("file doesn't exist\n");
-      		fflush(stdout);
+      	//	fflush(stdout);
 	    }
 	  }
 	  
@@ -405,11 +433,8 @@ void execCommandsFileredirect() {
   	  		  	
   	  	// pass the given argument to exec function
       	execlp(process3, process3, NULL);
-      	      	
-      	if(background == 1) {
-      		signal(SIGINT, SIG_IGN);
-		  }	
 	  }
+	  	
  	  
 //  	  // pass the given argument to exec function
 //      execlp(process2, process2, NULL);
@@ -419,6 +444,8 @@ void execCommandsFileredirect() {
     //  exit(EXIT_FAILURE);
       break;
     default:
+    	
+      signal(SIGINT, SIG_IGN);
       // In the parent process
       // Wait for child's termination
       // if it's a foreground process-wait for it to finish
@@ -431,6 +458,9 @@ void execCommandsFileredirect() {
 	  else {
 	   printf("pid is: %d", spawnPid);
 	   	fflush(stdout);
+	   	
+	   	 
+	   	
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus2)) 
@@ -516,8 +546,7 @@ void BuiltInCommands() {
 void *parseCommand(char *currLine)
 {
 //	struct instructions *currItem = malloc(sizeof();
-
-       
+      
 	int comCount=0;
 	commandCount = 0;
 	
@@ -535,7 +564,6 @@ void *parseCommand(char *currLine)
       	// cuont for number of cammands entered
         commandCount++;
 	}
-   
 }
 
 
@@ -568,12 +596,10 @@ void commandPrompt() {
 		commandSize = strlen(userInput);
 		if(userInput[commandSize-1] == '\n' )
 		   	userInput[commandSize-1] = 0;
-
 		
 		// check for expansion
 		char *point = strstr(userInput, expansion);	
-		
-	
+			
 		char expandCommand[MAX_LIMIT];
 		while(point != NULL) {
 			
@@ -628,8 +654,7 @@ void commandPrompt() {
 
 			// parse the given command
 			userCommand = parseCommand(userInput);
-			
-			
+						
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
@@ -648,6 +673,18 @@ void commandPrompt() {
 
 int main(){
 
+//	// Fill out the SIGINT_action struct
+//  // Register handle_SIGINT as the signal handler
+//	SIGINT_action.sa_handler = handle_SIGINT;
+//  // Block all catchable signals while handle_SIGINT is running
+//	sigfillset(&SIGINT_action.sa_mask);
+//  // No flags set
+//	SIGINT_action.sa_flags = 0;
+//
+//  // Install our signal handler
+//	sigaction(SIGINT, &SIGINT_action, NULL);
+	
+	
 	commandPrompt();
 
 }
