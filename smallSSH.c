@@ -190,7 +190,7 @@ void exitProg() {
 
 int execStatus = 0;
 
-memset(pidArray, '\0', sizeof(pidArray))
+//memset(pidArray, '\0', sizeof(pidArray))
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
@@ -203,7 +203,7 @@ void execCommands() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   
-    pidArray = int(spawnPid);
+   // pidArray = int(spawnPid);
   
 	char *process;
   
@@ -278,7 +278,7 @@ void execCommands() {
    memset(commands, '\0', sizeof(commands));
 }
 
-memset(pidArray,  '\0', sizeof(pidArray));
+//memset(pidArray,  '\0', sizeof(pidArray));
 
 void execCommandsFileRedir() {
 	
@@ -290,7 +290,7 @@ void execCommandsFileRedir() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   	
-  	pidArray = int(spawnPid);
+  //	pidArray = int(spawnPid);
   
 	char *process1;
   
@@ -366,7 +366,7 @@ void execCommandsFileRedir() {
   memset(commands, '\0', sizeof(commands));
 }
 
-memset(pidArray,  '\0', sizeof(pidArray));
+//memset(pidArray,  '\0', sizeof(pidArray));
 
 void execCommandsFileredirect() {
 	
@@ -379,7 +379,7 @@ void execCommandsFileredirect() {
 	// Fork a new process
 	pid_t spawnPid = fork();
   
-    pidArray = int(spawnPid);
+   // pidArray = int(spawnPid);
   
 	char *process2;
 	char *process3;
