@@ -44,8 +44,6 @@ int commandCount = 0;
 char userInput[MAX_LIMIT];
 char *commands[MAX_LIMIT];
 
-int pidArray;
-
 
 // var for expansion
 char expansion[] = "$$";
@@ -76,17 +74,20 @@ int outPresent = 0;
 int bothPresent = 0;
 
 
+int pidArray[20];
+
+struct sigaction SIGINT_action = {0};
+
 void handle_SIGINT(int sig) 
 { 
-	char* message = "Entering foreground-only mode (& is now ignored) \n";
-  // We are using write rather than printf
-	write(STDOUT_FILENO, message, 39);
-   	fflush(stdout); 
+	kill(pidArray, SIGKILL);
+//	char* message = "Entering foreground-only mode (& is now ignored) \n";
+//  // We are using write rather than printf
+//	write(STDOUT_FILENO, message, 39);
+//   	fflush(stdout); 
 } 
 
 
-
-struct sigaction SIGINT_action = {0};
 
 /*
 * This checks if file redirection is included in the arguments, if so it passes the args to an exec function
@@ -188,6 +189,8 @@ void exitProg() {
 }
 
 int execStatus = 0;
+
+memset(pidArray, "\0", sizeof(pidArray))
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
@@ -199,6 +202,8 @@ void execCommands() {
 
 	// Fork a new process
 	pid_t spawnPid = fork();
+  
+    pidArray = int(spawnPid);
   
 	char *process;
   
@@ -216,7 +221,7 @@ void execCommands() {
       		signal(SIGINT, SIG_IGN);
 		}
 		else {
-//			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, handle_SIGINT);
 //			signal(SIGQUIT, SIG_IGN);
 
 		//	kill(spawnPid, SIGKILL);
@@ -273,6 +278,7 @@ void execCommands() {
    memset(commands, '\0', sizeof(commands));
 }
 
+memset(pidArray, "\0", sizeof(pidArray));
 
 void execCommandsFileRedir() {
 	
@@ -283,6 +289,8 @@ void execCommandsFileRedir() {
 
 	// Fork a new process
 	pid_t spawnPid = fork();
+  	
+  	pidArray = int(spawnPid);
   
 	char *process1;
   
@@ -300,7 +308,7 @@ void execCommandsFileRedir() {
      	signal(SIGINT, SIG_IGN);
 	}
 	else {
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, handle_SIGINT);
 //			signal(SIGQUIT, SIG_IGN);
 	//	kill(spawnPid, SIGKILL);
 	}
@@ -358,6 +366,7 @@ void execCommandsFileRedir() {
   memset(commands, '\0', sizeof(commands));
 }
 
+memset(pidArray, "\0", sizeof(pidArray));
 
 void execCommandsFileredirect() {
 	
@@ -369,6 +378,8 @@ void execCommandsFileredirect() {
 
 	// Fork a new process
 	pid_t spawnPid = fork();
+  
+    pidArray = int(spawnPid);
   
 	char *process2;
 	char *process3;
@@ -390,7 +401,7 @@ void execCommandsFileredirect() {
       		signal(SIGINT, SIG_IGN);
 		}
 		else {
-			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, handle_SIGINT);
 //			signal(SIGQUIT, SIG_IGN);
 		//	kill(spawnPid, SIGKILL);
 		}
@@ -674,16 +685,16 @@ void commandPrompt() {
 
 int main(){
 
-//	// Fill out the SIGINT_action struct
-//  // Register handle_SIGINT as the signal handler
-//	SIGINT_action.sa_handler = handle_SIGINT;
-//  // Block all catchable signals while handle_SIGINT is running
-//	sigfillset(&SIGINT_action.sa_mask);
-//  // No flags set
-//	SIGINT_action.sa_flags = 0;
-//
-//  // Install our signal handler
-//	sigaction(SIGINT, &SIGINT_action, NULL);
+	// Fill out the SIGINT_action struct
+  // Register handle_SIGINT as the signal handler
+	SIGINT_action.sa_handler = handle_SIGINT;
+  // Block all catchable signals while handle_SIGINT is running
+	sigfillset(&SIGINT_action.sa_mask);
+  // No flags set
+	SIGINT_action.sa_flags = 0;
+
+  // Install our signal handler
+	sigaction(SIGINT, &SIGINT_action, NULL);
 	
 	
 	commandPrompt();
