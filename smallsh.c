@@ -689,6 +689,11 @@ void commandPrompt() {
 //If the user doesn't redirect the standard input for a background command, then standard input should be redirected to /dev/null
 //If the user doesn't redirect the standard output for a background command, then standard output should be redirected to /dev/null
 
+static void myHandler(int iSig) { 
+ printf("In myHandler with argument %d\n", iSig); 
+}
+
+
 int main(){
 
 	// Fill out the SIGINT_action struct
@@ -702,6 +707,9 @@ int main(){
   // Install our signal handler
 	sigaction(SIGINT, &SIGINT_action, NULL);
 	
+	void (*pfRet)(int); 
+    pfRet = signal(SIGINT, myHandler);
+    assert(pfRet != SIG_ERR); 
 	
 //	 struct sigaction sa;
 //    sa.sa_handler = handler;
