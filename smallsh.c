@@ -34,7 +34,7 @@
 
 
 
-char *homedir;
+//char *homedir;
 // counts total items in string
 int itemCount = 0;
 
@@ -81,10 +81,15 @@ struct sigaction SIGINT_action = {0};
 void handle_SIGINT(int sig) 
 { 
 	kill(getpid(), SIGTERM);
-//	char* message = "Entering foreground-only mode (& is now ignored) \n";
+	char* message = "terminated by signal ";
+	char* signal = sig;
+	
+	strcat(message, signal);
+	
+	
 //  // We are using write rather than printf
-//	write(STDOUT_FILENO, message, 39);
-//   	fflush(stdout); 
+	write(STDOUT_FILENO, message, strlen(message));
+   	fflush(stdout); 
 } 
 
 
@@ -137,8 +142,7 @@ void changeDir() {
 	char tempcomm[] = {"0"};
 		
 	if(commands[1] == NULL) {
-		
-		
+			
 		chdir(getenv("HOME"));
 
 	}
@@ -707,9 +711,7 @@ int main(){
   // Install our signal handler
 	sigaction(SIGINT, &SIGINT_action, NULL);
 	
-	void (*pfRet)(int); 
-    pfRet = signal(SIGINT, myHandler);
-    assert(pfRet != SIG_ERR); 
+
 	
 //	 struct sigaction sa;
 //    sa.sa_handler = handler;
