@@ -373,6 +373,7 @@ void execCommandsFileRedir() {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
+	   	
 	   	if (WIFEXITED(childStatus1)) {
 	   		printf("background pid %d is done: exit value: %d\n", 
             spawnPid, WEXITSTATUS(childStatus1));
@@ -386,7 +387,7 @@ void execCommandsFileRedir() {
    
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-     background = 0;
+      background = 0;
       break;
   }
   memset(commands, '\0', sizeof(commands));
