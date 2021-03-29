@@ -81,15 +81,15 @@ struct sigaction SIGINT_action = {0};
 void handle_SIGINT(int sig) 
 { 
 	kill(getpid(), SIGTERM);
-	char* message = "terminated by signal ";
-	char* signal = sig;
-	
-//	strcat(message, signal);
-//	printf("hello");
+//	char* message = "terminated by signal ";
+//	char* signal = sig;
 //	
-//  // We are using write rather than printf
-	write(STDOUT_FILENO, message, strlen(message));
-   	fflush(stdout); 
+////	strcat(message, signal);
+////	printf("hello");
+////	
+////  // We are using write rather than printf
+//	write(STDOUT_FILENO, message, strlen(message));
+//   	fflush(stdout); 
 } 
 
 
@@ -226,6 +226,8 @@ void execCommands() {
 		}
 		else {
 			signal(SIGINT, handle_SIGINT);
+			
+			printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 
 		//	kill(spawnPid, SIGKILL);
@@ -313,6 +315,8 @@ void execCommandsFileRedir() {
 	}
 	else {
 		signal(SIGINT, handle_SIGINT);
+		
+		printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 	//	kill(spawnPid, SIGKILL);
 	}
@@ -412,6 +416,7 @@ void execCommandsFileredirect() {
 		}
 		else {
 			signal(SIGINT, handle_SIGINT);
+			printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 		//	kill(spawnPid, SIGKILL);
 		}
@@ -722,7 +727,7 @@ int main(){
 	commandPrompt();
 	
 	
-	puts("Signal handler called, exiting.");
+//	puts("Signal handler called, exiting.");
 
 }
 
