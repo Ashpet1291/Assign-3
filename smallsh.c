@@ -85,7 +85,7 @@ void handle_SIGINT(int sig)
 	char* signal = sig;
 	
 	strcat(message, signal);
-	
+	printf("hello");
 	
 //  // We are using write rather than printf
 	write(STDOUT_FILENO, message, strlen(message));
