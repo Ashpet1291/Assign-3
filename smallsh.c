@@ -672,8 +672,8 @@ void commandPrompt() {
 			int result = 0;
 			char* and1 = "&";
 			
-			result = strstr(userInput, and1);
-			printf("result: %d", result);
+//			result = strstr(userInput, and1);
+//			printf("result: %d", result);
 			
 			// check if command given contains & at the end, if so thats a background process
 			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
@@ -692,6 +692,8 @@ void commandPrompt() {
 			// check builtin commands	
 			BuiltInCommands();
 		}
+		
+		printf("backgroun: %d", background);
 		
 	}
 }
