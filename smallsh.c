@@ -685,8 +685,8 @@ void commandPrompt() {
 //			printf("result: %d", result);
 			
 			// check if command given contains & at the end, if so thats a background process
-		//	if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
-			if(pch) {
+			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+//			if(pch) {
 		//	printf("this is background proc\n");
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
@@ -716,11 +716,6 @@ void commandPrompt() {
 //When a background process terminates, a message showing the process id and exit status will be printed. This message must be printed just before the prompt for a new command is displayed.
 //If the user doesn't redirect the standard input for a background command, then standard input should be redirected to /dev/null
 //If the user doesn't redirect the standard output for a background command, then standard output should be redirected to /dev/null
-
-static void myHandler(int iSig) { 
- printf("In myHandler with argument %d\n", iSig); 
-}
-
 
 int main(){
 
