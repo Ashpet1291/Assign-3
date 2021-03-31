@@ -180,9 +180,6 @@ void status(int exitVal) {
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
 	printf("exit value %d\n", statusValue);
 	fflush(stdout);
-	
-	
-		//printf("terminated by signal %d\n", signal);
 }
 
 
@@ -318,8 +315,6 @@ void execCommandsFileRedir() {
 	}
 	else {
 		signal(SIGINT, handle_SIGINT);
-		
-		printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 	//	kill(spawnPid, SIGKILL);
 	}
@@ -419,7 +414,6 @@ void execCommandsFileredirect() {
 		}
 		else {
 			signal(SIGINT, handle_SIGINT);
-			//printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 		//	kill(spawnPid, SIGKILL);
 		}
