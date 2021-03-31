@@ -78,11 +78,27 @@ int pidArray = 0;
 
 struct sigaction SIGINT_action = {0};
 
+struct sigaction SIGTSTP_action = {0};
+
 void handle_SIGINT(int sig) 
-{ 
+{
+	// write message?
 	kill(getpid(), SIGTERM);
 } 
 
+void handle_SIGTSTP( int sig) {
+	if(background == 1) {
+		background = 0;
+		char* fgMessage = "Entering foreground-only mode (& is ignored)\n";
+		write(STDOUT_FILENO, fgMessage, 50);
+	}
+	else {
+		background = 1;
+		char* bgMessage = "Exiting foreground-only mode (& is ignored)\n";
+		write(STDOUT_FILENO, bgMessage, 30);
+	}
+
+}
 
 /*
 * This checks if file redirection is included in the arguments, if so it passes the args to an exec function
@@ -684,6 +700,7 @@ static void myHandler(int iSig) {
 
 int main(){
 
+	// this code was mostly from the example the instructor provided
 	// Fill out the SIGINT_action struct
   // Register handle_SIGINT as the signal handler
 	SIGINT_action.sa_handler = handle_SIGINT;
@@ -696,6 +713,16 @@ int main(){
 	sigaction(SIGINT, &SIGINT_action, NULL);
 	
 
+	
+	SIGTSTP_action.sa_handler = handle_SIGTSTP;
+	
+	sigfillset(&SIGTSTP_action.sa_mask);
+  // No flags set
+	SIGTSTP_action.sa_flags = 0;
+
+  // Install our signal handler
+	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
+	
 	
 //	 struct sigaction sa;
 //    sa.sa_handler = handler;
