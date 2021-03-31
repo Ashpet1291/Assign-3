@@ -88,14 +88,16 @@ void handle_SIGINT(int sig)
 
 void handle_SIGTSTP(int sig) {
 	if(background == 1) {
-		background = 0;
+//		background = 0;
 		char* fgMessage = "Entering foreground-only mode (& is ignored)\n";
 		write(STDOUT_FILENO, fgMessage, 50);
+		fflush(stdout);
 	}
 	else {
-		background = 1;
+//		background = 1;
 		char* bgMessage = "Exiting foreground-only mode (& is ignored)\n";
 		write(STDOUT_FILENO, bgMessage, 30);
+		fflush(stdout);
 	}
 
 }
@@ -259,6 +261,7 @@ void execCommands() {
       // Wait for child's termination
             
       signal(SIGINT, SIG_IGN);
+      signal(SIGTSTP, handle_SIGTSTP);
 
       if(background == 0) {
       	waitpid(spawnPid, &childStatus, 0);
