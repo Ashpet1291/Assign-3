@@ -182,7 +182,7 @@ void status(int exitVal) {
 	fflush(stdout);
 	
 	
-	//printf("terminated by signal %d\n", signal);
+		//printf("terminated by signal %d\n", signal);
 }
 
 
@@ -319,7 +319,7 @@ void execCommandsFileRedir() {
 	else {
 		signal(SIGINT, handle_SIGINT);
 		
-	//	printf("terminated by signal %d\n", signal);
+		printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 	//	kill(spawnPid, SIGKILL);
 	}
@@ -369,16 +369,10 @@ void execCommandsFileRedir() {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
-	   	if (WIFEXITED(childStatus1)) {
-	   		printf("background pid %d is done: exit value: %d\n", 
-            spawnPid, WEXITSTATUS(childStatus1));
-			fflush(stdout); 
-	   	}
-//	   	else {
-//	   		printf("terminated by signal %d\n", signal);
-//		   }
-           
-				   	
+	   	if (WIFEXITED(childStatus1)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus1));
+				   	fflush(stdout); 
     } 
    
      // spawnPid = waitpid(spawnPid, &childStatus1, 0);
@@ -521,7 +515,7 @@ void BuiltInCommands() {
 	char cd[] = "cd";
 	char stats[] = "status";
 	char exitProgram[] = "exit";
-//	char echo1[]= "echo"; 
+	char echo1[]= "echo"; 
 	
 	// if input is #, then just reprompt
 	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
