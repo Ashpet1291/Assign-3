@@ -274,15 +274,10 @@ void execCommands() {
 		// 
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
-	   	   	if (WIFEXITED(childStatus)) {
-	   			printf("background pid %d is done: exit value: %d\n", 
-           		spawnPid, WEXITSTATUS(childStatus));
-				fflush(stdout); 
-	   		}
-	   		else {
-	   			printf("terminated by signal %d\n", childStatus);
-	   			fflush(stdout); 
-		   }
+	   	if (WIFEXITED(childStatus)) 
+            printf("background pid %d is done: exit value: %d\n", 
+                   spawnPid, WEXITSTATUS(childStatus));
+				   	fflush(stdout); 
       } 
       //spawnPid = waitpid(spawnPid, &childStatus, 0);
     //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
@@ -380,8 +375,7 @@ void execCommandsFileRedir() {
 			fflush(stdout); 
 	   	}
 	   	else {
-	   		printf("terminated by signal %d\n", childStatus1);
-	   		fflush(stdout); 
+	   		printf("terminated by signal %d\n", signal);
 		   }
            
 				   	
