@@ -692,7 +692,7 @@ void commandPrompt() {
 			userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
-			printf("backgroun: %d", background);
+			printf("backgroun this : %d", background);
 		}
 
 			// parse the given command
