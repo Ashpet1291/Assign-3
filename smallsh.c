@@ -653,6 +653,8 @@ void commandPrompt() {
 	
 		}
 		//	printf("parent pid %d:  other pid %d: ", getpid(), getppid());
+		
+		//////////////////// check builtins
 		char *tmptr = strstr(userInput, "status");
 		
 		// it's abuilt in command, no need to check for background processes
@@ -666,6 +668,12 @@ void commandPrompt() {
 			BuiltInCommands();
 		}
 		else {
+			
+			int result = 0;
+			char* and1 = "&";
+			
+			result = strcmp(userInput + len - 1, and1);
+			printf("result: %d", result);
 			
 			// check if command given contains & at the end, if so thats a background process
 			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
