@@ -265,6 +265,7 @@ void execCommands() {
 
       if(background == 0) {
       	waitpid(spawnPid, &childStatus, 0);
+      	printf("backgroun: %d", background);
 	  }
 	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
@@ -272,6 +273,10 @@ void execCommands() {
 		printf("background pid is: %d\n", spawnPid);
 		fflush(stdout);
 		// 
+		printf("backgroun: %d", background);
+			
+			
+			
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus)) 
@@ -493,6 +498,7 @@ void execCommandsFileredirect() {
 	   	fflush(stdout);	   	
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
 	   	
+	
 	   	if (WIFEXITED(childStatus2)) 
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus2));
@@ -695,7 +701,7 @@ void commandPrompt() {
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
-			printf("backgroun: %d", background);
+			//printf("backgroun: %d", background);
 		}
 		
 	
