@@ -86,7 +86,7 @@ void handle_SIGINT(int sig)
 	kill(getpid(), SIGTERM);
 } 
 
-void handle_SIGTSTP( int sig) {
+void handle_SIGTSTP(int sig) {
 	if(background == 1) {
 		background = 0;
 		char* fgMessage = "Entering foreground-only mode (& is ignored)\n";
@@ -703,7 +703,7 @@ int main(){
 	// this code was mostly from the example the instructor provided
 	// Fill out the SIGINT_action struct
   // Register handle_SIGINT as the signal handler
-	SIGINT_action.sa_handler = handle_SIGINT;
+	SIGINT_action.sa_handler = SIG_IGN;
   // Block all catchable signals while handle_SIGINT is running
 	sigfillset(&SIGINT_action.sa_mask);
   // No flags set
