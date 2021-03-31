@@ -374,9 +374,9 @@ void execCommandsFileRedir() {
             spawnPid, WEXITSTATUS(childStatus1));
 			fflush(stdout); 
 	   	}
-	   	else {
-	   		printf("terminated by signal %d\n", signal);
-		   }
+//	   	else {
+//	   		printf("terminated by signal %d\n", signal);
+//		   }
            
 				   	
     } 
