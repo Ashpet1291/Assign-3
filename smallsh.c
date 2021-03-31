@@ -81,17 +81,7 @@ struct sigaction SIGINT_action = {0};
 void handle_SIGINT(int sig) 
 { 
 	kill(getpid(), SIGTERM);
-//	char* message = "terminated by signal ";
-//	char* signal = sig;
-//	
-////	strcat(message, signal);
-////	printf("hello");
-////	
-////  // We are using write rather than printf
-//	write(STDOUT_FILENO, message, strlen(message));
-//   	fflush(stdout); 
 } 
-
 
 
 /*
@@ -138,9 +128,7 @@ void changeDir() {
 	// Your cd command should support both absolute and relative paths.
 	// if not ./, then add that and chdir
 	char absFile[] = { "./" };
-	
-	char tempcomm[] = {"0"};
-		
+			
 	if(commands[1] == NULL) {
 			
 		chdir(getenv("HOME"));
@@ -150,17 +138,13 @@ void changeDir() {
 	else {	
 
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
-		//	char *directory = commands[1];
 			chdir(commands[1]);
 		}
 		else {
 			// append ./ to change directories
 			strcat(absFile, commands[1]);
-			
-			// now directory name gets argument plus ./ appended to front
-		//	char *directory1 = absFile;
-			chdir(absFile);
-			//strcpy(tempcomm, absFile); 			
+
+			chdir(absFile);			
 		}
 	}	
 }
@@ -192,9 +176,9 @@ void exitProg() {
 	exit(0);
 }
 
-int execStatus = 0;
+//int execStatus = 0;
 
-//memset(pidArray, '\0', sizeof(pidArray))
+
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
@@ -207,7 +191,7 @@ void execCommands() {
 	// Fork a new process
 	int spawnPid = fork();
   
-    pidArray = spawnPid;
+   // pidArray = spawnPid;
   
 	char *process;
   
@@ -227,7 +211,7 @@ void execCommands() {
 		else {
 			signal(SIGINT, handle_SIGINT);
 			
-			printf("terminated by signal %d\n", signal);
+//			printf("terminated by signal %d\n", signal);
 //			signal(SIGQUIT, SIG_IGN);
 
 		//	kill(spawnPid, SIGKILL);
@@ -296,7 +280,8 @@ void execCommandsFileRedir() {
 	// Fork a new process
 	int spawnPid = fork();
   	
-  	pidArray = spawnPid;
+  	/////////////////// add this pid to array
+//  	pidArray = spawnPid;
   
 	char *process1;
   
@@ -364,6 +349,8 @@ void execCommandsFileRedir() {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
+	   	
+	   	
 	   	if (WIFEXITED(childStatus1)) 
             printf("background pid %d is done: exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus1));
@@ -391,7 +378,7 @@ void execCommandsFileredirect() {
 	// Fork a new process
 	int spawnPid = fork();
   
-    pidArray = spawnPid;
+//    pidArray = spawnPid;
   
 	char *process2;
 	char *process3;
@@ -480,11 +467,8 @@ void execCommandsFileredirect() {
 	  }
 	  //otherwise it's a background process and work on it, but give control back to user for other processes
 	  else {
-	   printf("pid is: %d", spawnPid);
-	   	fflush(stdout);
-	   	
-	   	 
-	   	
+	    printf("pid is: %d", spawnPid);
+	   	fflush(stdout);	   	
 	   	waitpid(spawnPid, &childStatus2, WNOHANG);
 	   	
 	   	if (WIFEXITED(childStatus2)) 
@@ -509,7 +493,7 @@ void BuiltInCommands() {
 	char cd[] = "cd";
 	char stats[] = "status";
 	char exitProgram[] = "exit";
-	char echo1[]= "echo"; 
+//	char echo1[]= "echo"; 
 	
 	// if input is #, then just reprompt
 	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
@@ -627,8 +611,7 @@ void commandPrompt() {
 		char expandCommand[MAX_LIMIT];
 		while(point != NULL) {
 			
-		//	printf("point isn't null, this is pid: %d \n", getpid());
-			
+		//	printf("point isn't null, this is pid: %d \n", getpid());		
 			memset(expandCommand, '\0', MAX_LIMIT);
 			
 			strncpy(expandCommand, userInput, strlen(userInput) - 2);
@@ -637,16 +620,12 @@ void commandPrompt() {
 			
 			strcpy(userInput, expandCommand);
 			
-		//	memset(expandCommand, '\0', strlen(expandCommand));
 			
 			// maybe need to do getppid;
 			sprintf(shpid, "%d", getppid());
 			strcat(userInput, shpid);	
 			
 			memset(shpid, '\0', strlen(shpid));
-			
-		//	clears for cd, but then gets hung on -- Testing foreground-only mode--kill -SIGTSTP $$
-	//	//	memset(expandCommand, '\0', strlen(expandCommand));
 	
 			point = strstr(userInput, expansion);
 	
