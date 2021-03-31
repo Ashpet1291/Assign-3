@@ -671,7 +671,6 @@ void commandPrompt() {
 			
 			int result = 0;
 			char* and1 = "&";
-			char *sent = "this is my sample example";
 
 			char *pch = strstr(userInput, and1);
 
@@ -687,6 +686,7 @@ void commandPrompt() {
 			userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
+			printf("backgroun: %d", background);
 		}
 
 			// parse the given command
@@ -695,9 +695,10 @@ void commandPrompt() {
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
+			printf("backgroun: %d", background);
 		}
 		
-		printf("backgroun: %d", background);
+	
 		
 	}
 }
