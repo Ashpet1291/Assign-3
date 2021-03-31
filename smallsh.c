@@ -671,13 +671,17 @@ void commandPrompt() {
 			
 			int result = 0;
 			char* and1 = "&";
+			char *sent = "this is my sample example";
+
+			char *pch = strstr(userInput, and1);
+
 			
 //			result = strstr(userInput, and1);
 //			printf("result: %d", result);
 			
 			// check if command given contains & at the end, if so thats a background process
-			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
-		
+		//	if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
+			if(pch) {
 		//	printf("this is background proc\n");
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
