@@ -25,29 +25,18 @@
 #include <pwd.h>
 #include <signal.h> 
 
-
 #define MAX_LIMIT 100
-
 #define MAX_CHARS 2048
 #define MAX_ARGS 512
 
 
 // counts total items in string
 int itemCount = 0;
-
 int commandCount = 0;
 		
 // user input
 char userInput[MAX_LIMIT];
 char *commands[MAX_LIMIT];
-
-
-// var for expansion
-char expansion[] = "$$";
-
-// variables for comments and blank lines
-char comment[] = "#";
-char space[] = " ";
 
 
 //char *background;
@@ -57,9 +46,7 @@ char *argIn;
 char *argOut;
 
 
-int terminateProgram;
 int background = 0;
-
 
 int inPresent = 0;
 int outPresent = 0;
@@ -94,7 +81,7 @@ void handle_SIGTSTP(int sig) {
 }
 
 /*
-* This checks if file redirection is included in the arguments, if so it passes the args to an exec function
+* This checks if file redirection is included in the arguments
 */
 void checkRedirection() {
 	
@@ -104,10 +91,8 @@ void checkRedirection() {
 	inPresent =0;
 	outPresent = 0;
 	
-	FILE *checkFile;
-	
 	while(commands[i] != NULL) {
-	//	printf("%s\n", commands[i]);
+		// checks if taking in a file or redirecting file out
 		if(strcmp(commands[i], takeIn) == 0) {
 				fileIn = commands[i+1];
 				argIn = commands[i-1];
@@ -125,20 +110,19 @@ void checkRedirection() {
 
 /*
 * This function is used to change directories
-* if no argument is given after cd, chang to the home environment, otherwise change to the directory given
+* if no argument is given after cd, change to the home environment, otherwise change to the directory given
 * supports both absolute and relative paths.
 */
 void changeDir() {
 
 	char absFile[] = { "./" };
-	// if there is no given directory change to home directory				
+	// if there is no given directory, change to home directory				
 	if(commands[1] == NULL) {			
 		chdir(getenv("HOME"));
 	}
 	
-	//otherwise 
 	else {	
-		// check path type if absolute, change directories
+		// check path type, if absolute, change directories
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
 			chdir(commands[1]);
 		}
@@ -486,7 +470,11 @@ void BuiltInCommands() {
 	
 	char cd[] = "cd";
 	char stats[] = "status";
-	char exitProgram[] = "exit"; 
+	char exitProgram[] = "exit";
+	
+	// variables for comments and blank lines
+	char comment[] = "#";
+	char space[] = " "; 
 	
 	// if input is #, then just reprompt
 	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
@@ -519,10 +507,8 @@ void BuiltInCommands() {
 		}
 		else if ((inPresent == 1) || (outPresent == 1)){
 			// do exec with one arg
-		//	printf("Input exec and dup for in");
 			execCommandsFileredirect();
 		}
-
 		else {
 			execCommands();
 		}
@@ -537,23 +523,21 @@ void BuiltInCommands() {
 */
 void *parseCommand(char *currLine)
 {
-//	struct instructions *currItem = malloc(sizeof();
       
 	int comCount=0;
 	commandCount = 0;
 	
-   // Extract the first token
+	// Extract the first token
 	char *looptoken = strtok(currLine, " ");
 	
-   // loop through the string to extract all other tokens 
+    // loop through the string to extract all other tokens 
 	while(looptoken != NULL ) {
-    //  printf( " %s\n", looptoken ); //printing each token
     
     	// put items in pointer array to be referenced later
     	commands[comCount++] = looptoken;
     	looptoken = strtok(NULL, " ");
       
-      	// cuont for number of cammands entered
+      	// count for number of cammands entered
         commandCount++;
 	}
 }
@@ -561,21 +545,21 @@ void *parseCommand(char *currLine)
 
 /*
 * This starts the prompt and displays : for the user
-* gets user input hands it off to be parsed
+* gets user input and hands it off to be parsed
 */
 void commandPrompt() {
 	
 	char *userCommand = malloc(sizeof(userCommand));
 	char shpid[] = {"0"};
 	
+	char expansion[] = "$$";
 	
 	int commandSize;
 	int len =0;
 	
 	while(1){
 		printf(": ");
-		fflush(stdout);
-		char newLine[] = "\n";	
+		fflush(stdout);	
 		
 		// get user input
 		fgets(userInput, MAX_LIMIT, stdin); 
