@@ -522,11 +522,7 @@ void BuiltInCommands() {
 		//	printf("Input exec and dup for in");
 			execCommandsFileredirect();
 		}
-//		else if (outPresent == 1) {
-//			//do out with exec and 1 arg
-//		//	printf("Input exec and dup for out");
-//			execCommandsFileredirect();
-//		}
+
 		else {
 			execCommands();
 		}
@@ -572,14 +568,10 @@ void commandPrompt() {
 	char *userCommand = malloc(sizeof(userCommand));
 	char shpid[] = {"0"};
 	
-//	buffer = (char *)malloc(bufsize * sizeof(char));
 	
 	int commandSize;
 	int len =0;
 	
-	char builtIns[] = "cd, status, exit";
-	
-	// (count != 1)
 	while(1){
 		printf(": ");
 		fflush(stdout);
@@ -635,18 +627,10 @@ void commandPrompt() {
 		else {
 			
 			int result = 0;
-			char* and1 = "&";
-
-			char *pch = strstr(userInput, and1);
-
-			
-//			result = strstr(userInput, and1);
-//			printf("result: %d", result);
 			
 			// check if command given contains & at the end, if so thats a background process
 			if((len = strlen(userInput)) > 1 && !strcmp(userInput + len - 1, "&")) {
-//			if(pch) {
-		//	printf("this is background proc\n");
+
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
 		//	printf("This is in the background");
