@@ -618,7 +618,6 @@ void commandPrompt() {
 			point = strstr(userInput, expansion);
 	
 		}
-		//	printf("parent pid %d:  other pid %d: ", getpid(), getppid());
 		
 		//////////////////// check builtins
 		char *tmptr = strstr(userInput, "status");
@@ -703,16 +702,7 @@ int main(){
 	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
 	
 	
-//	 struct sigaction sa;
-//    sa.sa_handler = handler;
-//    sa.sa_flags = 0;
-//    sigemptyset(&sa.sa_mask);
-	
-	
 	commandPrompt();
-	
-	
-//	puts("Signal handler called, exiting.");
 
 }
 
