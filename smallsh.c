@@ -47,6 +47,7 @@ char *argOut;
 
 
 int background = 0;
+int backgroundFlag = 0;
 
 int inPresent = 0;
 int outPresent = 0;
@@ -61,19 +62,26 @@ struct sigaction SIGTSTP_action = {0};
 void handle_SIGINT(int sig) 
 {
 	// write message?
+	//   need to use write printf("terminated by signal %d\n", signal);
+	char* termSig = "terminated by signal ";
+	// append signal to end of message and print
+	//	strcat(termSig, sig);
+	write(STDOUT_FILENO, termSig, 50);
 	kill(getpid(), SIGTERM);
 } 
 
 void handle_SIGTSTP(int sig) {
 	if(background == 1) {
-//		background = 0;
+		background = 0;
+		backgroundFlag = 1;
 		char* fgMessage = "Entering foreground-only mode (& is ignored)\n";
 		write(STDOUT_FILENO, fgMessage, 50);
 		fflush(stdout);
 	}
 	else {
-//		background = 1;
-		char* bgMessage = "Exiting foreground-only mode (& is ignored)\n";
+		background = 1;
+		backgroundFlag = 0;
+		char* bgMessage = "Exiting foreground-only mode \n";
 		write(STDOUT_FILENO, bgMessage, 30);
 		fflush(stdout);
 	}
@@ -140,12 +148,9 @@ void changeDir() {
 */
 void status(int exitVal) {
 	
-	int statusValue;
-	statusValue = 0;
-	statusValue = exitVal;
-//If this command is run before any foreground command is run, then it should simply return the exit status 0.
-//The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
-	printf("exit value %d\n", statusValue);
+//	int statusValue = 0;
+//	statusValue = exitVal;
+	printf("exit status %d\n", exitVal);
 	fflush(stdout);
 }
 
@@ -161,6 +166,7 @@ void exitProg() {
 // most of this code came from the examples the instructor gave us in the lecture
 /*
 *	runs the other commands
+*  called if no file redirection
 */
 void execCommands() {
 
@@ -180,16 +186,18 @@ void execCommands() {
       break;
     case 0:
     	  
+    	// child process ignores SIGTSTP whether foreground or background process
 		signal(SIGTSTP, SIG_IGN);
-		     
+		
+		// if running in the background ignore SIGINT, otherwise use the handler    
      	if(background == 1) {
       		signal(SIGINT, SIG_IGN);
 		}
 		else {
+			// running in foreground so use handler
 			signal(SIGINT, handle_SIGINT);
 			
-//			printf("terminated by signal %d\n", signal);
-		
+		// printf("terminated by signal %d\n", signal);		
 
 		//	kill(spawnPid, SIGKILL);
 		}
@@ -211,19 +219,22 @@ void execCommands() {
     default:
 		// In the parent process
 		// Wait for child's termination
-            
+        // parent ignores SIGINT   
 		signal(SIGINT, SIG_IGN);
+		// parent uses custom handler for SIGTSTP
         signal(SIGTSTP, handle_SIGTSTP);
 		// if background is false -we're not running in the background, then wait on child process
         if(background == 0) {
       		waitpid(spawnPid, &childStatus, 0);
       	//	printf("background: %d", background);
 	  }
+	  else if (backgroundFlag == 1) {
+	  	waitpid(spawnPid, &childStatus, 0);
+	  }
 	  else {
 	  	// it is a background process, so don't wait and print process id
 		printf("background pid is: %d\n", spawnPid);
-		fflush(stdout);
-		// 
+		fflush(stdout); 
 	//	printf("background: %d", background);		
 			
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
@@ -233,9 +244,10 @@ void execCommands() {
                    spawnPid, WEXITSTATUS(childStatus));
 				   	fflush(stdout); 
       } 
-    //  background = 0;
+      background = 0;
       break;
   }
+//   background = 0;
    memset(commands, '\0', sizeof(commands));
 }
 
@@ -251,38 +263,41 @@ void execCommandsFileRedir() {
 	int spawnPid = fork();
   	
   	/////////////////// add this pid to array
-//  	pidArray = spawnPid;
+	// pidArray = spawnPid;
   
 	char *process1;
   
 	process1 = argIn;
 
-  switch(spawnPid){
-    case -1:
-      perror("fork()\n");
-      exit(1);
-      break;
-    case 0:
+    switch(spawnPid){
+      case -1:
+      	perror("fork()\n");
+      	exit(1);
+      	break;
+      case 0:
     	
-           
-    if(background == 0) {
+      // child process ignores SIGTSTP whether foreground or background process
+	  signal(SIGTSTP, SIG_IGN);     
+    
+      // if running in the background ignore SIGINT, otherwise use the handler 
+	  if(background == 1) {
      	signal(SIGINT, SIG_IGN);
-	}
-	else {
+	  }
+	  else {
+	  	// process is running in foreground so use handler
 		signal(SIGINT, handle_SIGINT);
 //			signal(SIGQUIT, SIG_IGN);
 	//	kill(spawnPid, SIGKILL);
-	}
+	  } 
       // In the child process
   //    printf("CHILD(%d) running ls command\n", getpid());
   	  in = fopen(fileIn,"r");
   	  
   	  int fI= fileno(in);
-  	  
-  	  
+  	  	  
   	  out = fopen(fileOut,"a");
-  	  
-  	  int fO = fileno(out);
+		  	  
+ 	  int fO = fileno(out);
   	  	  
   	  dup2(fI, 0);
   	  
@@ -293,37 +308,35 @@ void execCommandsFileRedir() {
   	  // pass the given argument to exec function
       execlp(process1, process1, NULL);
       
-
       // exec only returns if there is an error
       perror("execlp");
       exit(EXIT_FAILURE);
       break;
-    default:
-    	///////////////////////////////////signal
-    	//Any children running as background processes must ignore SIGINT
-    	//A child running as a foreground process must terminate itself when it receives SIGINT
-	//The parent must not attempt to terminate the foreground child process; 
-	//instead the foreground child (if any) must terminate itself on receipt of this signal.
-	//If a child foreground process is killed by a signal, 
-	//the parent must immediately print out the number of the signal that killed it's foreground child process (see the example) before prompting the user for the next command.
-    
-      // In the parent process
-      // Wait for child's termination
+    default:    
       
+        // parent ignores SIGINT   
+		signal(SIGINT, SIG_IGN);
+		// parent uses custom handler for SIGTSTP
+        signal(SIGTSTP, handle_SIGTSTP);
+       
+	    // In the parent process
+      // Wait for child's termination 
       if(background == 0) {
       	waitpid(spawnPid, &childStatus1, 0);
 	  }
-	  //otherwise it's a background process and work on it, but gove control back to user for other processes
+	  /////////////////////////////////// added this in for signals
+	  // background commands are ignored
+	  else if (backgroundFlag == 1) {
+	  	waitpid(spawnPid, &childStatus1, 0);
+	  }
+	  ///////////////////////// may need to delete
+	  
+	  //otherwise it's a background process and work on it, but give control back to user for other processes
 	  else {
 	  	printf("pid is: %d\n", spawnPid);
 	  	fflush(stdout);
 	   	waitpid(spawnPid, &childStatus1, WNOHANG);
 	   	
-	   	
-//	   	if (WIFEXITED(childStatus1)) 
-//            printf("background pid %d is done: exit value: %d\n", 
-//                   spawnPid, WEXITSTATUS(childStatus1));
-//				   	fflush(stdout); 
     } 
    	if (WIFEXITED(childStatus1)) 
             printf("background pid %d is done: exit value: %d\n", 
@@ -343,14 +356,13 @@ void execCommandsFileredirect() {
 	
 	FILE *in;
 	FILE *out;
-	
 
 	int childStatus2;
 
 	// Fork a new process
 	int spawnPid = fork();
   
-//    pidArray = spawnPid;
+	// pidArray = spawnPid;
   
 	char *process2;
 	char *process3;
@@ -365,28 +377,34 @@ void execCommandsFileredirect() {
       exit(1);
       break;
     case 0:
-      // In the child process
+        // In the child process
+      
+        // child process ignores SIGTSTP whether foreground or background process
+		signal(SIGTSTP, SIG_IGN);
+		
+		// if running in the background ignore SIGINT, otherwise use the handler 
         if(background == 1) {
       		signal(SIGINT, SIG_IGN);
 		}
 		else {
+			// process is running in foregound so use handler
 			signal(SIGINT, handle_SIGINT);
-//			signal(SIGQUIT, SIG_IGN);
+		//	signal(SIGQUIT, SIG_IGN);
 		//	kill(spawnPid, SIGKILL);
 		}
 		
       if(inPresent == 1) {
-      	//    printf("CHILD(%d) running ls command\n", getpid());
+      	// printf("CHILD(%d) running ls command\n", getpid());
     
       	// check if file exist, if so open, else print error
   	  	if(in = fopen(fileIn,"r")) { 	  		
   	  		int fI= fileno(in);
   	  		dup2(fI, 0);  	    	  
   	 		fclose(in);
-  // this error checks dup2    	
-//  	  if(dup2(fd2[0], STDIN_FILENO) == -1){
-//			perror("dup2");
-//			return 1;
+  			// this error checks dup2    	
+			// if(dup2(fd2[0], STDIN_FILENO) == -1){
+			// perror("dup2");
+			// return 1;
   	  		// pass the given argument to exec function
       		execlp(process2, process2, NULL);
         }
@@ -398,19 +416,19 @@ void execCommandsFileredirect() {
 	    }
 	  }
 	  
-	  else {
+	    else {
 	  	
-	  	out = fopen(fileOut,"a");
+	  		out = fopen(fileOut,"a");
   	  
-  	  	int fO = fileno(out);
+  	  		int fO = fileno(out);
   	  	
-  	  	dup2(fO, 1);
+  	  		dup2(fO, 1);
   	  	
-  	  	fclose(out);
+  	  		fclose(out);
   	  		  	
   	  	// pass the given argument to exec function
       	execlp(process3, process3, NULL);
-	  }
+	   }
 	  	
  	  
 //  	  // pass the given argument to exec function
@@ -421,8 +439,12 @@ void execCommandsFileredirect() {
     //  exit(EXIT_FAILURE);
       break;
     default:
-    	
-//      signal(SIGINT, SIG_IGN);
+    
+         // parent ignores SIGINT   
+		signal(SIGINT, SIG_IGN);
+		// parent uses custom handler for SIGTSTP
+        signal(SIGTSTP, handle_SIGTSTP);
+	
       // In the parent process
       // Wait for child's termination
       // if it's a foreground process-wait for it to finish
@@ -430,6 +452,9 @@ void execCommandsFileredirect() {
       	
       //	printf("background pid %d is done: terminated by signal %d", getpid());
       	waitpid(spawnPid, &childStatus2, 0);
+	  }
+	  else if (backgroundFlag == 1) {
+	  	waitpid(spawnPid, &childStatus2, 0);
 	  }
 	  //otherwise it's a background process and work on it, but give control back to user for other processes
 	  else {
@@ -439,7 +464,7 @@ void execCommandsFileredirect() {
 	   	
 	
 	   	if (WIFEXITED(childStatus2)) 
-            printf("background pid %d is done: exit value: %d\n", 
+            printf("background pid %d is done: \n exit value: %d\n", 
                    spawnPid, WEXITSTATUS(childStatus2));
 				   	fflush(stdout); 
       } 
@@ -604,7 +629,7 @@ void commandPrompt() {
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
 			background = 1;
-			printf("background this : %d\n", background);
+		//	printf("background this : %d\n", background);
 		}
 
 			// parse the given command
@@ -617,11 +642,6 @@ void commandPrompt() {
 	}
 }
 
-//Any non built-in command with an & at the end must be run as a background command and the shell must not wait for such a command to complete.
-// For such commands, the parent must return command line access and control to the user immediately after forking off the child.
-
-//The shell will print the process id of a background process when it begins.
-//When a background process terminates, a message showing the process id and exit status will be printed. This message must be printed just before the prompt for a new command is displayed.
 //If the user doesn't redirect the standard input for a background command, then standard input should be redirected to /dev/null
 //If the user doesn't redirect the standard output for a background command, then standard output should be redirected to /dev/null
 
@@ -639,7 +659,6 @@ int main(){
   // Install our signal handler
 	sigaction(SIGINT, &SIGINT_action, NULL);
 	
-
 	
 	SIGTSTP_action.sa_handler = handle_SIGTSTP;
 	
@@ -649,8 +668,7 @@ int main(){
 
   // Install our signal handler
 	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
-	
-	
+		
 	commandPrompt();
 
 }
