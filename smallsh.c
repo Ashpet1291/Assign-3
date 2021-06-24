@@ -28,13 +28,10 @@
 
 #define MAX_LIMIT 100
 
-
 #define MAX_CHARS 2048
 #define MAX_ARGS 512
 
 
-
-//char *homedir;
 // counts total items in string
 int itemCount = 0;
 
@@ -60,8 +57,6 @@ char *argIn;
 char *argOut;
 
 
-int count = 2;
-
 int terminateProgram;
 int background = 0;
 
@@ -74,7 +69,6 @@ int bothPresent = 0;
 int pidArray = 0;
 
 struct sigaction SIGINT_action = {0};
-
 struct sigaction SIGTSTP_action = {0};
 
 void handle_SIGINT(int sig) 
@@ -114,53 +108,43 @@ void checkRedirection() {
 	
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
-		
 		if(strcmp(commands[i], takeIn) == 0) {
-//			if (checkFile = fopen(commands[i+1], "r")) {
-//      			fclose(checkFile);
 				fileIn = commands[i+1];
 				argIn = commands[i-1];
 				inPresent = 1;
-//			}
-//			else {
-//				perror("File don't exist\n");
 		}
+		
 		if(strcmp(commands[i], outPut) == 0) {
-//			if (checkFile = fopen(commands[i+1], "r")) {
-//				fclose(checkFile);
 				fileOut = commands[i+1];
 				argOut = commands[i-1];
 				outPresent = 1;
-
 		}
 		i++;
 	}
 }
 
 /*
-* This function changes directories
-* if no argument is given after cd, chang to the home environment, otherwise chang to the directory given
+* This function is used to change directories
+* if no argument is given after cd, chang to the home environment, otherwise change to the directory given
+* supports both absolute and relative paths.
 */
 void changeDir() {
-	// Your cd command should support both absolute and relative paths.
-	// if not ./, then add that and chdir
-	char absFile[] = { "./" };
-			
-	if(commands[1] == NULL) {
-			
-		chdir(getenv("HOME"));
 
+	char absFile[] = { "./" };
+	// if there is no given directory change to home directory				
+	if(commands[1] == NULL) {			
+		chdir(getenv("HOME"));
 	}
 	
+	//otherwise 
 	else {	
-
+		// check path type if absolute, change directories
 		if(strncmp(absFile, commands[1], strlen(absFile)) == 0) {
 			chdir(commands[1]);
 		}
+		// otherwise append ./ to change directories
 		else {
-			// append ./ to change directories
 			strcat(absFile, commands[1]);
-
 			chdir(absFile);			
 		}
 	}	
@@ -174,9 +158,7 @@ void status(int exitVal) {
 	
 	int statusValue;
 	statusValue = 0;
-
 	statusValue = exitVal;
-
 //If this command is run before any foreground command is run, then it should simply return the exit status 0.
 //The three built-in shell commands do not count as foreground processes for the purposes of this built-in command - i.e., status should ignore built-in commands.
 	printf("exit value %d\n", statusValue);
@@ -188,12 +170,8 @@ void status(int exitVal) {
 * kills all process and then exits the program
 */
 void exitProg() {
-	//kill all processs and then exit
-//	printf("this is in the exit function");
 	exit(0);
 }
-
-//int execStatus = 0;
 
 
 // most of this code came from the examples the instructor gave us in the lecture
@@ -208,7 +186,6 @@ void execCommands() {
 	// Fork a new process
 	int spawnPid = fork();
   
-   // pidArray = spawnPid;
   
 	char *process;
   
@@ -272,7 +249,7 @@ void execCommands() {
 		printf("background pid is: %d\n", spawnPid);
 		fflush(stdout);
 		// 
-		printf("backgroun: %d", background);
+		printf("background: %d", background);
 			
 			
 			
@@ -283,15 +260,12 @@ void execCommands() {
                    spawnPid, WEXITSTATUS(childStatus));
 				   	fflush(stdout); 
       } 
-      //spawnPid = waitpid(spawnPid, &childStatus, 0);
-    //  printf("PARENT(%d): child(%d) terminated. Exiting\n", getpid(), spawnPid);
-    background = 0;
+      background = 0;
       break;
   }
    memset(commands, '\0', sizeof(commands));
 }
 
-//memset(pidArray,  '\0', sizeof(pidArray));
 
 void execCommandsFileRedir() {
 	
@@ -340,8 +314,7 @@ void execCommandsFileRedir() {
   	  dup2(fI, 0);
   	  
   	  dup2(fO, 1);
-  	   
-  	  fclose(in);
+   	  fclose(in);
       fclose(out);
   	  
   	  // pass the given argument to exec function
@@ -413,8 +386,6 @@ void execCommandsFileredirect() {
 	process3 = argOut;
 
   switch(spawnPid){
-  		
-  //	char message[] = "terminated by signal %d"
   	
     case -1:
       perror("fork()\n");
@@ -435,18 +406,14 @@ void execCommandsFileredirect() {
       	//    printf("CHILD(%d) running ls command\n", getpid());
     
       	// check if file exist, if so open, else print error
-  	  	if(in = fopen(fileIn,"r")) {
-  	  		
+  	  	if(in = fopen(fileIn,"r")) { 	  		
   	  		int fI= fileno(in);
-  	  
-  	  		dup2(fI, 0);
-  	    	  
+  	  		dup2(fI, 0);  	    	  
   	 		fclose(in);
   // this error checks dup2    	
 //  	  if(dup2(fd2[0], STDIN_FILENO) == -1){
 //			perror("dup2");
 //			return 1;
-
   	  		// pass the given argument to exec function
       		execlp(process2, process2, NULL);
         }
@@ -519,8 +486,7 @@ void BuiltInCommands() {
 	
 	char cd[] = "cd";
 	char stats[] = "status";
-	char exitProgram[] = "exit";
-//	char echo1[]= "echo"; 
+	char exitProgram[] = "exit"; 
 	
 	// if input is #, then just reprompt
 	if(strncmp(comment, commands[0], strlen(comment)) == 0) {
@@ -532,40 +498,35 @@ void BuiltInCommands() {
 	}
 	// otherwise check if the command is cd, if so change directories
 	else if(strcmp(commands[0], cd) == 0) {
-//		printf("this is cd");
 		changeDir();	
 	}
 	// otherwise check if command is status, if so run status function
 	else if(strcmp(commands[0], stats) == 0) {
-//		printf("this is status");
 		status(1);
 	}
 	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
-//		printf("this is exit");
-	//	count = 1;
 		exitProg();
 	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
 	else {
 		// its a dfferent command and pass it to execv
+		// checks file redirection
 		checkRedirection();
-		
 		if((inPresent == 1) && outPresent == 1) {
-			// do exe with args for both
+			// do exec with args for both
 			execCommandsFileRedir();
-		//	printf("both input and output are in command- do exec and dup for both");
 		}
-		else if (inPresent == 1) {
+		else if ((inPresent == 1) || (outPresent == 1)){
 			// do exec with one arg
 		//	printf("Input exec and dup for in");
 			execCommandsFileredirect();
 		}
-		else if (outPresent == 1) {
-			//do out with exec and 1 arg
-		//	printf("Input exec and dup for out");
-			execCommandsFileredirect();
-		}
+//		else if (outPresent == 1) {
+//			//do out with exec and 1 arg
+//		//	printf("Input exec and dup for out");
+//			execCommandsFileredirect();
+//		}
 		else {
 			execCommands();
 		}
