@@ -59,9 +59,6 @@ char *fileOut;
 char *argIn;
 char *argOut;
 
-char takIn[] = { "<" };
-char outPut[] = { ">" };
-
 
 int count = 2;
 
@@ -108,6 +105,8 @@ void handle_SIGTSTP(int sig) {
 void checkRedirection() {
 	
 	int i = 0;
+	char takeIn[] = {"<"};
+	char outPut[] = {">"};	
 	inPresent =0;
 	outPresent = 0;
 	
@@ -116,7 +115,7 @@ void checkRedirection() {
 	while(commands[i] != NULL) {
 	//	printf("%s\n", commands[i]);
 		
-		if(strcmp(commands[i], takIn) == 0) {
+		if(strcmp(commands[i], takeIn) == 0) {
 //			if (checkFile = fopen(commands[i+1], "r")) {
 //      			fclose(checkFile);
 				fileIn = commands[i+1];
@@ -544,7 +543,7 @@ void BuiltInCommands() {
 	// otherwise check if command is exit function, if so, exit
 	else if(strcmp(commands[0], exitProgram) == 0) {
 //		printf("this is exit");
-		count = 1;
+	//	count = 1;
 		exitProg();
 	}
 	// if it's not a built in command or a comment or blank line, it must be another function, try passing to exec
@@ -619,8 +618,8 @@ void commandPrompt() {
 	
 	char builtIns[] = "cd, status, exit";
 	
-	
-	while(count != 1){
+	// (count != 1)
+	while(1){
 		printf(": ");
 		fflush(stdout);
 		char newLine[] = "\n";	
@@ -692,7 +691,7 @@ void commandPrompt() {
 			userInput[len-1] = 0;
 		//	printf("This is in the background");
 			background = 1;
-			printf("backgroun this : %d", background);
+			printf("background this : %d\n", background);
 		}
 
 			// parse the given command
