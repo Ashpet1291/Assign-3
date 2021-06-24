@@ -169,20 +169,19 @@ void execCommands() {
 
 	// Fork a new process
 	int spawnPid = fork();
-  
-  
-	char *process;
-  
+    
+	char *process; 
 	process = commands[0];
 
-  switch(spawnPid){
-    case -1:
-      perror("fork()\n");
-      exit(1);
+    switch(spawnPid){
+      case -1:
+      	perror("fork()\n");
+      	exit(1);
       break;
     case 0:
-    	
-    	      
+    	  
+		signal(SIGTSTP, SIG_IGN);
+		     
      	if(background == 1) {
       		signal(SIGINT, SIG_IGN);
 		}
@@ -190,52 +189,42 @@ void execCommands() {
 			signal(SIGINT, handle_SIGINT);
 			
 //			printf("terminated by signal %d\n", signal);
-//			signal(SIGQUIT, SIG_IGN);
+		
 
 		//	kill(spawnPid, SIGKILL);
 		}
-      // In the child process
-  //    printf("CHILD(%d) running ls command\n", getpid());
-  	  if(strcmp(cats, commands[0]) == 0) {
+  	    if(strcmp(cats, commands[0]) == 0) {
   	  	
-  	  	char *processCat;
-  	  	
+  	  	char *processCat; 	  	
   	  	processCat = commands[1];
   	  	execlp(process, process, processCat, NULL);	
-//  	  	perror("execlp");
-//      	exit(EXIT_FAILURE);
 		}
-	  else {
-	  commands[commandCount] = NULL;
-  	  // pass the given argument to exec function
-
-      execvp(process, commands);     
-  	  }
-
-      // exec only returns if there is an error
-      perror("execvp");
-      exit(EXIT_FAILURE);
-      break;
+	    else {
+	    commands[commandCount] = NULL;
+  	    // pass the given argument to exec function
+        execvp(process, commands);     
+  	    }
+        // exec only returns if there is an error
+        perror("execvp");
+        exit(EXIT_FAILURE);
+        break;
     default:
-      // In the parent process
-      // Wait for child's termination
+		// In the parent process
+		// Wait for child's termination
             
-      signal(SIGINT, SIG_IGN);
-      signal(SIGTSTP, handle_SIGTSTP);
-
-      if(background == 0) {
-      	waitpid(spawnPid, &childStatus, 0);
-      	printf("backgroun: %d", background);
+		signal(SIGINT, SIG_IGN);
+        signal(SIGTSTP, handle_SIGTSTP);
+		// if background is false -we're not running in the background, then wait on child process
+        if(background == 0) {
+      		waitpid(spawnPid, &childStatus, 0);
+      	//	printf("background: %d", background);
 	  }
-	  //otherwise it's a background process and work on it, but gove control back to user for other processes
 	  else {
 	  	// it is a background process, so don't wait and print process id
 		printf("background pid is: %d\n", spawnPid);
 		fflush(stdout);
 		// 
-		printf("background: %d", background);
-			
-			
+	//	printf("background: %d", background);		
 			
 	   	waitpid(spawnPid, &childStatus, WNOHANG);
 	   	
@@ -244,7 +233,7 @@ void execCommands() {
                    spawnPid, WEXITSTATUS(childStatus));
 				   	fflush(stdout); 
       } 
-      background = 0;
+    //  background = 0;
       break;
   }
    memset(commands, '\0', sizeof(commands));
@@ -583,9 +572,7 @@ void commandPrompt() {
 			memset(userInput, '\0', strlen(userInput));
 			
 			strcpy(userInput, expandCommand);
-			
-			
-			// maybe need to do getppid;
+						
 			sprintf(shpid, "%d", getppid());
 			strcat(userInput, shpid);	
 			
@@ -595,15 +582,14 @@ void commandPrompt() {
 	
 		}
 		
-		//////////////////// check builtins
+		// check status if ran before any other forground commands
 		char *tmptr = strstr(userInput, "status");
 		
-		// it's abuilt in command, no need to check for background processes
+		// it's a built in command, no need to check for background processes
 		if(tmptr != NULL) {
 			
-						// parse the given command
-			userCommand = parseCommand(userInput);
-						
+			// parse the given command
+			userCommand = parseCommand(userInput);						
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
@@ -617,7 +603,6 @@ void commandPrompt() {
 
 			// then strip the background char to feed the command where it goes
 			userInput[len-1] = 0;
-		//	printf("This is in the background");
 			background = 1;
 			printf("background this : %d\n", background);
 		}
@@ -628,11 +613,7 @@ void commandPrompt() {
 			checkRedirection();
 			// check builtin commands	
 			BuiltInCommands();
-			//printf("backgroun: %d", background);
-		}
-		
-	
-		
+		}	
 	}
 }
 
@@ -653,7 +634,7 @@ int main(){
   // Block all catchable signals while handle_SIGINT is running
 	sigfillset(&SIGINT_action.sa_mask);
   // No flags set
-	SIGINT_action.sa_flags = 0;
+//////	SIGINT_action.sa_flags = 0;
 
   // Install our signal handler
 	sigaction(SIGINT, &SIGINT_action, NULL);
@@ -664,7 +645,7 @@ int main(){
 	
 	sigfillset(&SIGTSTP_action.sa_mask);
   // No flags set
-	SIGTSTP_action.sa_flags = 0;
+///////	SIGTSTP_action.sa_flags = 0;
 
   // Install our signal handler
 	sigaction(SIGTSTP, &SIGTSTP_action, NULL);
